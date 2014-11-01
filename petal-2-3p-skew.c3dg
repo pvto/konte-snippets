@@ -1,0 +1,51 @@
+camera { z -2 }
+bg { RGB #202020 }
+light li { point(.2+x*rnd(),.8,-1) { RGB 1 1 1 } s 1 }
+light li { point(0,-.3-(y+.5)*10,-3) { RGB .5 .5 .5 } s 10 }
+
+startshape petal
+DEF SCALE 256
+MACRO BROADEN (saw(u/PI/2)**3 * (BD+2))
+MACRO X ((u/PI/2-0.35))
+MACRO BROADEN2 (saw(X)**2 * saw(X+.2)**2 * (BD+10))
+DEF PETALS 3
+MACRO PETAL (.4+.5*max(
+    cos((v+PI/14)*PETALS)*.5,
+    sin(v*PETALS)))
+
+
+
+rule loop {
+    (SCALE) *  {  DEF { u = u + PI/SCALE} 
+                L .002 H -.4 ry 4.1
+    }
+        (SCALE+1) *
+        {
+            DEF
+            {
+                v = v + 2*PI/SCALE;
+                row = row + 1
+            }
+        }
+            MESH
+            {
+                x (sin(v)*BROADEN2*PETAL)
+                z (cos(v)*BROADEN2*PETAL)
+                rz (u*4)
+                y (u/4)
+            }
+}
+
+
+rule petal {
+    5*{DEF{ mesh=mesh+1000; BD=BD+20; } sy 1.1}
+    loop
+    {
+       G .2
+       y -.45 rx 30
+        DEF {
+            u = PI/16;
+//            v = -(PI/4)
+        }
+    }
+}
