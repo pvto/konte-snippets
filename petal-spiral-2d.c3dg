@@ -1,0 +1,18 @@
+fov{z -3 }
+DEF PETALS 5
+MACRO PETAL (.4+.5*max(
+    cos((n+PI/PETALS/2)*PETALS)*.5,
+    sin(n*PETALS)))
+polar {
+  3600*{DEF{n=n+2*PI/360;row=row+1}}
+  {
+    dd { 
+      x (cos(n)*PETAL*(6/n))
+      y (sin(n)*PETAL*(6/n)) 
+    }
+  }
+}
+dd {
+    MESH{y -.002}
+    MESH{}
+}
