@@ -1,0 +1,12 @@
+model{order WIDTH}
+fov{CIRCULAR}
+
+ff {
+  200*{y .1}
+  40*{x .1 rz 3}
+  100*{z .1}
+    draw{x -4 y -10 s .05 z 25.5}
+}
+draw {
+  SQUARE{sy 2} SQUARE{s .5 L 1}
+}
