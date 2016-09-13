@@ -1,0 +1,8 @@
+foo{
+  *{x .25 s .1} {
+    SQUARE{y 1}
+    CIRCLE{y -1}
+  }
+  5*{x -.1}{CONE{s .1 rx -15}}
+}
+  

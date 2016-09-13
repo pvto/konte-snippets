@@ -1,0 +1,2 @@
+bar{foo{}}
+foo { SQUARE { s .5 PUSH }()} {X=1} } }

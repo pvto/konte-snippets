@@ -1,0 +1,19 @@
+include #monospace
+startshape line
+model { pushstack 32 }
+
+
+line {
+  *{y .3 s .02 x -8 DEF{ITALIC=5}}
+  16*{y -2 x -1 
+        DEF {
+        ITALIC=ITALIC-.2;
+        WIDE=WIDE+1.5;
+        BOLD=BOLD+.02;
+        CAROL=CAROL+6; }
+  } TEXT{
+         PUSH 
+         m_stop m_stop m_stop my ma mw ma m_ mr ma mf m_ mr ma mf m_
+         my mx ma ml ma mg m_ ma m_ mn mI 
+     }
+}

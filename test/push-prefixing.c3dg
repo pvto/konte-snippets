@@ -1,0 +1,5 @@
+
+foo { TEXT { s .1 PUSH "^m^abc-0" } }
+
+
+include #monospace
