@@ -1,0 +1,58 @@
+DEF RAD (PI/180)
+fov{z -1.5}
+
+test {
+//  CIRCLE{}
+  SECTOR{{ANG=-340}}
+  CIRCLE{s .97 rz 45 R 1 layer 1 A -.5}
+}
+
+MACRO SECBH .5+(0.07**(1/2)*ANG/360)**2
+MACRO SEC43 ANG/3/2/2
+path SECTOR0 {
+  moveto(0,0,0)
+  lineto(0,.5,0)
+  bend(SECBH*cos((90+SEC43)*RAD), SECBH*sin((90+SEC43)*RAD), 0)
+  bend(SECBH*cos((90+ANG/4-SEC43)*RAD), SECBH*sin((90+ANG/4-SEC43)*RAD), 0)
+  curveto(.5*cos((90+ANG/4)*RAD), .5*sin((90+ANG/4)*RAD), 0)
+  bend(SECBH*cos((90+ANG/4+SEC43)*RAD), SECBH*sin((90+ANG/4+SEC43)*RAD), 0)
+  bend(SECBH*cos((90+ANG/4*2-SEC43)*RAD), SECBH*sin((90+ANG/4*2-SEC43)*RAD), 0)
+  curveto(.5*cos((90+ANG/4*2)*RAD), .5*sin((90+ANG/4*2)*RAD), 0)
+  bend(SECBH*cos((90+ANG/4*2+SEC43)*RAD), SECBH*sin((90+ANG/4*2+SEC43)*RAD), 0)
+  bend(SECBH*cos((90+ANG/4*3-SEC43)*RAD), SECBH*sin((90+ANG/4*3-SEC43)*RAD), 0)
+  curveto(.5*cos((90+ANG/4*3)*RAD), .5*sin((90+ANG/4*3)*RAD), 0)
+  bend(SECBH*cos((90+ANG/4*3+SEC43)*RAD), SECBH*sin((90+ANG/4*3+SEC43)*RAD), 0)
+  bend(SECBH*cos((90+ANG-SEC43)*RAD), SECBH*sin((90+ANG-SEC43)*RAD), 0)
+  curveto(.5*cos((90+ANG)*RAD), .5*sin((90+ANG)*RAD), 0)
+  close
+}
+
+
+
+MACRO SECLB .275*ANG/4/90
+
+SECTOR{ SECTOR_{{ANG=max(-360,min(360,ANG))}} }
+path SECTOR_ {
+  moveto(0,0,0)
+  lineto(0,.5,0)
+  bend(cos((90+90)*RAD)*SECLB, .5 + sin((90+90)*RAD)*SECLB, 0)
+  bend(.5*cos((90+ANG/4)*RAD) + cos((ANG/4)*RAD)*SECLB, 
+      .5*sin((90+ANG/4)*RAD) + sin((ANG/4)*RAD)*SECLB, 0)
+  curveto(.5*cos((90+ANG/4)*RAD), .5*sin((90+ANG/4)*RAD), 0)
+  bend(.5*cos((90+ANG/4)*RAD) + cos((90+ANG/4+90)*RAD)*SECLB,
+      .5*sin((90+ANG/4)*RAD) + sin((90+ANG/4+90)*RAD)*SECLB, 0)
+  bend(.5*cos((90+ANG/4*2)*RAD) + cos((ANG/4*2)*RAD)*SECLB, 
+      .5*sin((90+ANG/4*2)*RAD) + sin((ANG/4*2)*RAD)*SECLB, 0)
+  curveto(.5*cos((90+ANG/4*2)*RAD), .5*sin((90+ANG/4*2)*RAD), 0)
+  bend(.5*cos((90+ANG/4*2)*RAD) + cos((90+ANG/4*2+90)*RAD)*SECLB,
+      .5*sin((90+ANG/4*2)*RAD) + sin((90+ANG/4*2+90)*RAD)*SECLB, 0)
+  bend(.5*cos((90+ANG/4*3)*RAD) + cos((ANG/4*3)*RAD)*SECLB, 
+      .5*sin((90+ANG/4*3)*RAD) + sin((ANG/4*3)*RAD)*SECLB, 0)
+  curveto(.5*cos((90+ANG/4*3)*RAD), .5*sin((90+ANG/4*3)*RAD), 0)
+  bend(.5*cos((90+ANG/4*3)*RAD) + cos((90+ANG/4*3+90)*RAD)*SECLB,
+      .5*sin((90+ANG/4*3)*RAD) + sin((90+ANG/4*3+90)*RAD)*SECLB, 0)
+  bend(.5*cos((90+ANG/4*4)*RAD) + cos((ANG/4*4)*RAD)*SECLB, 
+      .5*sin((90+ANG/4*4)*RAD) + sin((ANG/4*4)*RAD)*SECLB, 0)
+  curveto(.5*cos((90+ANG)*RAD), .5*sin((90+ANG)*RAD), 0)
+  close
+}

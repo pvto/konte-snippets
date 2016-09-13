@@ -1,0 +1,24 @@
+fov{z -1.2}
+
+test {
+    *{{N=5;TOOTH=.5;}} SKEWSTAR{}
+}
+
+SKEWSTAR {
+    *{{ADD=2*PI/N}}
+        (N)*{{RZ=RZ+ADD}}
+            FTRI{{
+                X0=0; Y0=0;
+                X1=cos(RZ)*.5;
+                Y1=sin(RZ)*.5;
+                X2=cos(RZ+ADD)*.5*TOOTH;
+                Y2=sin(RZ+ADD)*.5*TOOTH;
+            }}
+}
+
+path FTRI {
+    moveto(X0,Y0,0)
+    lineto(X1,Y1,0)
+    lineto(X2,Y2,0)
+    close
+}

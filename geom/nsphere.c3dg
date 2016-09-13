@@ -1,0 +1,20 @@
+
+DEF N 300
+rule loop {
+    *{PUSH MESH}
+    (N+1) *  { roty 360/N }  
+        (N+1) * { rotx 360/N {row=row+1}}
+        {
+           popper{z -.5}
+         }
+}
+
+popper{POP{}}
+
+fov {z -1.5 y -3 x -1 lookat(0,0,0)}
+light {AMBIENT s .25}
+light {PHONG specular 10 alpha 10 s 1.5 {RGB 1 1 1}
+  point(
+    2,0,-2
+  )
+}

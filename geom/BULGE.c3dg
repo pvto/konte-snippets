@@ -1,0 +1,18 @@
+fov {z -3 lookat(0,0,(0+0)*0) }
+
+DEF RAD (PI/180)
+test {
+    *{{ANG=10}}
+    (360/ANG)*{rz ANG}
+        BULGE{{BULGE=.25*rndf()}}
+}
+
+path BULGE {
+    moveto(0,0,0)
+    lineto(0, .5, 0)
+    bend(0, .5 + BULGE, 0)
+    bend((.5 + BULGE)*cos((90+ANG)*RAD), (.5 + BULGE)*sin((90+ANG)*RAD), 0)
+    curveto(.5*cos((90+ANG)*RAD), .5*sin((90+ANG)*RAD), 0)
+    close
+}
+
