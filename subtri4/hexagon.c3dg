@@ -1,0 +1,26 @@
+foo { *{s .75} { SQUARE {L .9 layer -1} R6{PUSH hex2 {D=5}}}}
+
+R6 {
+  if (D=0) { POP{}}
+  if (D>0) { 
+    *{{D=D-1}}
+    6*{rz 360/6} {
+      R6{s .5 y .5774}
+    }  
+  }
+}
+
+tri1{2*{s .8 L 1}TRIANGLE{}}
+
+hex2{2*{L 1 s .99}HEXAGON{}} 
+DEF RAD (PI/180)
+DEF SZ .5775
+path HEXAGON {
+    moveto(cos(RAD*90)*SZ,sin(RAD*90)*SZ,0)
+    lineto(cos(RAD*(90+60*1))*SZ,sin(RAD*(90+60*1))*SZ,0)
+    lineto(cos(RAD*(90+60*2))*SZ,sin(RAD*(90+60*2))*SZ,0)
+    lineto(cos(RAD*(90+60*3))*SZ,sin(RAD*(90+60*3))*SZ,0)
+    lineto(cos(RAD*(90+60*4))*SZ,sin(RAD*(90+60*4))*SZ,0)
+    lineto(cos(RAD*(90+60*5))*SZ,sin(RAD*(90+60*5))*SZ,0)
+    close
+}

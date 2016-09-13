@@ -1,0 +1,25 @@
+fov { z -1.5 x -1.5 lookat(0,0,0)}
+DEF MAXITER 5
+
+pyramid {
+  4*{ry 90} 
+  subtri { z -1/4 rx -30
+  }
+}
+subtri {
+  drawsubtri{}
+  subtri_{s .5 y .5}
+  subtri_{s .5 y -.5 x -.5}
+  subtri_{s .5 y -.5 x .5}
+}
+subtri_{
+  if (ITER < MAXITER - 1) {
+    subtri{DEF{ITER=ITER+1}}
+  }
+}
+
+drawsubtri { 
+  if (ITER = MAXITER - 1) {
+    TRIANGLE{}
+  }
+}

@@ -1,0 +1,37 @@
+fov {z -3}
+DEF MAXITER 5
+DEF SUBSZ .38
+
+scene{
+//  pentagon{G .3 layer - 1}
+  subpenta{}
+}
+subpenta{
+  drawsubpenta{}
+  if (ITER < MAXITER - 1) {
+    5*{rz 72}
+      subpenta_{y 1-SUBSZ s SUBSZ}
+    subpenta_{s SUBSZ rz 36}
+  }
+}
+
+subpenta_ {
+  subpenta{
+    DEF{ITER=ITER+1}}
+}
+
+drawsubpenta{
+  if (ITER = MAXITER - 1) {
+    pentagon{}
+  }
+}
+DEF RAD (PI/180)
+DEF ANG 90
+path pentagon {
+  moveto(cos((ANG)*RAD),sin((ANG)*RAD),0)
+  lineto(cos((ANG-72)*RAD),sin((ANG-72)*RAD),0)
+  lineto(cos((ANG-72*2)*RAD),sin((ANG-72*2)*RAD),0)
+  lineto(cos((ANG-72*3)*RAD),sin((ANG-72*3)*RAD),0)
+  lineto(cos((ANG-72*4)*RAD),sin((ANG-72*4)*RAD),0)
+  close
+}

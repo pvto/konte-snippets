@@ -1,0 +1,55 @@
+fov{z -12}
+
+DEF MAXITER 5
+
+subpenta2 {
+  if (ITER = MAXITER - 2) {
+    pentagon{s 1.2*4}
+    pentagon{s 1.2*4*0.5 L 1}
+  }
+  if (ITER < MAXITER - 1) {
+    5*{rz 72} {
+      subpenta2_{y -2}
+      subpenta2_{rz 36 y -3.225}  
+      subpenta2_{y -4 rz 36}  
+    }
+  }
+}
+subpenta2_ { 
+  subpenta2{ s 1/4
+    DEF{ITER = ITER + 1}}
+}
+
+subpenta {
+  5*{rz 72} 
+  subtri { y -.5 sx 1.45}
+}
+subtri {
+  drawsubtri{}
+  subtri_{s .5 y .5}
+  subtri_{s .5 y -.5 x -.5}
+  subtri_{s .5 y -.5 x .5}
+}
+subtri_{
+  if (ITER < MAXITER - 1) {
+    subtri{DEF{ITER=ITER+1}}
+  }
+}
+
+drawsubtri { 
+  if (ITER = MAXITER - 1) {
+    TRIANGLE{}
+  }
+}
+
+
+DEF RAD (PI/180)
+DEF ANG 90
+path pentagon {
+  moveto(cos((ANG)*RAD),sin((ANG)*RAD),0)
+  lineto(cos((ANG-72)*RAD),sin((ANG-72)*RAD),0)
+  lineto(cos((ANG-72*2)*RAD),sin((ANG-72*2)*RAD),0)
+  lineto(cos((ANG-72*3)*RAD),sin((ANG-72*3)*RAD),0)
+  lineto(cos((ANG-72*4)*RAD),sin((ANG-72*4)*RAD),0)
+  close
+}

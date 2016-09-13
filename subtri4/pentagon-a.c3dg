@@ -1,0 +1,13 @@
+
+
+fov{z -3}
+DEF RAD (PI/180)
+DEF ANG 90
+path pentagon {
+  moveto(cos((ANG)*RAD),sin((ANG)*RAD),0)
+  lineto(cos((ANG-72)*RAD),sin((ANG-72)*RAD),0)
+  lineto(cos((ANG-72*2)*RAD),sin((ANG-72*2)*RAD),0)
+  lineto(cos((ANG-72*3)*RAD),sin((ANG-72*3)*RAD),0)
+  lineto(cos((ANG-72*4)*RAD),sin((ANG-72*4)*RAD),0)
+  close
+}

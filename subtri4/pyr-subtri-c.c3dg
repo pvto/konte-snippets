@@ -1,0 +1,41 @@
+bg { L .1 }
+fov { z -1.25 y .25 x -2 lookat(10,0,100) }
+
+DEF MAXITER 6
+DEF YS .5
+DEF YD .217
+
+light {AMBIENT s .5}
+light {PHONG specular 30 alpha 30 s 2 {RGB 1 1 1}
+  point(
+    -23,2,0
+  )
+}
+
+
+scene {
+  3*{ x -2 }
+  15*{ z 3  }
+    subpyramid{}
+}
+
+subpyramid {
+  drawsubpyramid{}
+  subpyramid_ { y YD s YS}
+  4*{ry 90 DEF{ALTER=ALTER+1}} subpyramid_ { y -YD z -.25 x -.25 s YS}
+}
+subpyramid_{
+  if (ITER < MAXITER - 1) {
+    subpyramid{DEF{ITER=ITER+1; ALTER=0}}
+  }
+}
+
+drawsubpyramid { 
+  if (ITER = MAXITER - 1 || ITER = MAXITER - 1 - (1-hipas(ALTER,1))) {
+    4*{ry 90}
+    {
+      TRIANGLE{ z - 1/4 rx -30 L .5}
+      TRIANGLE{ z - 1/4 rx -30 s .9 L 1}
+    }
+  }
+}
