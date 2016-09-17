@@ -11,15 +11,15 @@ do {
 }
 
 shading misty_city_by_sea {
-    point(0.0) { A 1
+    point(0.0) { A (A)
         RGB lirp(0,1,.5,.3,SAT) lirp(0,1,.5,.1,SAT) lirp(0,1,.5,0,SAT)}
-    point(0.25) { A 1
+    point(0.25) { A (A)
         RGB lirp(0,1,.5,.4,SAT) lirp(0,1,.5,0,SAT) lirp(0,1,.5,.2,SAT) }
-    point(.4) { A 1
+    point(.4) { A (A)
         RGB lirp(0,1,.5,.1,SAT) lirp(0,1,.4,.2,SAT) lirp(0,1,.7,.3,SAT) }
-    point(.75) { A 1
+    point(.75) { A (A)
         RGB lirp(0,1,.5,.3,SAT) lirp(0,1,.5,.2,SAT) lirp(0,1,.5,.1,SAT) }
-    point(1) { A 1
+    point(1) { A (A)
         RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,.7,SAT) lirp(0,1,1,1,SAT) }
 }
 
