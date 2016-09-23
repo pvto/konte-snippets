@@ -1,0 +1,45 @@
+include "/home/paavo/konte/gram/colors/misty_city_by_sea.c3dg"
+include #geometry
+include #monospace
+startshape frame
+model { pushstack 40 }
+
+frame {
+  RBOX{ s .75 rx 30 PUSH interference }
+}
+
+interference {
+  SQUARE{L 1}
+  30*{{SAT=rndf()*2}}
+    *{x .5*(rndf()-.5) y .5*(rndf()-.5) col0 rndf()}
+    SKEWSTAR{{n=300;TOOTH=.2;} shading misty_city_by_sea}
+  TEXT{ s .05 y -9 x -9 s .4 lr 1 {DANCE=2;ITALIC=1}
+    PUSH "^m^github.com/pvto/konte-art"}
+
+  *{ s .05 y -2 x -1 s .4 {FLAT=2} lr .001} {
+    TEXT{ PUSH "^m^include #geometry" }
+    TEXT{ y -1 PUSH "^m^include #monospace" }
+    TEXT{ y -2 PUSH "^m^startshape interference" }
+    TEXT{ y -3 PUSH "^m^model { pushstack 40 }" }
+    TEXT{ y -4 PUSH "^m^ " }
+    TEXT{ y -5 PUSH "^m^interference {" }
+    TEXT{ y -6 PUSH "^m^  30*{{SAT=rndf()*2}}" }
+    TEXT{ y -7 PUSH "^m^  *{x rndf()-.5 y rndf()-.5 col0 rndf()}" }
+    TEXT{ y -8 PUSH "^m^      SKEWSTAR{{n=300;TOOTH=.2;}" }
+    TEXT{ y -9 PUSH "^m^         shading misty_city_by_sea}" }
+    TEXT{ y -11 PUSH "^m^  *{ s .05 y -1 x 4 z -2 s .4} {" }
+    TEXT{ y -12 PUSH "^m^    TEXT{ x -20 y -15 {DANCE=2;ITALIC=1}" }
+    TEXT{ y -13 PUSH "^m^      PUSH ^m^github.com/pvto/konte-art" }
+    TEXT{ y -15 PUSH "^m^    TEXT{ PUSH ^m^include #geometry }" }
+    TEXT{ y -16 PUSH "^m^             . . ." }
+  }
+}
+
+RBOX {
+    2* { ry 90 }
+    2* { z 1 ry 180} popper { z -.5 }
+    2* { y -1 } popper { rx 90 z .5 }
+}
+
+
+popper{POP{lr -(z*10)}}

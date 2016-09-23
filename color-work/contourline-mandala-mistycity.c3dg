@@ -1,0 +1,32 @@
+bg {L .1}
+MACRO CONTOUR sin(Y*PI*2.3)*.125*sin(Y*PI/2)
+
+fov{z -3}
+
+start{ contourLine{{D=2}}}
+contourLine {
+  if(D > 0) {
+    2*{rz 30 s .75}
+    6*{rz 60}*{y .5}
+    {
+      *{{N=100;Y=0;} y -.5}
+      (N)*{{Y=Y+1/N}}
+        30*{}
+        element{x CONTOUR*rndf()*(-1+2*round(rndf())) 
+          y Y s 1/N
+          shading misty_city_by_sea 
+          col0 Y {SAT=.5}
+        }
+      contourLine{y .5 s .5 {D=D-1}}
+    }
+  }
+}
+
+element {
+//  SQUARE{s 15 rz rndf()*90 ry rndf()*30 A -.95 z rndf()*50}
+  SQUARE{s 1.1 {SAT=0}}
+  SQUARE{}
+}
+
+
+include "/home/paavo/konte/gram/colors/misty_city_by_sea.c3dg"

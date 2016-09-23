@@ -1,0 +1,9 @@
+include "/home/paavo/konte/gram/colors/misty_city_by_sea.c3dg"
+include #geometry
+startshape foo
+
+foo{
+  20*{{SAT=rndf()*1}}
+    *{x rndf()-.5 y rndf()-.5 col0 rndf()}
+    SKEWSTAR{{n=300;TOOTH=.2;} shading misty_city_by_sea}
+}

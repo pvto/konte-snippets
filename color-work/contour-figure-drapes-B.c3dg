@@ -1,0 +1,39 @@
+bg {L .1}
+MACRO CONTOUR sin(Y*PI*2.3)*.25*sin(Y*PI/2)
+MACRO HEAD sin(Y*PI*4)*.05
+
+fov{z -1.5 y .15}
+
+contourLine {
+  *{{N=100;Y=0;} y -.5}
+    (N)*{{Y=Y+1/N}}
+      200*{{SS=.5}}
+        xshift{{FORM=CONTOUR}}
+  *{{N=25;Y=0;SPAN=.25} y .5}
+    (N)*{{Y=Y+SPAN/N}}
+      10*{{SS=.5}}
+        xshift{{FORM=HEAD}}
+}
+
+xshift {
+    element0{x FORM*rndf()*(-1+2*irndf(2)) 
+      y Y s 1/N*16*SS
+      shading misty_city_by_sea 
+      col0 Y-rndf()*.2 {SAT=rndf()}
+    }
+}
+
+element0 {
+  10*{y -10} element{}
+}
+element{element{rz 10}}
+element .3 {element{z -.1 s .25}}
+element {
+//  SQUARE{s 15 rz rndf()*90 ry rndf()*30 A -.95 z rndf()*50}
+  SQUARE{A -.95 {SAT=SAT-.5} x -1 z .5}
+  SQUARE{s 1.1 {SAT=0}}
+  SQUARE{}
+}
+
+
+include "/home/paavo/konte/gram/colors/misty_city_by_sea.c3dg"
