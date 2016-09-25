@@ -1,0 +1,118 @@
+MACRO RNDNEG (-1+2*irndf(2))
+MACRO SIGRND rndf()*RNDNEG
+DEF SCALE .025
+DEF DEP 80
+DEF DIM1 2
+DEF DIM2 3
+DEF DIM3 4
+DEF DIM4 12
+DEF RETRY 40
+DEF LEAFDETAIL 600
+
+DEF STEP SCALE*1.1
+bg { G .05 }
+
+fov {z -2 y -.1 lookat(0, 0, 0)}
+
+twoParks {
+  park{{dim=DIM1; XX=-.4; YY= .4}}
+  park{{dim=DIM2; XX= .4; YY= .4}}
+  park{{dim=DIM3; XX=-.4; YY=-.4}}
+  park{{dim=DIM4; XX= .4; YY=-.4}}
+}
+
+park{ //3*{rz 120 {mesh=mesh+1}}
+  *{{nx=-.25+XX; ny=YY}}
+    foo{{D=DEP;DIR=PI/2;
+      ox=nx; oy=ny; oz=0;
+    }}
+}
+
+foo {
+  *{{nb=nearby(nx, ny, nz, SCALE)}}
+  {
+    if (nb = 0 and D > 0) {
+       CIRCLE{x nx y ny z nz R .2 B .4 s SCALE*.1 A -1}
+       FOO{
+         L 1 - D%2 * .4
+       }
+       tree{x (nx+ox)/2 y (ny+oy)/2 z (nz+oz)/2 
+         rx 90
+         s .005+rndf()*.015}
+       (RETRY)*{}
+	  (dim)*{{DIR=DIR+2*PI/dim}}
+	  *{{
+	      ox=nx; oy=ny; oz=nz;
+	      ny = ny+sin(DIR)*STEP+SIGRND*SCALE*.1;
+	      nx = nx+cos(DIR)*STEP+SIGRND*SCALE*.1;
+	      nz = nz
+	  }}
+	  *{{nb=nearby(nx, ny, nz, SCALE)}}
+	  {
+	    *{{p1=nx-XX; p2=ny-YY}} {
+	      if (nb = 0 and D > 0
+	        and p1**2+p2**2+nz**2 < .12
+	        and p1**2+p2**2+nz**2 > .02
+	      ) {
+	        foo { {D=D-1}}
+	      }
+	    }
+	  }
+    }
+  }
+}
+foo {foo{{DIR=DIR+PI/4*SIGRND}}}
+//foo .05 { foo{} foo{x -1 rz 80 {mesh=irnd(10000000)} } }
+//foo .05 { foo{} foo{x 1 rz -80 {mesh=irnd(10000000)} } }
+//foo { foo{flipy 0} }
+
+MACRO ANX SCALE/10*cos(DIR-PI/2)
+MACRO ANY SCALE/10*sin(DIR-PI/2)
+MACRO ANZ SCALE/10
+path FOO {
+  moveto(ox-ANX,oy-ANY,oz-ANZ)
+  lineto(nx-ANX,ny-ANY,nz-ANZ)
+  lineto(nx+ANX,ny+ANY,nz+ANZ)
+  lineto(ox+ANX,oy+ANY,oz+ANZ)
+  close
+}
+
+
+include #geometry
+
+tree 7{}
+DEF TREEH 10
+tree {
+  *{{D=TREEH+irndf(3)}}
+  tree_{ layer 1 }
+}
+tree_ {
+  if (D=0) {
+    //SPHERE{s 5}
+    (LEAFDETAIL)*{{ az=rndf()*360; ay = rndf()*360; }}
+      PETAL {{ANG=60; ROUND=.5}
+          rz az ry ay z rndf()+2 
+          s .4 .5 .5 G .5 B .1 R .1 
+          rx rndf()*180
+      }
+  }
+  if (D > 0) {
+    pipe{s .2 1 .2 L 1}
+    tree_{y 1 rz 5 ry rndf()*720 s .97 {D=D-1}}
+  }
+  if (D < TREEH - 2 and D > 4) {
+     tree_{rz 30+rndf()*30 s .6 y .25 {D=D-2}}
+  }
+}
+
+pipe {
+  10*{ry 360/10} SQUARE{z -.5 s .15 1 .15}
+}
+
+
+light {AMBIENT s .25}
+light {PHONG specular 10 alpha 10 s 1.5 {RGB 1 1 1}
+  point(
+    0,1,0
+  )
+}
