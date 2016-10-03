@@ -1,0 +1,52 @@
+startshape panel_1
+
+include "./characters-1.c3dg"
+
+panel_1{
+  FRAME{s .8 sy .5 {frame=.005;framey=.01}}
+  *{y .3 x -.35 s .1 s .12} {
+    PROL{     PUSH "^m^All good stories begin with a character or two."}
+    PROL{y -3 PUSH "^m^Meet Adolf and Friedrich, two Eurasian eagle-owls."}
+  }
+  
+  *{s .1 y -1.5} {
+    *{x -2} {
+    	 Adolf{ry 10 {PUPILS=2;JAWDROP=2;LOOKUP=2}}
+    	 *{y 2 s .13 {BOLD=4;}} {
+    	   RA{PUSH "^m^We must get all the zombies"}
+    	   RA{y -2 PUSH "^m^to not fail the mission !"}
+    	 }
+    }
+    *{ x .2 } {
+      Friedrich{ry -30 {PUPILS=1;JAWDROP=3;LOOKAX=-2.5;LOOKUP=1}}
+      *{y 1.25 x -.5 s .11} {
+        RF{PUSH "^m^Oh ?  Let's put them under a frivolous Dark Lord !"}
+      }
+    }
+  }
+
+  *{y -.5 s .1 {LOOKAX=1.5}} {
+    *{y 2.7 x -3.5 s .12} {
+      PROL{     PUSH "^m^It is a 100% scripted narrative. No pens nor pencils, not even a mouse."}
+      PROL{y -3 PUSH "^m^For what that's worth anyway."}
+      PROL{y -6 PUSH "^m^But let's begin, I don't want to waste no nobody's time. We have so little."}
+    }  
+    *{x -2.2 y -1.5 s .5 rx 10} {
+    	 Adolf{rx 10 ry 35 {PUPILS=1.5;}}
+    	 *{s 1.75 y 2 x -.5 s .13} {
+    	   RA{PUSH "^m^See Friedrich, "}
+    	   RA{y -2 PUSH "^m^this is where we will put the Z-troops."}
+    	 }
+    	 *{x 1} {
+    	   Friedrich{ry 40 {PUPILS=1;JAWDROP=3;LOOKUP=-1}}
+    	   *{s 1.75 y 1 s .13} {
+    	     RF{     PUSH "^m^We will pull a special war for them !" }
+    	     RF{y -2 PUSH "^m^   Everything must be destroyed ! Ha-ha!" }
+    	     RF{y -4.25 {FLAT=-2;BOLD=5;WIDE=3;} 
+    	             PUSH "^m^       I am pro-war and fundamentally pro-destruction!" }
+    	   }
+    	 }
+    }
+  }
+}
+fov { y -.65}
