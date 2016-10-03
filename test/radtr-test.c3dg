@@ -1,0 +1,10 @@
+camera { z -1 x 1 lookat(0,0,0)}
+
+rule loop {
+    20*{x .05 B .05}20*{y .05 R .05}CIRCLE{x -.48 y -.48 s .05}
+    EDGE{ x .25 y -.25 s .5 z -.1 A -.9}
+20*{s .95 R .02}    { RADTR32{s .9  A 0 R .501 B .49 z -.1} GBLUR32{s .9 z -.1}}
+    RADBLUR{x -.25 y .25 z -.3 s .3 A 0 R .5}
+    GBLUR{s .5 x .5 y .5 z -.2 A -.9}
+}
+

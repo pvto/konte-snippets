@@ -1,0 +1,9 @@
+model{order stream}
+DEF ZUM 2
+DEF XN 20
+fov{z -ZUM}
+bb{aa{s ZUM}}
+aa{
+ (XN)*{x 1/XN}(XN)*{y 1/XN rz .1}20000*{z .0001 rz 1}
+    SQUARE{x -.5 y -.5 s .005 sy .1 L rndf()*(.3+sin(x*x*10+y*y*10))}
+}

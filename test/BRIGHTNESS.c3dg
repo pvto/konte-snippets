@@ -1,0 +1,27 @@
+example {
+  SQUARE{s .1 1 1 z .3}
+  *{DEF{N=10}}
+  (N)*{x 1/N {BEND=BEND+0.1}}
+  (N)*{y 1/N {BEND2=BEND2+0.1}}
+    dyncirc{ x -(N-1)/N/2 y -(N-1)/N/2 s .1 L 1}
+
+  BRIGHTNESS32{s .5 B .2}
+}
+
+path dyncirc {
+    moveto(0.000, 0.500-BEND2, 0.000)
+    bend(0.283, 0.500, 0.000)
+    bend(0.500, 0.283, 0.000)
+    curveto(0.500-BEND, 0.000, 0.000)
+    bend(0.500, -0.283, 0.000)
+    bend(0.283, -0.500, 0.000)
+    curveto(0.000, -0.500+BEND, 0.000)
+    bend(-0.283, -0.500, 0.000)
+    bend(-0.500, -0.283, 0.000)
+    curveto(-0.500+BEND, 0.000, 0.000)
+    bend(-0.500, 0.283, 0.000)
+    bend(-0.283, 0.500, 0.000)
+    close
+}
+
+fov {z -1.5}

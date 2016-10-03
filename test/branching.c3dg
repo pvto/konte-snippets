@@ -1,0 +1,54 @@
+MACRO RNDNEG (-1+2*irndf(2))
+MACRO SIGRND rndf()*RNDNEG
+DEF SCALE .025
+DEF DEP 80
+DEF DIM 9
+DEF RETRY 20
+
+DEF STEP SCALE*1.1
+
+bar{ //3*{rz 120 {mesh=mesh+1}}
+  foo{{D=DEP;DIR=PI/2;
+      ox=0;oy=0;oz=0;
+      nx=-.25;
+  }}
+}
+
+foo {
+  *{{nb=nearby(nx, ny, nz, SCALE)}}
+  {
+    if (nb = 0 and D > 0) {
+       CIRCLE{x nx y ny z nz R .2 B .4 s SCALE*.5}
+       FOO{}
+       (RETRY)*{}
+	  (DIM)*{{DIR=DIR+2*PI/DIM}}
+	  *{{
+	      ox=nx; oy=ny; oz=nz;
+	      ny = ny+sin(DIR)*STEP+SIGRND*SCALE*.1;
+	      nx = nx+cos(DIR)*STEP+SIGRND*SCALE*.1;
+	      nz = nz
+	  }}
+	  *{{nb=nearby(nx, ny, nz, SCALE)}}
+	  {
+	    if (nb = 0 and D > 0
+	      and nx**2+ny**2+nz**2 < .12
+	      and nx**2+ny**2+nz**2 > .02
+	    ) {
+	      foo { G -G+D%2*.5 {D=D-1}}
+	     }
+	  }
+    }
+  }
+}
+foo {foo{{DIR=DIR+PI/4*SIGRND}}}
+//foo .05 { foo{} foo{x -1 rz 80 {mesh=irnd(10000000)} } }
+//foo .05 { foo{} foo{x 1 rz -80 {mesh=irnd(10000000)} } }
+//foo { foo{flipy 0} }
+
+path FOO {
+  moveto(ox,oy,oz)
+  lineto(nx,ny,nz)
+  lineto(nx+SCALE/10*cos(DIR-PI/2),ny+SCALE/10*sin(DIR-PI/2),nz+SCALE/10)
+  lineto(ox+SCALE/10*cos(DIR-PI/2),oy+SCALE/10*sin(DIR-PI/2),oz+SCALE/10)
+  close
+}

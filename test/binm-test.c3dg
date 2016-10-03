@@ -1,0 +1,8 @@
+fov{z -2}
+DEF n 10
+DEF SX .05
+fo{
+  (n)*{y .1 {PROB=PROB+1/n}}
+  (n+1)*{x SX {b=b+1}} SQUARE{y -.45 s SX sy 2 x -4.5 
+        sy binm(n, PROB, b) y .5}
+}

@@ -1,0 +1,21 @@
+
+rule three_hearts {
+  3*{x .3 {P=P+.1}}
+    frame {s .25 x -1.25 {BO=P}}
+}
+
+
+path frame {
+    moveto(-.5,-.5,.0)
+    lineto(-.5,.5,.0)
+    lineto(.5,.5,.0)
+    lineto(.5,-.5,.0)
+    lineto(-.5,-.5,.0)
+    close
+    moveto(-BO,-BO,.0)
+    lineto(BO,-BO,.0)
+    lineto(BO,BO,.0)
+    lineto(-BO,BO,.0)
+    lineto(-BO,-BO,.0)
+    close
+}

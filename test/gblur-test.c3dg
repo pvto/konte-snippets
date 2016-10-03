@@ -1,0 +1,34 @@
+bg{B 1}
+DEF RLR 1
+example {
+  6*{x 1/6 {BEND=BEND+0.1}}
+  6*{y 1/6 {BEND2=BEND2+0.1}}
+      do{x -5/6/2 y -5/6/2 }
+  CIRCLE{R 1 s .3333 layer RLR z -.1}
+  5*{}GBLUR{layer RLR s .45 z -.1 A -.5}
+  RUBBER32{layer RLR s .2 z -.2}
+}
+do {    
+     SQUARE{ y -.1 s .2 .005 .1 G .8}
+     dyncirc{ s .1 G 1 R 1}
+     if (rndf() < 0.5) { MIX32{ s .1 A -.8}}
+     1*{} GBLURHEX{ s .15 .2 .1 z -.1}
+}
+
+path dyncirc {
+    moveto(0.000, 0.500-BEND2, 0.000)
+    bend(0.283, 0.500, 0.000)
+    bend(0.500, 0.283, 0.000)
+    curveto(0.500-BEND, 0.000, 0.000)
+    bend(0.500, -0.283, 0.000)
+    bend(0.283, -0.500, 0.000)
+    curveto(0.000, -0.500+BEND, 0.000)
+    bend(-0.283, -0.500, 0.000)
+    bend(-0.500, -0.283, 0.000)
+    curveto(-0.500+BEND, 0.000, 0.000)
+    bend(-0.500, 0.283, 0.000)
+    bend(-0.283, 0.500, 0.000)
+    close
+}
+
+fov {z -1.5}

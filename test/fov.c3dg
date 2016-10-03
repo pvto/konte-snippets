@@ -1,0 +1,16 @@
+fov{ y 2.5 x .0 z -.0 rx 90}
+
+tt {
+/*
+  CIRCLE{x .4 ry 90 s .2 B 1}
+  CIRCLE{x .5 ry 90}
+  CIRCLE{x .6 ry 90 s .2 R 1}
+  */
+  *{{RX=90;DY=.2}}
+  {
+  CIRCLE{y DY ry RY rx RX s .2 x .05 B 1}
+  //SPHERE{ry RY }
+  CIRCLE{y -DY ry RY rx RX s .2 R 1}
+  }
+}
+

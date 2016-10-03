@@ -1,0 +1,39 @@
+light {PHONG point(25,40,-17) s 1 specular 30 { RGB 1 1 1} }
+
+camera { z -2 }
+
+startshape meshball
+DEF SCALE 256
+
+rule loop {
+    (SCALE) *  {  DEF { u = u + PI/SCALE} }
+        (SCALE*0.6 - u*SCALE/6) *
+        {
+            DEF
+            {
+                v = v + PI/SCALE;
+                row = row + 1
+            }
+        }
+            MESH
+            {
+                {diffuse=.4;ambient=.1}
+                rotx 30
+                roty (u*100) rotx (-v*100)
+                z (-.6)
+                R (sin(u*v*10)+cos(u+7))
+            }
+}
+
+
+rule meshball {
+    loop
+    {
+        DEF {
+            mesh = 1;
+            u = -PI/16;
+            v = -(PI/4)
+        }
+    }
+}
+

@@ -1,0 +1,12 @@
+MACRO RNDNEG (-1+2*irndf(2))
+MACRO SIGRND rndf()*RNDNEG
+
+bar{ //3*{rz 120 {mesh=mesh+1}}
+  SQUARE{z 1 s 3 B .15}
+  3000*{}*{{X=SIGRND*.5; Y=SIGRND*.5 }}
+    BRIGHTNESS{z .2 x X+sin(x)*.1 y Y+sin(y)*.1 
+      rz rndf()*90 
+      s .05
+      sy 1+rndf() 
+      B .5+rndf()*.05 }
+}

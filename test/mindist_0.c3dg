@@ -1,0 +1,100 @@
+MACRO RNDNEG (-1+2*irndf(2))
+MACRO SIGRND rndf()*RNDNEG
+
+DEF MAX .2
+foo {
+  CIRCLE{s .1}
+  CIRCLE{s .1 x 1 y 1.5}  
+  *{x .2}CIRCLE{s mindist(x,y,z,.2)*2}
+  1000*{}*{x rndf()-.5 y rndf()-.5}
+    place{PUSH PACMAN}
+}
+place {
+  *{{MD=mindist(x,y,z,MAX)*2}} {
+    if (MD > 0) { 
+      *{s min(MAX,MD)} {
+        RBOX {s .5 {ANG=rndf()*60+300}
+          PUSH ddd R4 {D=2}  }
+/*        CIRCLE{s .1 rz 30 y 2.5 z -1 L 1 S -1}
+        *{L 1 rz -130 s .3 y 1.5 z -1 y rndf()*.1 x rndf()} {
+          12*{rz 360/12} SQUARE{s .1 .5 .5 y .5}
+            RIM{L 1 {rim=.2}}
+        }*/
+      }
+    }
+    if (MD <= 0) { place{ x SIGRND*MAX y SIGRND*MAX} }
+  }
+}
+
+ddd{SQUARE{}SQUARE{s .9 L 1}}
+
+PACMAN {
+  CIRCLE {{ANG=rndf()*60+300}}
+  CIRCLE{s .1 rz 30 y 2.5 z -1 L 1 S -1}
+  *{L 1 rz -130 s .3 y 1.5 z -1 y rndf()*.1 x rndf()} {
+    12*{rz 360/12} SQUARE{s .1 .5 .5 y .5}
+    RIM{L 1 {rim=.2}}
+  }
+}
+
+
+RBOX {
+    2* { ry 90 }
+    2* { z 1 } popper { z -.5 }
+    2* { y -1 } popper { rx 90 z .5 }
+}
+
+
+popper{POP{}}
+
+
+
+RIM{ RIM_{{ANG=360;rim__=1-rim}} }
+path RIM_ {
+  moveto(0,.5,0)
+  bend(cos((90+90)*RAD)*SECLB, .5 + sin((90+90)*RAD)*SECLB, 0)
+  bend(.5*cos((90+ANG/4)*RAD) + cos((ANG/4)*RAD)*SECLB, 
+      .5*sin((90+ANG/4)*RAD) + sin((ANG/4)*RAD)*SECLB, 0)
+  curveto(.5*cos((90+ANG/4)*RAD), .5*sin((90+ANG/4)*RAD), 0)
+  bend(.5*cos((90+ANG/4)*RAD) + cos((90+ANG/4+90)*RAD)*SECLB,
+      .5*sin((90+ANG/4)*RAD) + sin((90+ANG/4+90)*RAD)*SECLB, 0)
+  bend(.5*cos((90+ANG/4*2)*RAD) + cos((ANG/4*2)*RAD)*SECLB, 
+      .5*sin((90+ANG/4*2)*RAD) + sin((ANG/4*2)*RAD)*SECLB, 0)
+  curveto(.5*cos((90+ANG/4*2)*RAD), .5*sin((90+ANG/4*2)*RAD), 0)
+  bend(.5*cos((90+ANG/4*2)*RAD) + cos((90+ANG/4*2+90)*RAD)*SECLB,
+      .5*sin((90+ANG/4*2)*RAD) + sin((90+ANG/4*2+90)*RAD)*SECLB, 0)
+  bend(.5*cos((90+ANG/4*3)*RAD) + cos((ANG/4*3)*RAD)*SECLB, 
+      .5*sin((90+ANG/4*3)*RAD) + sin((ANG/4*3)*RAD)*SECLB, 0)
+  curveto(.5*cos((90+ANG/4*3)*RAD), .5*sin((90+ANG/4*3)*RAD), 0)
+  bend(.5*cos((90+ANG/4*3)*RAD) + cos((90+ANG/4*3+90)*RAD)*SECLB,
+      .5*sin((90+ANG/4*3)*RAD) + sin((90+ANG/4*3+90)*RAD)*SECLB, 0)
+  bend(.5*cos((90+ANG/4*4)*RAD) + cos((ANG/4*4)*RAD)*SECLB, 
+      .5*sin((90+ANG/4*4)*RAD) + sin((ANG/4*4)*RAD)*SECLB, 0)
+  curveto(.5*cos((90+ANG)*RAD), .5*sin((90+ANG)*RAD), 0)
+  close
+  moveto(0,.5*rim__,0)
+  bend(0 + cos((90-ANG/4)*RAD)*SECLB*rim__, 
+      .5 + sin((90-ANG/4)*RAD)*SECLB*rim__, 0)
+  bend(.5*cos((90-ANG/4)*RAD)*rim__ + cos(ANG/4*RAD)*SECLB*rim__, 
+      .5*sin((90-ANG/4)*RAD)*rim__ + sin(ANG/4*RAD)*SECLB*rim__, 0)
+  curveto(.5*cos((90-ANG/4)*RAD)*rim__, .5*sin((90-ANG/4)*RAD)*rim__, 0)
+  bend(.5*cos((90-ANG/4)*RAD)*rim__ + cos((90-ANG/4-90)*RAD)*SECLB*rim__,
+      .5*sin((90-ANG/4)*RAD)*rim__ + sin((90-ANG/4-90)*RAD)*SECLB*rim__, 0)
+  bend(.5*cos((90-ANG/4*2)*RAD)*rim__ + cos((90-ANG/4)*RAD)*SECLB*rim__, 
+      .5*sin((90-ANG/4*2)*RAD)*rim__ + sin((90-ANG/4)*RAD)*SECLB*rim__, 0)
+  curveto(.5*cos((90-ANG/4*2)*RAD)*rim__, .5*sin((90-ANG/4*2)*RAD)*rim__, 0)
+  bend(.5*cos((90-ANG/4*2)*RAD)*rim__ + cos((-ANG/4*2)*RAD)*SECLB*rim__,
+      .5*sin((90-ANG/4*2)*RAD)*rim__ + sin((-ANG/4*2)*RAD)*SECLB*rim__, 0)
+  bend(.5*cos((90-ANG/4*3)*RAD)*rim__ + cos((-ANG/4)*RAD)*SECLB*rim__, 
+      .5*sin((90-ANG/4*3)*RAD)*rim__ + sin((-ANG/4)*RAD)*SECLB*rim__, 0)
+  curveto(.5*cos((90-ANG/4*3)*RAD)*rim__, .5*sin((90-ANG/4*3)*RAD)*rim__, 0)
+  bend(.5*cos((90-ANG/4*3)*RAD)*rim__ + cos((90-ANG/4*3-90)*RAD)*SECLB*rim__,
+      .5*sin((90-ANG/4*3)*RAD)*rim__ + sin((90-ANG/4*3-90)*RAD)*SECLB*rim__, 0)
+  bend(.5*cos((90-ANG)*RAD)*rim__ + cos((90-ANG/4*4+90)*RAD)*SECLB*rim__, 
+      .5*sin((90-ANG)*RAD)*rim__ + sin((90-ANG/4*4+90)*RAD)*SECLB*rim__, 0)
+  curveto(.5*cos((90-ANG)*RAD)*rim__, .5*sin((90-ANG)*RAD)*rim__, 0)
+  close
+}
+
+include #geometry
+include #recursions

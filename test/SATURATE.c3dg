@@ -1,0 +1,63 @@
+camera { z -2 }
+
+startshape meshball
+DEF SCALE 64
+
+/*
+light {AMBIENT s .25}
+light {PHONG specular 10 alpha 10 s 1.5 {RGB 1 1 1}
+  point(
+    2,0,-2
+  )
+}
+
+*/
+
+
+rule meshball {
+   SQUARE{RGB 0.161 0.169 0.239 s 2 z .5}
+    loop
+    {
+        DEF {
+            mesh = 1;
+            u = PI/16;
+            v = -(PI/4)
+        }
+    }
+    2*{rz 90}
+    *{x -.5 {N=400}} (N)*{x 1/N} 
+      SATURATE{rz rndf()*20 sx .01 
+          B .5+sin((x+y)*60) z -.9}
+}
+
+rule loop {
+    (SCALE) *  {  DEF { u = u + PI/SCALE} }
+        (SCALE*0.6 - u*SCALE/6) *
+        {
+            DEF
+            {
+                v = v + PI/SCALE;
+                row = row + 1
+            }
+        } *{rotx 30
+            roty (u*100) rotx (-v*100)
+            z (-.6)} {
+	            MESH
+	            {
+	                
+	                B .2 H irndf(4)*120
+	                L rndf()*.8
+	            }
+	            SQUARE{
+	                s .02
+	                z -.5
+	                x 1 y -1
+	                s 1.95
+	                L 1
+	                S -1
+	                }
+           }
+}
+
+
+

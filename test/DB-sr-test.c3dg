@@ -1,0 +1,9 @@
+model{order DB}
+fov {z -2}
+DEF T (1/250)
+DEF U (1/T)
+bar{foo{ry 20 rx -15}}
+foo{
+  (U)*{x T}(U)*{y T}(U)*{z T L T}
+    SQUARE{x -.5 y -.5 z -.5 s T}
+}
