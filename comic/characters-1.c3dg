@@ -1,22 +1,26 @@
 
+foo{
+  Adolf{s .25 {PUPILS=1;WINGFLAP=160}}
+}
+
 model{pushstack 200}
 include #geometry
 include #monospace
 
 Adolf {
-	*{y .5} {
+    *{y .5} {
 	 CIRCLE {sx .7 y .1}
 	 SQU {y -.15 sx 1 {r=1.2}}
 	 SQU{y -.17 sx .7 z .12 rz 10 ry 90 {r=1.4}}
 	 2*{flipy 0} TRIANGLE{y .57 s .15 x -1 rz 20 sx 1.5 sy 1.3 rz rndf()*15}
-	 *{ y .3 s .2 z -1 } {
+	 *{ y .3 s .2 z -1 {PUPILS=coalesce(PUPILS,1)}} {
 	   *{x -.5+rndf()*.1} {
 	     CIRCLE { sx .9 L 1 }  
-	     CIRCLE{s .3*PUPILS z -.3 x (LOOKAX+rndf())*.1 y (LOOKUP+rndf())*.1}
+	     CIRCLE{s .3*PUPILS z -.4 x (LOOKAX+rndf())*.1 y (LOOKUP+rndf())*.1}
 	   }
 	   *{x .5+rndf()*.2} {
 	     CIRCLE { sx .9 L 1 }  
-	     CIRCLE{s .3*PUPILS z -.3 x (LOOKAX+rndf())*.1 y (LOOKUP+rndf())*.1}
+	     CIRCLE{s .3*PUPILS z -.4 x (LOOKAX+rndf())*.1 y (LOOKUP+rndf())*.1}
 	   }
 	   SQUARE{y .4 sx 2 sy .3 y rndf()*2 z -.2}
 	   *{y -.5 rz rndf()*10} {
@@ -25,10 +29,16 @@ Adolf {
 	   }
 	   SQU{y -1 z -.2 ry 90 rz -20 sy .6 {r=.7}}
 	 }
-	 
-	 *{s .06 x -4 rz -60} 8*{x 1 rz 5} 2*{y -1.4} 
-	   SQU{ z -2.5 L 1 sx .3*rndf() {r=.8}}
-	}
+
+	 //right wing
+	 *{s .06 x -4 layer .001}
+	 *{flipx coalesce(WINGFLAP, 180)}
+	 *{rz -60 L 1 {SX=.2+.1*rndf()}} 
+	 3*{y -1.4 {N=N-1}} (8+N)*{x 1 rz 5}  {
+	   2*{s 1.1 sx 10 z .7 L -.7}
+	   SQU{ z -2.5 sx SX {r=.8}}
+	 }
+    }
 }
 
 Friedrich {
@@ -37,14 +47,14 @@ Friedrich {
 	 SQU {y -.15 sx .8 {r=1.2}}
 	 SQU{y -.17 sx .7 z .12 rz 10 ry 90 {r=1.4}}
 	 2*{flipy 0} TRIANGLE{y .57 s .15 x -1 rz 20 sx 1.5 sy 1.3 rz rndf()*15}
-	 *{ y .3 s .2 z -1 } {
+	 *{ y .3 s .2 z -1 {PUPILS=coalesce(PUPILS,1)}} {
 	   *{x -.5+rndf()*.1} {
 	     CIRCLE { sx .9 L 1 }
-	     CIRCLE{s .3*PUPILS z -.3 x (LOOKAX+rndf())*.1 y (LOOKUP+rndf())*.1}
+	     CIRCLE{s .3*PUPILS z -.5 x (LOOKAX+rndf())*.1 y (LOOKUP+rndf())*.1}
 	   }
 	   *{x .5+rndf()*.2} {
 	     CIRCLE { sx .9 L 1 }
-	     CIRCLE{s .3*PUPILS z -.3 x (LOOKAX+rndf())*.1 y (LOOKUP+rndf())*.1}
+	     CIRCLE{s .3*PUPILS z -.5 x (LOOKAX+rndf())*.1 y (LOOKUP+rndf())*.1}
 	   }
 	   SQUARE{y .4 sx 2 sy .3 y rndf() z -.2}
 	   *{y -.5 rz rndf()*10} {

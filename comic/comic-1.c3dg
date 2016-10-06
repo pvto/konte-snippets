@@ -1,52 +1,144 @@
 startshape panel_1
 
 include "./characters-1.c3dg"
+include "./bubbles.c3dg"
 
 panel_1{
   FRAME{s .8 sy .5 {frame=.005;framey=.01}}
   *{y .3 x -.35 s .1 s .12} {
-    PROL{     PUSH "^m^All good stories begin with a character or two."}
+    PROL{s 1.25 PUSH "^m^All good stories begin with a character or two."}
     PROL{y -3 PUSH "^m^Meet Adolf and Friedrich, two Eurasian eagle-owls."}
   }
   
   *{s .1 y -1.5} {
     *{x -2} {
-    	 Adolf{ry 10 {PUPILS=2;JAWDROP=2;LOOKUP=2}}
-    	 *{y 2 s .13 {BOLD=4;}} {
-    	   RA{PUSH "^m^We must get all the zombies"}
-    	   RA{y -2 PUSH "^m^to not fail the mission !"}
+    	 Adolf{ry 10 {PUPILS=2;JAWDROP=2;LOOKUP=2;WINGFLAP=180}}
+    	 *{y 2.5 s .13 x -5} {
+    	   RRBUB{s 20 x .5 y -.2 sx 1.4 {SXP=.2;SYP=.3} layer -.002 ry 10 rx 10}
+    	   *{{BOLD=4;FLAT=-5;WIDE=2}} {
+    	     RA{x -1      PUSH "^m^We must collect all the"}
+    	     RA{x -1 y -3 PUSH "^m^          zombies!" }
+    	   }
+    	   *{y -9} {
+    	     LRBUB{s 7 y -.15 layer -.001 rz 10}
+    	     RA{x -2 ry -20 PUSH "^m^Yes!" }
+    	   }
     	 }
     }
     *{ x .2 } {
       Friedrich{ry -30 {PUPILS=1;JAWDROP=3;LOOKAX=-2.5;LOOKUP=1}}
-      *{y 1.25 x -.5 s .11} {
-        RF{PUSH "^m^Oh ?  Let's put them under a frivolous Dark Lord !"}
-      }
+      *{y 1.6 x -.5 s .12} {
+        LRBUB{s 15 y -.14 x .6 sx 1.6 {SXP=-.3} layer -.001 }
+        RF{PUSH "^m^They can attack people?" s 1.2}
+        20*{x 1} RRBUB{y -10 x 9 s 7 x .15 y rndf()*.1 rz -30 layer -.001 rz 10}
+        RF{y -9 x 9 PUSH "^m^Good! When did you say we start?"}
+      } //Let's put them under a frivolous Dark Lord !
     }
   }
 
   *{y -.5 s .1 {LOOKAX=1.5}} {
     *{y 2.7 x -3.5 s .12} {
-      PROL{     PUSH "^m^It is a 100% scripted narrative. No pens nor pencils, not even a mouse."}
-      PROL{y -3 PUSH "^m^For what that's worth anyway."}
-      PROL{y -6 PUSH "^m^But let's begin, I don't want to waste no nobody's time. We have so little."}
+      PROL{     PUSH "^m^These funny-looking, murderous,"} //talky little cuties,
+//      PROL{y -3 PUSH "^m^- you have in your hands pure 100% scripted narrative -"}
+//      PROL{y -6 PUSH "^m^- no pens nor pencils, not even a mouse was used -"}
+//      PROL{y -3 PUSH "^m^oblivious of their world, innocent and musicidal."}
+      PROL{y -3 PUSH "^m^  bloody, multicidal, nightly, birds, of musical or lagonic"}
+      PROL{y -6 PUSH "^m^   horror to respective target species"}
+      PROL{y -9 PUSH "^m^- I'll cut a long story short for your benefit - "}
+      PROL{y -12 PUSH "^m^  rash that time as they are not up to something bad.  Happy, happy!"}
+//      PROL{y -6 PUSH "^m^But let's begin, I don't want to waste no nobody's time. We have so little."}
     }  
-    *{x -2.2 y -1.5 s .5 rx 10} {
+    *{x -2.2 y -2.2 s .5 rx 10} {
     	 Adolf{rx 10 ry 35 {PUPILS=1.5;}}
-    	 *{s 1.75 y 2 x -.5 s .13} {
+    	 LINE{{X1=0;Y1=1.6;X2=-.2;Y2=4.5;width=.003}}
+    	 *{s 2 y 2.8 x -.5 s .13} {
     	   RA{PUSH "^m^See Friedrich, "}
     	   RA{y -2 PUSH "^m^this is where we will put the Z-troops."}
     	 }
     	 *{x 1} {
     	   Friedrich{ry 40 {PUPILS=1;JAWDROP=3;LOOKUP=-1}}
-    	   *{s 1.75 y 1 s .13} {
+    	   3*{{DX=(rndf())*.2}} LINE{{X1=.3;Y1=.8;X2=.7-DX;Y2=1.3-DX*3;width=.02}}
+    	   *{s 2 y 1.5 s .14} {
     	     RF{     PUSH "^m^We will pull a special war for them !" }
     	     RF{y -2 PUSH "^m^   Everything must be destroyed ! Ha-ha!" }
     	     RF{y -4.25 {FLAT=-2;BOLD=5;WIDE=3;} 
-    	             PUSH "^m^       I am pro-war and fundamentally pro-destruction!" }
+    	             PUSH "^m^     I am pro-war and fundamentally pro-destruction!" }
     	   }
     	 }
     }
   }
+
+  *{y -.85 x .2 layer 1} {
+    FRAME{s .4 {frame=.010}}
+    *{s .25 y -1.25} {
+      Adolf{ry -30 rx -20 {LOOKAX=-6}}
+      *{y 1.6 x -.5 s .2} {
+    	   7*{{i=i+1} L (-L+i%2) {BOLD=i*2+3;FLAT=-i;CAROL=i*2} z .1}
+    	     RA{PUSH "^m^Hssst !" {ITALIC=3}}
+    	   RA{y -2 s .5 x -.5 {FLAT=5;BOLD=-4} PUSH "^m^WE MUST BE NICE !" }
+    	 }
+    }
+    RUBBER{s .4 y -1 z -.2}
+  }
+
+  *{y -1.15 x -.2 layer 2} {
+    FRAME{s .35 {frame=.010} layer -.02}
+    *{s .2 y -1.25} {
+      Friedrich{ry 30 rx -20 {LOOKAX=6}}
+      
+      *{y 1.4 x -.6 s .14} {
+          LRBUB{s 14 x .3 y -.1 layer -.01 {SXP=-.05}}
+    	     RA{PUSH "^m^What'd'u mean!" {ITALIC=3}}
+    	 }
+    }
+    RUBBER{s .4 y -1 z -.2}
+  }
+
+  *{y -1.35 x .2 layer 3 s .8} {
+    2*{s .9} FRAME{s .4 {frame=.010}}
+    *{s .25 y -1.25} {
+      Adolf{ry -30 rx -20 {LOOKAX=-1}}
+      *{y 1.6 x -.5 s .2} {
+    	     RA{PUSH "^m^By nice?" {ITALIC=1}}
+    	 }
+    }
+    RUBBER{s .4 y -1 z -.2}
+  }
+
+  *{y -1.6 x -.2 layer 4 s .7 x .1} {
+    FRAME{s .35 {frame=.010} layer -.02}
+    *{s .2 y -1.25} {
+      Friedrich{ry 30 rx -20 {LOOKAX=-1}}
+      
+      *{y 1.4 x -.6 s .14} {
+          LRBUB{s 18 x .3 y -.1 layer -.01 {SXP=-.05}}
+    	     RA{PUSH "^m^YEP." {WIDE=8}}
+    	 }
+    }
+    RUBBER{s .4 y -1 z -.2}
+  }
+
+
+  *{y -1.8 x .2 layer 5 s .8} {
+    RIM{s .5 {rim=.010;ANG=300} rz -147}
+    *{s .25 y -1.25} {
+      Adolf{ry -30 rx -20 {LOOKAX=2;LOOKUP=4;WINGFLAP=-60}}
+      *{y 1.6 x -.5 s .1} {
+    	   2*{y -2 x 1}
+    	     RA{PUSH "^m^Nothing at all" {ITALIC=1}}
+    	 }
+    }
+    RUBBER{s .4 y -1 z -.2}
+  }
+
+  *{y -2.2  layer 6 } {
+    *{x -.4 s .15 rx -20} {
+      3*{{IT=IT+1;BOLD=BOLD+2;FLAT=FLAT-.5} z .1}
+        TEXT{L -L+IT%2 PUSH "^m^ECHT BIRT"}
+        TEXT{y -.7 x 5.2 s .3 {BOLD=3} rz 10 PUSH "^m^#1"}
+      TEXT{y -.7 x 2.2 s .2 {BOLD=3} PUSH "^m^COMIC"}
+      //TEXT{y -1.1 x 1.8 s .15 rx 40 rz 5 {} PUSH "^m^Writ' by P.T."}
+    }
+  }
 }
-fov { y -.65}
+fov { y -1.05 z -3}
