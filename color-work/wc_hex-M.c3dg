@@ -1,0 +1,31 @@
+include #recursions
+include #geometry
+startshape wcs
+//fov{ ORTOGRAPHIC}
+model{maxshapes 20000000}
+
+wcs{
+  *{s .12 x -4.5 y -4.5 B .01 A -.8}
+    7*{y 1.5}
+    2*{x .85/2 y .75}
+    11*{x .85}
+    wc {H rndf()**6*270}
+}
+wc {
+  R6{{D=4} s .75 PUSH wchex_}
+}
+wchex_{wchex{s 1+rndf()*2}}
+wchex .1{wchex{A .3}}
+wchex{wchex{A -.05 L .1 S -.05}}
+wchex 2 {wchex{S -.1}}
+wchex{wchex{x rndf()}}
+wchex{wchex{x rndf()*2}}
+wchex {
+  1*{y rndf()}
+  20*{rz 180*sin(x**2*1+y**2*1) y 2.5} {
+    HEXAGON{s 1.5*rndf() z -rndf() L .2*rndf()}
+    if (rndf() < .01) {
+      SATURATEHEX{s 1 B ((y+.4*rndf())*2)}
+    }
+  }
+}

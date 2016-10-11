@@ -1,0 +1,38 @@
+include #recursions
+include #geometry
+include "../colors/kq_rainbow.c3dg"
+startshape wcs
+//fov{ ORTOGRAPHIC}
+model{maxshapes 30000000 order STREAM}
+
+wcs{
+  *{s .12 x -4.5 y -4.5 A -.3 shading kq_rainbow}
+    7*{y 1.5}
+    2*{x .85/2 y .75}
+    11*{x .85}
+    wc {col0 abs(sin(x**2*2*y**2*186)**3) {SAT=-1*abs(sin(x**2*17+y**2*17))**6}}
+}
+wc {
+  R6{{D=5} s 1 PUSH wchex_}
+}
+wchex_{wchex{}}
+wchex .1{wchex{A .3}}
+wchex{wchex{{SAT=SAT+.1}}}
+wchex 2 {wchex{{SAT=SAT-.01}}}
+wchex {
+  //3*{y .03}
+  20*{rz 180*sin(x**2*10+y**2*10) y 1.5 sx .98 {SAT=SAT+.04}} {
+    HEXAGON{
+      z (x**2+y**2)
+      s 1
+      z -.01/(.1+s*100) 
+      col0 (col0+.2*rndf())}
+  }
+}
+
+light {AMBIENT s .25}
+light {PHONG specular 10 alpha 10 s 1.5 {RGB 1 1 1}
+  point(
+    0,.2,-1
+  )
+}

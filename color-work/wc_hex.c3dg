@@ -1,0 +1,25 @@
+include #recursions
+include #geometry
+startshape wcs
+fov{ ORTOGRAPHIC}
+model{order STREAM}
+
+wcs{
+  *{s .12 x -4.5 y -4.5 B .01 A -.8}
+    7*{y 1.5}
+    2*{x .85/2 y .75}
+    11*{x .85}
+    wc {H rndf()*120}
+}
+wc {
+  R6{{D=6} PUSH wchex_}
+}
+wchex_{wchex{s 1+rndf()*2}}
+wchex .1{wchex{A .3}}
+wchex{wchex{A -.05}}
+wchex{wchex{L .1}}
+wchex{wchex{S -.1}}
+wchex{wchex{x rndf()}}
+wchex {
+  HEXAGON{L .2*rndf()}
+}

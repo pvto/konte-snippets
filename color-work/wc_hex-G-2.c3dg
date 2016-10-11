@@ -1,0 +1,36 @@
+include #recursions
+include #geometry
+startshape wcs
+fov{ ORTOGRAPHIC}
+model{order STREAM maxshapes 20000000}
+
+wcs{
+  *{s .12 x -4.5 y -4.5 B .01 A -.8}
+    7*{y 1.5}
+    2*{x .85/2 y .75}
+    11*{x .85}
+    wc {H rndf()**6*270}
+}
+wc {
+  R6{{D=4} s .75 PUSH wchex_}
+}
+wchex_{wchex{s 1+rndf()*2}}
+wchex .1{wchex{A .3}}
+wchex{wchex{A -.05 L .1 S -.05}}
+wchex 2 {wchex{S -.1}}
+wchex{wchex{x rndf()}}
+wchex{wchex{x rndf()*2}}
+wchex {
+  if (sin(x**2*80%3+y**2*80%17) < .2) {
+	  3*{y rndf()}
+	  20*{rz 10+rndf() y .25 s .98 sx .9 sy 1.1 } {
+	    HEXAGON{sx .1 L .2*rndf()}
+	    if (rndf() < .01) {
+	      SATURATE{s 5 B ((y*x+.4*rndf()+.3)*2)}
+	    }
+	    if (rndf() < .01) {
+	      CONTRAST{s 1 B (((x*10%2+y*10%2)+.1)*2)}
+	    }
+	  }
+  }
+}

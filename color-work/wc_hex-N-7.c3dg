@@ -1,0 +1,44 @@
+include #recursions
+include #geometry
+startshape wcs
+//fov{ ORTOGRAPHIC}
+model{maxshapes 20000000}
+
+wcs{
+  *{s .12 x -4.5 y -4.5 B .01 A -.8}
+    7*{y 1.5}
+    2*{x .85/2 y .75}
+    11*{x .85}
+    wc {H rndf()**6*270}
+}
+wc {
+  R6{{D=4} s 1 PUSH wchex_}
+}
+wchex_{wchex{s 1+rndf()*2*0}}
+wchex .1{wchex{A .3}}
+wchex{wchex{A -.05 L .1 S -.05}}
+wchex 2 {wchex{S -.1}}
+wchex{wchex{x rndf()}}
+wchex{wchex{x rndf()*2}}
+wchex {
+  1*{y rndf()}
+  20*{rz 10*sin(x**2*1+y**2*1) y .5 sx .98 S -.04 L .03} {
+    HEXAGON{s .75*rndf() z -.01/(.1+s*100) L .2*rndf()}
+    if (rndf() < .01) {
+      SATURATEHEX{s 10 .1 .1 z -3 B ((y+.4*rndf()+.15)*3)*rndf()}
+    }
+    if (rndf() < .001) {
+      GBLUR{z -2 rz rndf()*90 s .5 3 .5}
+    }
+    if (rndf() < .001) {
+      SQUARE{z -2 rz rndf()*90 s .3 5 .3 L 1 S -1}
+    }
+    if (rndf() < x*x*.05+y*y*.05) {
+      RADTR32{x -x+round(x*10)/10 y -y+round(y*5)/5
+          s 3
+          A 1 A -.8
+          rz -rz 
+          z -3 s 2}
+    }
+  }
+}

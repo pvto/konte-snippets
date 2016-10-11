@@ -1,0 +1,35 @@
+fov{z -1.5 x 0 lookat(0,0,0)}
+pp{piece{d -1 shading kq_rainbow col0 .2 {SAT=.1}}}
+piece {
+  *{{nb=nearby(x,y,z,.02)} } {
+    if (nb = 0) {
+      LINE{x (-x) y (-y) {X1=OX;Y1=OY;X2=x;Y2=y;width=.15}}
+      LINE{x (-x) y (-y) z -.01 {X1=OX;Y1=OY;X2=x;Y2=y;width=.05;SAT=-1}}
+      LINE{x (-x) y (-y) z -.01 y -.01 {X1=OX;Y1=OY;X2=x;Y2=y;width=.025;SAT=1}}
+      SPHERE{s .015 {ZAP=1} }
+      //CIRCLE{s .01 G 1 x OX-x y OY-y sy 3 {ZAP=0}}
+	    *{{OX=x;OY=y;OZ=z}}
+	    *{x -.02 y -.02 {SAT=SAT -.01} col0 (col0-.05)}
+	    3*{x .02 {SAT=SAT+.01}} 3*{y .02 col0 (col0+.05)}
+	    2*{z .04 col0 (col0+.2)}
+	    *{{nbd=nbdist(x,y,z, .1, 1, ZAP=1)}} {
+	      if (nbd > .02 
+	        and x**2+y**2 < .2+z*2
+	        and abs(z) < .2
+	      ) {
+	        piece{}
+	      }
+	    }
+    }
+  }
+}
+
+include #geometry
+include "../colors/kq_rainbow.c3dg"
+
+light {AMBIENT s .25}
+light {PHONG specular 10 alpha 10 s 2.5 {RGB 1 1 1}
+  point(
+    2,0,-2
+  )
+}

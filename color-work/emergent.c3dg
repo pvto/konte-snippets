@@ -1,0 +1,24 @@
+fov{z -1}
+pp{piece{d -1}}
+piece {
+  *{{nb=nearby(x,y,z,.02)}} {
+    if (nb = 0) {
+      LINE{x (-x) y (-y)
+        {X1=OX;Y1=OY;X2=x;Y2=y;width=.2}}
+      CIRCLE{s .02 {ZAP=1}}
+      //CIRCLE{s .01 G 1 x OX-x y OY-y sy 3 {ZAP=0}}
+	    *{{OX=x;OY=y}}
+	    *{x -.02 y -.02 R -.02 B -.02}
+	    3*{x .02 R .02} 3*{y .02 B .02}
+	    *{{nbd=nbdist(x,y,z, .1, 1, ZAP=1)}} {
+	      if (nbd > .02 
+	        and x**2+y**2 < .2
+	      ) {
+	        piece{}
+	      }
+	    }
+    }
+  }
+}
+
+include #geometry

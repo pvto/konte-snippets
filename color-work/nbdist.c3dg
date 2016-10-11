@@ -1,0 +1,30 @@
+DEF GRID 200
+
+foo {
+
+  *{{FOO=1}} {
+	  *{x -.25 y -.25}
+	  2*{x .5 }
+	  2*{y .5 }
+	    CIRCLE{s rndf()*.3 L 1}
+	  *{x .1 y .1}
+	    CIRCLE{s nbdist(x, y, z, .75, 1, x=.25)
+	      {rim=.5;ANG=360}
+	    }
+
+       20*{x rndf()-.5 y rndf()-.5}
+         CIRCLE{s nbdist(x, y, z, .75, 1, 1) L 1}
+  }  
+  20000*{}*{
+    x (irndf(GRID)-GRID/2)/GRID 
+    y (irndf(GRID)-GRID/2)/GRID }
+  {
+    *{{SS=min(1,nbdist(x, y, z, 1, 1, FOO=1))}}
+      RIM{s SS {rim=.01;ANG=360}
+        R 1 sat -.5-rndf()*.3 H irndf(2)*180 + (-y+.25)*60
+        layer 1
+      }
+  }
+}
+
+include #geometry
