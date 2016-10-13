@@ -1,0 +1,54 @@
+
+include "https://s-media-cache-ak0.pinimg.com/originals/3d/b7/8c/3db78c467557f761d00eeb844f64a01f.jpg" mickey7
+fov { z -1.5 }
+DEF FEAT .2
+
+rule wrap {
+    draw{{img0=mickey7}}
+}
+
+draw {
+    draw_img
+    {
+        DEF
+        {
+            iw = imgwidth(img0);
+            ih = imgheight(img0);
+            pixsize = (1/imgwidth(img0));
+        }
+    }
+}
+MACRO SHIFT 1
+rule draw_img {
+    (iw) * { DEF {u=u+1} }
+        (ih) * { DEF {v=v+1} }
+            shiftColor
+            {
+                x -.5 y (.5*ih/iw)
+                s pixsize x u y -v
+                RGB imgred(img0,u,v) 
+                    imggreen(img0,u,v) 
+                    imgblue(img0,u,v)
+                A -1*PNG+imgalpha(img0,u,v)
+            }
+}
+shiftColor {
+
+    *{ 
+          L (sin((u/iw/4)**2*9)+sin(((v*3%(u+1))/ih/4)**2*13))
+             *.5
+          {HC=(sin((u/iw/4+v/iw/4)**2*30)+sin(((v*3%(u+1))/ih/4*u/iw/4)**2*30))
+             *120}
+          
+    } {
+         iPxl{H HC}
+	    if (rndf() < .3 and S > .1) {
+	      aura{ s 100*sin(y*PI) H HC*rndf()*2}
+	    }
+      }
+}
+include #geometry
+aura {
+  RIM{A -.7 S 1*hipas(S,0.5) {rim=FEAT;ANG=360}}
+}
+rule iPxl { CIRCLE { s 2 } SQUARE { s .9 z -.1} }

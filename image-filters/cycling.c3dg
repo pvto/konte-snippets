@@ -1,0 +1,47 @@
+include "/home/paavoto/konte/img/bicycle.jpg" img0
+DEF RATIO 1
+fov { z -1.8 y .1 }
+handshake {
+    wrap{        rx -30 rz 15 }
+}
+fx 0*15{
+0007
+0070
+0700
+7000
+}
+wrap {
+  15*{z .002}
+    draw_img
+    {
+        DEF
+        {
+            iw = imgwidth(img0);
+            ih = imgheight(img0);
+            pixsize = (1/imgwidth(img0));
+        }
+    }
+}
+rule draw_img {
+    (iw*RATIO) * { DEF {u=u+1/RATIO} }
+        (ih*RATIO) * { DEF {v=v+1/RATIO} }
+            if (imgred(img0,u,v) < 0.85) {
+            intermed
+            {
+                layer 1
+                x -.5 y (.5*ih/iw)
+                s pixsize
+                x u y -v
+                z -(imgblue(img0,u,v)-imgred(img0,u,v))*100
+                RGB imgred(img0,u,v) imggreen(img0,u,v) imgblue(img0,u,v)
+                sat -.4 L .15
+            }
+            }
+}
+intermed {
+    i_pxl { }
+}
+//rule i_pxl .005 { i_pxl_hue { rz 10 s .1 500 .1 B 1 A -.7 layer -1} }
+i_pxl_hue { i_pxl_hue { hue -10 } }
+i_pxl_hue { i_pxl { } }
+rule i_pxl { CIRCLE { s 1.5 L -.2 } }

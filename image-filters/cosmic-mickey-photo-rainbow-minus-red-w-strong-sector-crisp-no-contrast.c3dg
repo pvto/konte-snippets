@@ -1,0 +1,70 @@
+
+include "https://s-media-cache-ak0.pinimg.com/originals/3d/b7/8c/3db78c467557f761d00eeb844f64a01f.jpg" mickey7
+//include
+//"https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/6/005/05e/3d9/3dbc155.jpg"
+//"http://jazzrytmit.com/wp/wp-content/uploads/2011/11/tampere-sofia-jernberg.jpg"
+//paavo
+//include "~/Desktop/kuv/IMG_2153_.png" vii
+include "http://www.urbansoulorchestra.co.uk/_img/pics/jpg_1395331138.jpg"
+orchestra
+//include "http://www.southbankcentre.co.uk/sites/default/files/imagecache/production_main_image/images/160116_ios_simon_bolivar_symphony_orchestra_credit_nohely_oliveros_web.jpg"
+//orchestra2
+//include "http://vignette3.wikia.nocookie.net/disney/images/d/d5/Donaldstar_1600.jpg" aku
+//include "~/Pictures/scr001.png" paavo
+fov { z -1.3 }
+DEF FEAT .1
+
+rule wrap {
+    draw{{img0=orchestra}}
+}
+
+draw {
+    draw_img
+    {
+        DEF
+        {
+            iw = imgwidth(img0);
+            ih = imgheight(img0);
+            pixsize = (1/imgwidth(img0));
+        }
+    }
+}
+MACRO SHIFT 1
+rule draw_img {
+    (iw) * { DEF {u=u+1} }
+        (ih) * { DEF {v=v+1} }
+            shiftColor
+            {
+                x -.5 y (.5*ih/iw)
+                s pixsize x u y -v
+                RGB imgred(img0,u,v) 
+                    imggreen(img0,u,v) 
+                    imgblue(img0,u,v)
+                A -1*PNG+imgalpha(img0,u,v)
+            }
+}
+shiftColor {
+
+    *{ 
+          L (sin((u/iw/4)**2*9)-sin(((v*3%(u+1))/ih/4)**2*13))
+             *.1
+          H (sin((u/iw*2+v/iw*2)*3)*(1-R)+sin(((v*3%(u+1))/ih/4*u/iw/4)**2*300))
+             *120
+    }
+    *{
+          S hipas(S, .1)*(sin((u/iw*1)**2*3+(v/ih/4)**2*3))
+    } {
+         iPxl{}
+	    if (rndf() < .3 and S > .01) {
+	      aura{ s 20*rndf() 10 3}
+	    }
+	    if (rndf() < .1) {
+	      //CONTRAST{s 10 B .6}
+	    }
+      }
+}
+include #geometry
+aura {
+  RIM{A -.7 S 1*hipas(S,0.5) {rim=FEAT;ANG=360}}
+}
+rule iPxl { CIRCLE { s 2 } SQUARE { s .9 z -.1} }

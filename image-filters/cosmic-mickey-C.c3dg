@@ -1,0 +1,69 @@
+
+//include "https://upload.wikimedia.org/wikipedia/en/d/d4/Mickey_Mouse.png" mickey1
+include "http://www.clipartbest.com/cliparts/nTX/6pB/nTX6pBXTB.jpeg" mickey2
+//include "http://img.timeinc.net/time/daily/2008/0811/360_mickey_mouse_1117.jpg" mickey3
+//include "http://images.clipartpanda.com/mickey-mouse-clip-art--mickey-mouse-clipart-4.jpg" mickey4
+include "http://vignette2.wikia.nocookie.net/disney/images/d/d6/Mickey_Mouse_Clubhouse_-_Mickey_-_Playhouse_Disney_Canada.png" mickey5
+//include "http://www.qqxxzx.com/images/imagenes-mickey-mouse/imagenes-mickey-mouse-21.jpg" mickey6
+include "https://s-media-cache-ak0.pinimg.com/originals/3d/b7/8c/3db78c467557f761d00eeb844f64a01f.jpg" mickey7
+//include "http://www.disneyme.com/sites/default/files/Mickey/GENERIC/Synopsis%20Image/MM_cutout.jpg" mickey8
+//include "https://image.freepik.com/free-vector/disney-mickey-mouse-talking_366-18.jpg" mickey9
+
+fov { z -1.2 }
+rule wrap {
+
+    draw{lr -1 s .5 x -.5 y 0 {img0=mickey7}}
+    draw{lr -3 s .5 x .25 y .25 rz 20 {img0=mickey5;PNG=1}}
+    draw{lr -2 s .25 x 1 y -1 s .8 y -.1 s 2 x -.3 y .2
+          {img0=mickey2}}
+/*    
+    draw{s .25 x 1 y -1 s .8 y -.1 z -.1 {img0=mickey2}}
+    draw{s .25 x -1 y -1 {img0=mickey1;PNG=1}}
+    draw{s .25 x -1 y 0 rz -20 {img0=mickey3}}
+    draw{s .25 x 1 y 1 lr 1 {img0=mickey4}}
+    draw{s .25 x 0 y 0 {img0=mickey5;PNG=1}}
+    draw{s .25 x 0 y 1 s .9 y .1 {img0=mickey6}}
+    draw{s .25 x -1 y 1 {img0=mickey7}}
+    draw{s .25 x 0 y -1 sy .7 y -.1 {img0=mickey8}}
+    draw{s .25 x 1 y 0 {img0=mickey9}}
+   */
+}
+
+draw {
+    draw_img
+    {
+        DEF
+        {
+            iw = imgwidth(img0);
+            ih = imgheight(img0);
+            pixsize = (1/imgwidth(img0));
+        }
+    }
+}
+MACRO SHIFT 1
+rule draw_img {
+    (iw) * { DEF {u=u+1} }
+        (ih) * { DEF {v=v+1} }
+            shiftColor
+            {
+                x -.5 y (.5*ih/iw)
+                s pixsize x u y -v
+                RGB imgred(img0,u,v) 
+                    imggreen(img0,u,v) 
+                    imgblue(img0,u,v)
+                A -1*PNG+imgalpha(img0,u,v)
+            }
+}
+MACRO TILES 8
+shiftColor {
+    if (R*G*B < 0.98) {
+	    iPxl{ H ((round(u/iw*TILES)+round(v/ih*TILES))
+	            %(3+square(v)))
+	             *120*sin((u/iw*4)**2 + (v/ih*4)**2) 
+	          L (sin((u/iw*4)**2*7)+sin((v/ih*4)**2*5))
+	             *.5 
+	    }
+    }
+    if (R*G*B >= 0.98) { 6*{} GBLUR{s 3} }
+}
+rule iPxl { CIRCLE { s 2 } SQUARE { s .9 z -.1} }

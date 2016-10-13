@@ -1,0 +1,45 @@
+include "/home/paavoto/www/D3js/katsaus-infograafeihin/img/design.png" design
+fov { z -1 }
+
+rule wrap {
+    draw_img
+    {
+        DEF
+        {
+            img0 = design;
+            iw = imgwidth(im0);
+            ih = imgheight(im0);
+            pixsize = (1/imgwidth(im0));
+        }
+    }
+}
+rule draw_img {
+    (iw) * { DEF {u=u+1} }
+        (ih) * { DEF {v=v+1} }
+          if (imgred(img0,u,v) < 0.5) {
+            i_pxl
+            {
+                x -.5 y (.5*ih/iw)
+                s pixsize x u y -v
+                RGB imgred(img0,u,v) imggreen(img0,u,v) imgblue(img0,u,v)
+            }
+          }
+}
+//rule i_pxl { i_pxl { x 1 } }
+//rule i_pxl { i_pxl { rz 77 } }
+rule i_pxl .5 { 
+    CIRCLE { s 1.5 L -.2 G abs(sin(x*115))} SQUARE { s .9 z -.1}
+}
+rule i_pxl .1 {
+    flower { s 3.5 RGB #e0e030}
+}
+flower { flower { H -10 } }
+flower { flower { s 1.1 } }
+flower { flower { flipy 0 } }
+flower 5 { SQUARE { s .15 RGB #208030 }
+    flower { y .15 rz 5 }
+}
+flower {
+    7*{rz (360/7)} { CIRCLE { y .4 sx .3} }
+    CIRCLE { s .3 H -.2 L -.4 }
+}
