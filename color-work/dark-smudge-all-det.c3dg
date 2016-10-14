@@ -1,0 +1,58 @@
+include #recursions
+include #geometry
+include "../colors/kq_rainbow.c3dg"
+startshape wcs
+//fov{ ORTOGRAPHIC}
+model{maxshapes 30000000 } // order STREAM}
+//fov {z -1 y -.3 x -.2 lookat(0,0,0)}
+wcs{
+  *{s .12 x -4.5 y -4.5 A -.3 shading kq_rainbow
+  {SS=rndf()*3; CC=rndf()*30}}
+    7*{y 1.5}
+    2*{x .85/2 y .75}
+    11*{x .85}
+    wc {
+      col0 abs(sin(CC+x**5*2+x**2*CC)**3) 
+      {SAT=-1*abs(sin(SS+(x*10%.1+y*10%.1)*30**(x+1/SS)))}
+    }
+}
+wc {
+  R3{{D=6} s 1.5 PUSH wchex_}
+}
+wchex_{wchex{}}
+wchex {wchex{A .03}}
+wchex {
+  //3*{y .03}
+  5*{z rndf() x .1 {SAT=SAT+.2}} {
+    HEXAGON{
+      //z -(x**2+y**2)*100
+      y rndf()*25
+      s .2 5 1
+      //z -.01/(.5+s*100) 
+      col0 (col0+.4*rndf())
+      }
+      if (rndf() < 0.1) {
+        RADBLUR32{
+          s 4
+          z -.1
+          x rndf() y -rndf()*.200
+          A -.5 R .6}
+      }
+      if (rndf() < 0.1) {
+        *{rz sin(x**2*1.5+y**2*15)*30
+          s .2
+          x rndf()
+          z -.1
+        }
+        20*{y 3.5 rz ((x+1)**3*180)}
+        RADTR{sx 50 B 1 R .6}
+      }
+  }
+}
+
+light {AMBIENT s .9}
+light {PHONG specular 10 alpha 10 s 1.5 {RGB 1 1 1}
+  point(
+    0,-.2,-1
+  )
+}

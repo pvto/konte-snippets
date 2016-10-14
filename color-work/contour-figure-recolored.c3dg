@@ -1,0 +1,48 @@
+bg {L .15}
+MACRO CONTOUR sin(Y*PI*2.3)*.25*sin(Y*PI/2)
+MACRO HEAD sin(Y*PI*4)*.05
+
+fov{z -1.5 y .15}
+
+
+light {AMBIENT s .4}
+light {PHONG specular 100 alpha 20 s 3.5 {RGB 1 1 1}
+  point(
+    2,1,-2
+  )
+}
+
+
+contourLine {
+  *{{N=100;Y=0;} y -.5}
+    (N)*{{Y=Y+1/N}}
+      300*{{SS=.4}}
+        xshift{{FORM=CONTOUR}}
+  *{{N=25;Y=0;SPAN=.25} y .5}
+    (N)*{{Y=Y+SPAN/N}}
+      10*{{SS=.25}}
+        xshift{{FORM=HEAD}}
+}
+
+xshift {
+    *{x FORM*rndf()*(-1+2*round(rndf())) 
+      y Y s 1/N*16*SS
+    } element { z -abs(y*0)
+      shading misty_city_by_sea 
+      col0 (y*2)+rndf()*2 {SAT=rndf()*.25+.3}
+    }
+}
+
+element{element{rz 10}}
+element .3 {element{z -.1 s .25}}
+element {
+//  SQUARE{s 15 rz rndf()*90 ry rndf()*30 A -.95 z rndf()*50}
+  *{rz rndf()*45 sx .5 /*s .2 2 1*/} {
+	  SQUARE{A -.95 {SAT=SAT-.5} x -1}
+	  SQUARE{s 1.1 x rndf() {SAT=0}}
+	  SQUARE{}
+  }
+}
+
+
+include "/home/paavo/konte/gram/colors/misty_city_by_sea.c3dg"
