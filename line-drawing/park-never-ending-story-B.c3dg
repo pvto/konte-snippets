@@ -1,0 +1,80 @@
+MACRO RNDNEG (-1+2*irndf(2))
+MACRO SIGRND rndf()*RNDNEG
+DEF SCALE .0025
+MACRO DEP 400
+DEF DIM 30
+DEF RETRY 1
+
+DEF STEP SCALE*1.1
+bg { L 1 }
+
+fov {z -.2 lookat(0, 0, 0)}
+
+bar{ //3*{rz 120 {mesh=mesh+1}}
+  *{R .3}
+  2*{ H 120 {nz = nz + 0*SCALE*2; IT=IT+1;}}
+  *{{nx = (IT-.5)*.35; ny = (IT-.5)*.35}}
+    foo{{D=DEP;DIR=PI/2;
+      nx=nx-0;
+      ox=nx;oy=ny;oz=nz;
+    }}
+}
+
+foo {
+  *{{nb=nearby(nx, ny, nz, SCALE)}}
+  {
+    if (nb = 0 and D > 0) {
+       CIRCLE{x nx y ny z nz R .2 B .4 s SCALE*.5 A -1}
+       FOO{
+         L 0
+       }
+       (RETRY)*{}
+	  (DIM)*{{DIR=(DIR+5*PI/DIM)}}
+	  *{{
+	      ox=nx; oy=ny; oz=nz;
+	      ny = ny+sin(DIR)*STEP+SIGRND*SCALE*.1;
+	      nx = nx+cos(DIR)*STEP+SIGRND*SCALE*.1;
+	      nz = nz
+	  }}
+	  *{{nb=nearby(nx, ny, nz, SCALE/2)}}
+	  {
+	    if (nb = 0 and D > 0
+	      and nx > -.2 and ny > -.2
+	      and nx < .2 and ny < .2
+	    ) {
+	      foo { {D=D-1}}
+	     }
+	  }
+    }
+  }
+}
+foo {foo{{DIR=DIR+PI/4*SIGRND}}}
+//foo .05 { foo{} foo{x -1 rz 80 {mesh=irnd(10000000)} } }
+//foo .05 { foo{} foo{x 1 rz -80 {mesh=irnd(10000000)} } }
+//foo { foo{flipy 0} }
+
+DEF LW 1/10
+MACRO ANX SCALE*LW*cos(DIR-PI/2)
+MACRO ANY SCALE*LW*sin(DIR-PI/2)
+MACRO ANZ SCALE*LW
+FOO {
+  FOO_{ x ox y oy z oz} 
+}
+path FOO_ {
+  moveto(-ANX,-ANY,-ANZ)
+  lineto(-ox+nx-ANX,-oy+ny-ANY,-oz+nz-ANZ)
+  lineto(-ox+nx+ANX,-oy+ny+ANY,-oz+nz+ANZ)
+  lineto(ANX,ANY,ANZ)
+  close
+}
+
+
+include #geometry
+
+
+light {AMBIENT s .25}
+light {PHONG specular 10 alpha 10 s 3.5 {RGB 1 1 1}
+  point(
+    0,1,-1
+  )
+}
