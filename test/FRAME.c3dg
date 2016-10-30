@@ -1,0 +1,10 @@
+fov{z -1.5}
+foo {
+  *{{frame = .01;framey=.2}}
+  R4{{D=2} PUSH myf R3n {n3=2} PUSH R5n {n5=2}}
+}
+myf{FRAME{rz 45}}
+R3n{R3{{D=n3}}}
+R5n{R5{{D=n5}}}
+include #geometry
+include #recursions

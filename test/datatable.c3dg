@@ -1,0 +1,39 @@
+include "~/tmp/test-r11bs6-r0.csv" tab
+
+MACRO yproj (csv(tab, IND, Y)-ymin) / (ymax - ymin)
+MACRO xproj (csv(tab, IND, X)-xmin) / (xmax - xmin)
+DEF FEATURESIZE .02
+table {
+  *{s .7 x -.5 y -.5 
+    {ymax=max(max(colmax(tab, 2), colmax(tab, 4)), colmax(tab, 6));
+     ymin=min(min(colmin(tab, 2), colmin(tab, 4)), colmax(tab, 6));
+     xmax=colmax(tab, 9);
+     xmin=0;
+    IND=1;
+    X=9;
+  }} {
+    (len(tab))*{{IND=IND+1;} } {
+      *{{Y=2}} f1{y yproj x xproj s FEATURESIZE}
+      *{{Y=4}} f2{y yproj x xproj s FEATURESIZE}
+      *{{Y=6}} f3{y yproj x xproj s FEATURESIZE}
+    }
+  }
+  *{s .7 x -.4 y .4 s .2} {
+    2*{s .98 L 1} SQUARE{lr -1}
+    
+    *{s .7 y .5 x -.5 s 1/.7/.2 PUSH f3_ f2_ f1_} 
+    3*{y -1/3*.7*.2}
+      POP{s .01}
+  }
+}
+model{pushstack 10}
+
+f1 { CIRCLE{ R 1 } }
+f2 { FRAME{rz 45 B .6 {framey=.75}} }
+f3 { TRIANGLE{ G .9 } }
+
+f1_ { f1{} *{s 2 x 1} TEXT {PUSH "^m^radix8      " }}
+f2_ { f2{} *{s 2 x 1} TEXT {PUSH "^m^bleedsort6  " }}
+f3_ { f3{} *{s 2 x 1} TEXT {PUSH "^m^java sort   " }}
+include #monospace
+include #geometry

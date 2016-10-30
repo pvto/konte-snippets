@@ -1,0 +1,19 @@
+model{order STREAM}
+DEF NBD .2
+nbevalt {
+  *{A -.8} {
+  CIRCLE{s .2 x -1 y -1 R 1}
+  CIRCLE{s .2 x -1 y 1 }
+  CIRCLE{s .2 x 1 y -1 s 1.2 B .2}
+  CIRCLE{s .2 x 1 y 1 R .7}
+  CIRCLE{s .1 x 0 y 0 R .9 G .9}
+  }
+  *{{N=15000}}
+  (N)*{{din=din+(NBD*.9)/N}}
+  *{{X=(rndf()-.5)*.6; Y=(rndf()-.5)*.6}}
+  CIRCLE{x X y Y s .005
+    R nbeval(X,Y,0,NBD-din,1,R)
+    B nbeval(X,Y,0,NBD-din,1,B)
+    G nbeval(X,Y,0,NBD-din,1,G)
+    }
+}
