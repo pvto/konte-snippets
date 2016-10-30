@@ -1,0 +1,34 @@
+MACRO RNDNEG (-1+2*irndf(2))
+fov {z -1.3 x -.5 lookat(-.1,0,0)}
+foo {
+ *{s .1}
+ 65*{x .001 rz 7} {
+  SQUARE{ s .01 }
+  *{s .05}
+    (nearby(0, 0, 0, .01))*{x 1 rz 1} {
+      SQUARE{s .5 R 0}
+    }
+ }
+ 5000*{}place{}
+}
+
+place{
+  place_{x -.5+rndf() y -.5+rndf()}
+}
+place_ {
+  *{{SZ=.01}} 
+  *{{NB=nearby(x, y, z, SZ)}}
+  { 
+    //CIRCLE{s .01 B 1}
+    if (NB < .01) {
+      feat{s SZ*.95 rz (x*10+y*10)%2*45}
+    }
+    if (NB > .01) {
+      place_{x rndf()*.05*RNDNEG y rndf()*.05*RNDNEG}
+    }
+  }
+}
+
+feat {
+ 4*{s .7 1.5 1 {F=F+1} L -L+F%2} SQUARE{}
+}

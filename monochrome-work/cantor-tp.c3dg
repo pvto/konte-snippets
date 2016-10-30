@@ -1,0 +1,33 @@
+DEF MAXIT 4
+fov {z -2 y 2.5 lookat(0,-.25,0)}
+
+cantor3 {
+  if(D3 < MAXIT) {
+    *{{SZ=coalesce(SZ,1)/3; D3=D3+1}} {
+      cantor3{{Z=Z-SZ}}
+      cantor{{Z=Z-SZ/2}}
+      cantor{{Z=Z+SZ/2}}
+      cantor3{{Z=Z+SZ}}
+    }
+  }
+}
+cantor {
+  if(D = MAXIT) {
+    SQUARE{x X z Z sx SX}
+//    10*{y -.1}
+    *{z -1/3-1/6+1/12-1/24} (2**MAXIT)*{z 1/(2**MAXIT)}
+      SQUARE{x X y .5 rx 90 sy 1/(2**MAXIT) sx .001 }
+  }
+  if(D < MAXIT) {
+    *{{SX=coalesce(SX,1)/3; D=D+1}} {
+      cantor{{X=X-SX}}
+//      SQUARE{x X-SX/2 z Z y .5 R 1 rx 90 s .00001/SX sx .1 }
+      
+      LINE{z Z {X1=X-SX/2; Y1=.5; X2=X+SX/2; Y2=.5; width=1/(2**(MAXIT+4))/SX}}
+//      SQUARE{x X+SX/2 z Z y .5 R 1 rx 90 s .00001/SX sx .1 }
+      cantor{{X=X+SX}}
+    }
+  }
+}
+
+include #geometry

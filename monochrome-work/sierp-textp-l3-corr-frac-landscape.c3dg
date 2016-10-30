@@ -1,0 +1,100 @@
+//include "/home/paavo/konte/gram/test/2016-09-22-22-45-mindist-B-AHL.png" img0
+//include "/home/paavo/konte/gram/help/2016-09-01-22-26-dyncirc_fancy.png" img0
+//include "/home/paavo/konte/gram/help/2016-09-04-22-12-recursion.png" img0
+//include "/home/paavo/konte/gram/subtri4/2016-08-29-00-49-cross3.png" img0
+include "/home/paavo/konte/gram/subtri4/2016-08-29-01-21-cross-d3.png" img0
+model {maxshapes 20000000}
+fov {z -1.25 x -1 y -.25 lookat(0,0,0)}
+
+MACRO IX (u + .5)*imgwidth(img0)
+MACRO IY (1 - v + .5)*imgheight(img0)
+
+DEF DETAIL 7
+DEF DEPTH 3
+MACRO FEATSZ SZ/N*1.5
+
+tpaint {
+  spc{{D=DEPTH; X=0; Y=0; Z=0; SZ = 1}}
+}
+
+spc {
+  if (D = 0) {
+    tpBox{}
+  }
+  if (D > 0) {
+    3*{{X=X+SZ/3}} 
+    2*{{Z=Z+2*SZ/3}}
+    2*{{Y=Y+2*SZ/3}}
+      spc_{{X=X-SZ/3; Y=Y-SZ/3; Z=Z-SZ/3}}
+    2*{{X=X+2*SZ/3}}
+    2*{{Z=Z+2*SZ/3}}
+      spc_{{X=X-SZ/3; Z=Z-SZ/3}}
+    2*{{Y=Y+2*SZ/3}}
+    2*{{X=X+2*SZ/3}}
+      spc_{{Y=Y-SZ/3; X=X-SZ/3}}
+  }
+}
+spc_{spc{{SZ=SZ/3; D=D-1}}}
+
+
+tpBox {
+  *{{Z=Z - .5*SZ}}	pxy{{pX=X; pY=Y}}
+  *{{Z=Z + .5*SZ}}	pxy{{pX=-X; pY=Y}}
+  *{{X=X - .5*SZ}}	pzy{{pX=-Z; pY=Y}}
+  *{{X=X + .5*SZ}} 	pzy{{pX=Z; pY=Y}}
+  *{{Y=Y - .5*SZ}}	pxz{{pX=X; pY=Z}}
+  *{{Y=Y + .5*SZ}} 	pxz{{pX=-X; pY=Z}}
+}
+
+pxy {
+  *{{N=max(4, 2**(DETAIL-DEPTH))}}
+  *{{nx=0;ny=0}}
+  (N)*{{nx=nx+1}}*{{u = pX-SZ/2 + nx/N*SZ}}
+  (N)*{{ny=ny+1}}*{{v = pY-SZ/2 + ny/N*SZ}}
+    SQUARE{
+      x X - SZ/2 + SZ/N/2 + nx/(N+1)*SZ
+      y Y - SZ/2 + SZ/N/2 + ny/(N+1)*SZ
+      z Z
+      s FEATSZ
+
+      R imgred(img0, IX, IY)
+      G imggreen(img0, IX, IY)
+      B imgblue(img0, IX, IY)
+    }
+}
+
+pzy {
+  *{{N=max(4, 2**(DETAIL-DEPTH))}}
+  *{{nz=0;ny=0}}
+  (N)*{{nz=nz+1}}*{{u = pX-SZ/2 + nz/N*SZ}}
+  (N)*{{ny=ny+1}}*{{v = pY-SZ/2 + ny/N*SZ}}
+    SQUARE{
+      x X
+      y Y - SZ/2 + SZ/N/2 + ny/(N+1)*SZ
+      z Z + SZ/2 - SZ/N/2 - nz/(N+1)*SZ
+      ry 90
+      s FEATSZ
+
+      R imgred(img0, IX, IY)
+      G imggreen(img0, IX, IY)
+      B imgblue(img0, IX, IY)
+    }
+}
+
+pxz {
+  *{{N=max(4, 2**(DETAIL-DEPTH))}}
+  *{{nx=0;nz=0}}
+  (N)*{{nx=nx+1}}*{{u = pX-SZ/2 + nx/N*SZ}}
+  (N)*{{nz=nz+1}}*{{v = pY-SZ/2 + nz/N*SZ}}
+    SQUARE{
+      x X + SZ/2 - SZ/N/2 - nx/(N+1)*SZ
+      y Y
+      z Z - SZ/2 + SZ/N/2 + nz/(N+1)*SZ
+      rz 90
+      s FEATSZ
+      
+      R imgred(img0, IX, IY)
+      G imggreen(img0, IX, IY)
+      B imgblue(img0, IX, IY)
+    }
+}

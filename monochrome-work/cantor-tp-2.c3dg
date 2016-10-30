@@ -1,0 +1,30 @@
+DEF MAXIT 5
+fov {z -1.25 y .1 lookat(0,-.3,0)}
+
+cantor3 {
+  if(D3 = MAXIT) {
+    cantor{{Z=Z}}
+  }
+  if(D3 < MAXIT) {
+    *{{SZ=coalesce(SZ,1)/3; D3=D3+1}} {
+      cantor3{{Z=Z-SZ}}
+//      CIRCLE{x X z Z s SZ rx 90 }
+      cantor3{{Z=Z+SZ}}
+    }
+  }
+}
+cantor {
+  if(D = MAXIT) {
+    200*{y .0025}
+    SQUARE{x X z Z s SX rx 90 }
+  }
+  if(D < MAXIT) {
+    *{{SX=coalesce(SX,1)/3; D=D+1}} {
+      cantor{{X=X-SX}}
+//      CIRCLE{x X z Z s SX rx 90 }
+      cantor{{X=X+SX}}
+    }
+  }
+}
+
+include #geometry

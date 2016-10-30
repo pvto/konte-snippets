@@ -1,0 +1,43 @@
+
+include 
+"http://www.upsidedownbook.com/images/wall/web@650.jpg"
+img0
+
+background { RGB #202020 }
+camera { }
+rule do {
+    *{rz 180}
+    3* { rz 120 } 
+    tower_top { s .35 y .75 L .3 d 6
+      ry 45
+    }
+}
+ 
+
+
+rule CUBE {
+    face { x -.5 L .3 ry 90 }
+    face { z -.5 }
+    face { y .5 rx 90 L .5 }
+    face { y -.5 rx 90 L -.1}
+}
+
+DEF SLIN (1-1/sqrt(2))/2
+DEF PROTR .75
+ 
+rule tower_top {
+    CUBE { }
+    tower_top { x -.5 s .5 x -(PROTR-.5) }
+    tower_top { z -.5 s .5 z -(PROTR-.5) }
+    tower_top { y -.5 s .5 y -(PROTR-.5) }
+}
+
+face {
+    R4{{D=d+5} d -1 PUSH SQU11}
+}
+
+SQU11{SQUARE{s 1
+    L (-L + imgred(img0, abs(x*3)*imgwidth(img0), abs(y*3)*imgheight(img0)))
+  }
+}
+include #recursions

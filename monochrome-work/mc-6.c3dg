@@ -1,0 +1,40 @@
+
+
+background { RGB #202020 }
+//model { maxshapes 30000000 order STREAM}
+camera { z -1 lookat(0,0,0)}
+rule do {
+    *{rz 180}
+    3* { rz 120 } 
+    tower_top { s .25 y .75 L .5 d 8
+      ry 45
+    }
+}
+ 
+
+
+rule CUBE {
+    face { x -.5 L .2 ry 90 }
+    face { z -.5 L .5 }
+    face { y .5 rx 90 L -.2 }
+    face { y -.5 rx 90 L -.5}
+}
+
+DEF SLIN (1-1/sqrt(2))/2
+DEF PROTR .75
+ 
+rule tower_top {
+    CUBE { }
+    tower_top { x -.5 rx 45 y .125 s .75 x -(PROTR-.5) rz 90 }
+    tower_top { z -.5 y -.25 x -.25 s .5 z -(PROTR-.5) }
+    tower_top { y -.5 s .75 x -.25 y -(PROTR-.5) ry 90 }
+}
+
+face {
+    R4{{D=d+2} d -1 PUSH SQU11}
+}
+
+SQU11{SQUARE{s 1.2
+  }
+}
+include #recursions

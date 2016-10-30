@@ -1,0 +1,26 @@
+include sig.c3dg
+startshape white
+
+DEF W 20
+white {
+  (W)*{x (1/W) ry -.1} (W)*{y 1/W}
+    draw {x (- .5 + 1/W/2) y (-.5 + 1/W/2) s 1/W}
+  signature {layer 1}
+}
+
+
+draw {
+  SQUARE{}
+  SQUARE{s .99 L 1}
+  d2{x -.5 y -.5 z -.1}
+  MIX{z -.2 s 1.5}
+}
+d2 .01{ d2_{}}
+d2{}
+d2_{
+  CIRCLE{}
+  CIRCLE{s .97 L 1}
+  d2_{y -1 d irnd(15)}
+}
+d2_{d2_{rz 90}}
+d2_ .1 {d2_{} d2_{s .65}}
