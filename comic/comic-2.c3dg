@@ -1,0 +1,146 @@
+ startshape echtbird2
+
+include "./characters-2.c3dg"
+include "./bubbles.c3dg"
+
+echtbird2 {
+  *{s .1 y -1.5} {
+    *{x -2} {
+    	 Adolf{ry 30 {PUPILS=1.5;JAWDROP=0;LOOKUP=3;LOOKAX=1;WINGFLAP=-50}}
+    	 *{y 2.5 s .17 x -5} {
+    	   RRBUB{s 15 x .4 y -.3 sx 1.4 {SXP=.2;SYP=.3} layer -.002 ry 10 rx 10}
+    	   RRBUB{s 15 x .8 z .03 y -.1 sx 1.4 {SXP=.2;SYP=.3} layer -.002 ry 10 rx 10}
+    	   RRBUB{s 15 x .2 z -.05 y .1 sx 1.4 {SXP=.2;SYP=.3} layer -.002 ry 10 rx 10}
+    	   RRBUB{s 15 x 1.1 z .04 y .1 sx 1.4 {SXP=.2;SYP=.3} layer -.002 ry 10 rx 10}
+    	   
+    	   *{y 5 } {
+    	     RA{x -1      PUSH "^m^Do you think, Friedrich"}
+    	     RA{x -1 y -2 PUSH "^m^ that responsibility" }
+    	     RA{x -1 y -4 PUSH "^m^    is shaped by" }
+    	     RA{x -1 y -6 PUSH "^m^       instinct rampant?" }
+    	   }
+      }
+    }
+    
+    *{ x .4 y -.5} {
+      Friedrich{ry -124 {PUPILS=0;LOOKAX=-1.5;LOOKUP=1}}
+      *{y 1.6 x -.5 s .12} {
+        LRBUB{s 15 y -.14 x .6 sx 1.6 {SXP=-.3} layer -.001 }
+        10*{x 1} 
+          LRBUB{s 15 y -.14 x .6 rz -20 sx 1.6 {SXP=-.3} layer -.001 }
+        RF{s 1.1 PUSH "^m^            What?" s 1.2}
+
+    	 }
+    }
+  }
+
+
+  *{s .1 y -6.5} {
+    *{x -2} {
+    	 Adolf{ry 30 {PUPILS=1;JAWDROP=0;LOOKUP=0;LOOKAX=-2;WINGFLAP=-50}}
+    	 *{y 2.5 s .17 x -5} {
+    	   RRBUB{s 15 x .4 y -.3 sx 1.4 {SXP=.2;SYP=.3} layer -.002 ry 10 rx 10}
+    	   PRBUB{s 15 x .8 z .03  s 1.4 rz 20 {SXP=.2;SYP=.3} layer -.002 ry 10 rx 10}
+    	   RRBUB{s 15 x .2 z -.04 y .1 sx 1.4 {SXP=.2;SYP=.3} layer -.002 ry 10 rx 10}
+    	   //RRBUB{s 15 x 1.1 z .04 y .1 sx 1.4 {SXP=.2;SYP=.3} layer -.002 ry 10 rx 10}
+    	   
+    	   *{y 5 s 1.1} {
+    	     RA{x -1      PUSH "^m^    I must insist."}
+    	     RA{x -1 y -2.5 PUSH "^m^   - Love  being a" }
+    	     RA{x -1 y -5 PUSH "^m^   bit of a rare commodity." }
+    	     RA{x -1 y -6 PUSH "^m^       " }
+    	   }
+      }
+    }
+    
+    *{ x .4 y -.5} {
+      Friedrich{ry -20 {PUPILS=0;LOOKAX=-1.5;LOOKUP=1}}
+      *{y 1.6 x -.5 s .12} {
+        LRBUB{s 15 y -.14 x .6 sx 1.6 {SXP=-.3} layer -.001 }
+        10*{x 1 rz 2} 
+          PRBUB{s 15 y -.14 x .6 rz -20 sx 1.6 {SXP=-.3} layer -.001 }
+        *{s 1.5} {
+          RF{y 1 {WIDE=3} PUSH "^m^    Come, go see the"}
+          RF{y -1.5 PUSH "^m^       plant "}
+           PRBUB{s 15 y -.7 x 1.7 z -.15 rz -2 sx 1.6 {SXP=-.3} layer -.001 }
+           RF{y -8 x 15 PUSH "^m^     let's cut the crap"}
+            PRBUB{s 15 y -1.2 x 2.3 z -.27 rz -2 sx 1.6 s .6 {SXP=-.3} layer -.001 }
+            RF{y -17 x 24 PUSH "^m^           ..." }
+        }
+
+    	 }
+    }
+  }
+
+  *{y -1 x -.2 layer 1} {
+    FRAME{s .4 {frame=.010} layer -.002}
+    *{s .25 y -1.25} {
+      Adolf{ry -30 rx -20 {LOOKAX=6}}
+      *{y 1.6 x -.5 s .2} {
+        13*{x 1 z .05 rz -1 sy 1.02} PRBUB{s 5 layer -.001}
+        RA{y 1 rz -5 s .5 ry 30 PUSH "^m^That crap is my most intimate lifeblood" 
+          {ITALIC=2;FLAT=-3}}
+    	   RA{y -2 s .5 x -.5 {FLAT=5;BOLD=-4} PUSH "^m^ " }
+    	 }
+    }
+    RUBBER{s .4 y -1 z -.2}
+  }
+
+  *{y -1.25 x .25 layer 2} {
+    FRAME{s .35 {frame=.010} layer -.02}
+    *{s .2 y -1.25} {
+      Friedrich{ry 30 rx -20 {LOOKAX=1}}
+      
+      *{y 1.4 x -.6 s .14} {
+          //2*{x 1 rz -20} LRBUB{s 14 x .3 y -.1 layer -.01 {SXP=-.05}}
+          *{x -8 y -1}
+          9*{x 2.2 z -.3 rz 1 } PRBUB{x 8 s 3 14 3 z -.03 layer -.01 {SXP=-.05}}
+          //PRBUB{x 13 y -1 s 14 z -.08 layer -.01 {SXP=-.05}}
+    	     RA{y 1 rz 10 PUSH "^m^That crap is standard crap!" {ITALIC=3}}
+    	 }
+    }
+    RUBBER{s .4 y -1 z -.2}
+  }
+
+
+  *{y -1.6 x -.15 layer 3} {
+    //FRAME{s .4 {frame=.010} layer -.002}
+    RIM{s .5 {rim=.010;ANG=300} rz -147 layer -1.999}
+    *{s .25 y -1.25} {
+      Adolf{ry -10 rx 0 {LOOKAX=6;PUPILS=1.5;BROWDROP=.5}}
+      *{y 1.6 x -.9 s .2 s .65 {FLAT=5;BOLD=-4}} {
+        RA{         PUSH "^m^    Let's have a" }
+    	   RA{y -1.25  PUSH "^m^  shout-out contest" }
+    	 }
+    }
+    RUBBER{s .4 y -1 z -.2}
+  }
+
+
+  *{y -2.25 s .05 {FLAT=3}} {
+    *{x -2 } {
+    	 Adolf{ry -10 {PUPILS=1;JAWDROP=0;LOOKUP=0;LOOKAX=-2;WINGFLAP=-50}}
+      *{y 5 x -5 s 3} {
+        RA{   PUSH "^m^YES!"}
+      }
+     }
+    
+    *{ x .4 } {
+      Friedrich{ry 10 {PUPILS=0;LOOKAX=-1.5;LOOKUP=1}}
+      *{y 5 x 2 s 3} {
+        RA{   PUSH "^m^NO!"}
+      }
+    }
+  }
+
+  *{y .5  layer 6 } {
+    *{x -.4 s .15 rx -20} {
+      3*{{IT=IT+1;BOLD=BOLD+2;FLAT=FLAT-.5} z .1}
+        TEXT{L -L+IT%2 PUSH "^m^ECHT BIRT"}
+        TEXT{y -.7 x 5.2 s .3 {BOLD=3} rz -10 PUSH "^m^#2"}
+      TEXT{y -.7 x 2.2 s .2 {BOLD=3} PUSH "^m^COMIC"}
+    }
+  }
+}
+
+fov{z -3 y -.9}

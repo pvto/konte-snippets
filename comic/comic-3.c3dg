@@ -1,0 +1,192 @@
+ startshape echtbird2
+
+include "./characters-3.c3dg"
+include "./bubbles-3.c3dg"
+
+fov{z -4 y -1.1}
+
+echtbird2 {
+
+
+  *{y .5  layer 6 } {
+    *{x -.4 s .15 rx -20} {
+      *{x -.4 y -.5} 10*{x .75} PRBUB{s 2.4+rndf() y sin(x*30)*.1 layer -.001}
+      3*{{IT=IT+1;BOLD=BOLD+2;FLAT=FLAT-.5} z .1}
+        TEXT{L -L+IT%2 PUSH "^m^ECHT BIRT"}
+        TEXT{y -.7 x 5.2 s .3 {BOLD=3} rz 10 PUSH "^m^#3"}
+      TEXT{y -.7 x 2.2 s .2 {BOLD=3} PUSH "^m^COMIC"}
+    }
+  }
+
+  
+  *{y -.2 x -.2 layer 1} {
+    *{s .25 y -1.25} {
+      Adolf{ry 30 {LOOKAX=-12;PUPILS=.5}}
+      *{y 1.6 x -.5 s .2} {
+        *{layer -.001 s 7 {frame=.4}} {
+          //PBUB{y .45 x .7 rz 5 sx 2.3 rx -15 }
+          PBUB{y .005 x 1.7  sx 1.6 rx -15 }
+          *{y -.6 x 1.75 rx -15} 3*{x .3}PBUB{}
+        }
+        *{{FLAT=-3;BOLD=-2;WIDE=2.5}}
+          RA{y 4 s .5 x -2 rz 2 
+                          PUSH "^m^Our Factory Plan may have leaked..." }
+        RA{y 1 x 8 s .5   PUSH "^m^I'm gonna sort this out..." }
+        
+        RA{y -3 x 8  s .5 PUSH "^m^     AND THE SOONER THE BETTER." 
+          {FLAT=-3}
+        }
+        
+    	 }
+    }
+    RUBBER{s .4 y -1.15 z -.2}
+  }
+
+  *{y -.75 x -.2 layer 2 s .75} {
+    *{s .25 y -1.25} {
+      Adolf{ry 45 {LOOKAX=-12;PUPILS=.5}}
+      *{y 1.6 x -.1 s .2} {
+        *{layer -.001 s 7 {frame=.4}} {
+          //PBUB{y .45 x .7 rz 5 sx 2.3 rx -15 }
+          PBUB{y .005 x 1.7  sx 1.9 rx -15 }
+          *{y -.45 x 1.5 rx -15} 
+            5*{x .3 rz -3 s 1.1 sy 1.2}PBUB{}
+          *{x 1.8}
+            PRBUB{ y -.9 s .8}
+        }
+        *{{FLAT=-3;WIDE=7;BOLD=4.5}}
+          RA{y 4 s .5 x -2  
+                          PUSH "^m^But THEN WHAT if they should find out that I know..." }
+        *{x 8 y 1 s .5} {
+          RA{ s 1.3 {WIDE=2} PUSH "^m^Now I better play this smart." }
+          *{y -4 {FLAT=-3}} {
+            RA{ {ITALIC=1} s 1.2 PUSH "^m^ Project Z must not be compromised" }
+            *{{WIDE=8;BOLD=5}} {
+              RA{ y -4 ry 10  PUSH "^m^   and it is very       DELICATE..." }
+              RA{ y -4.5 sy 1.6 PUSH "^m^                  very " }
+            }
+            RA{ y -8.5   PUSH "^m^       OH YES" 
+              {WIDE=7;BOLD=3}
+            }
+          }
+        }
+    	 }
+    }
+    RUBBER{s .4 y -1.15 z -.2}
+  }
+
+
+  *{y -1.2 x -.25 layer 3 s .75} {
+    *{s .25 y -1.25} {
+      Adolf{x .5 ry -30 {LOOKAX=12;PUPILS=.75;WINGFLAP=1;}}
+      *{y 1.6 x -.1 s .2} {
+        *{layer -.001 s 7 {frame=.4}} {
+          *{y -.6 x 1.5 rx -15 s 1.9} 
+            3*{x .35 rz -3 sy 1.1}
+              PRBUB{}
+          *{x 1.8 y -.9 }
+            PRBUB{ x -.5 s 2.5 }
+        }
+        *{x 8 y 1 s .5} {
+          *{y -4 {FLAT=-3}} {
+            RA{        PUSH "^m^But Project Z then" 
+              {WIDE=6; BOLD=4; FLAT=-4;}}
+            RA{ y -4 x -2   PUSH "^m^is in the state of very inception." 
+              {WIDE=10; BOLD=8; FLAT=-5}}
+            RA{ y -8 s 1.2  PUSH "^m^... everything is preliminary..."
+              {ITALIC=.4}
+            }
+          }
+        }
+    	 }
+    }
+    RUBBER{s .4 sx 1.5 y -1.15 z -.3}
+  }
+
+  *{ y -1.6 layer 4 s .1 x -7 } {
+    8*{x 2} *{y -rndf()*.2}
+            6*{rz 60}PRBUB{ s .75 }
+  }
+
+  *{y -2.2 s .075 {FLAT=3} layer 6} {
+    *{x -4 } {
+    	 Adolf{ry 40 {PUPILS=1;JAWDROP=0;LOOKUP=0;LOOKAX=-2;}}
+      *{y 4 x -2 s .5} {
+        RA{        PUSH "^m^We are doomed."}
+        RA{ y -1.5 PUSH "^m^  Perhaps."}
+      }
+     }
+    
+    *{ x .4 y -.1 } {
+      Friedrich{ry -50 {PUPILS=0;LOOKAX=-1.5;LOOKUP=1}}
+      *{y 4 s .5} {
+        RA{ y -1   PUSH "^m^How you know?"}
+      }
+    }
+  }
+
+*{y -2.5 x -.1 layer 7 s .75} {
+    *{s .25 y -1.25} {
+      Adolf{ry 45 {LOOKAX=3;PUPILS=.6;WINGFLAP=160}}
+      *{y 1.6 x -.1 s .2} {
+        *{layer -.001 s 7 {frame=.4}} {
+          PBUB{y .005 x 1.7  sx 1.9 rx -15 }
+          *{y -.45 x 1.5 rx -15} 
+            8*{x .3 rz -180 s 1.1}PBUB{}
+        }
+        *{x 8 y 1 s .5 s 1.2} {
+          RA{ PUSH "^m^I've got this very" }
+          *{y -3 } {
+            RA{ PUSH "^m^complicated logical" }
+            RA{ y -3 ry -20  PUSH "^m^feeling." }
+            RA{ y -10 PUSH "^m^            YES." }
+          }
+        }
+    	 }
+    }
+    RUBBER{s .4 y -1.15 z -.2}
+  }
+  
+/*
+  *{y -.2 x -.2 layer 1} {
+    *{s .25} {
+      McBat{y 1 ry -20 }
+      *{y 1 x -.3 s 2} {
+        LBUB{layer -.001}
+        PRBUB{sx 1.5 x .3 rz -30 ry -60 layer -.001 {frame=.01}}
+        PBUB{sx 1.5 x .3 y .1 rz 20 layer -.001}
+        *{x -.4 y .3 s .07} {
+          //RB{ PUSH "^m^TAKE ME TO YOUR BASE, OWLS." }
+          //RB{y -2 PUSH "^m^(Resistance is futile)" }
+        }
+      }
+    }
+  }
+ */ 
+  0*{} *{y -4 x -.2 layer 3} {
+    *{s .25} {
+//      5*{z 1.5 x -2 } 
+//        10*{x .5 z 2 ry -5} 
+      Batcat{ry 30 }
+      *{y 1 x -.3 s 2} {
+        LBUB{layer -.001}
+        PBUB{x -.075 y .5 s 1.2 layer -.001}
+        3*{y .3} PRBUB{sx 1.5 x .3 rz -30 ry -60 layer -.001 {frame=.01}}
+        PBUB{sx 1.5 x .3 y .1 rz 20 layer -.001}
+        *{x -.4 y .3 s .07} {
+          RB{y 8 PUSH "^m^WE ARE THE" }
+          RB{y 6 PUSH "^m^BAT   TROOPS." }
+          RB{y 6 x 2 y .25 s .5 PUSH "^m^(TM)"}
+          RB{ PUSH "^m^WE WILL HAVE SOME LUNCH NOW." }
+          RB{y -2 PUSH "^m^AFTERWARDS SUPERHERO STUFF." }
+        }
+        McBat{x .6 y .7 s .25 ry -30}
+      }
+    }
+  }
+ 
+
+}
+
+
+

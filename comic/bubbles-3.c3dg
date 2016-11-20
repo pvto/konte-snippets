@@ -5,13 +5,29 @@ T{
 }
 RBUB { L_BUB{{FY=-20}} }
 LBUB { L_BUB{{FY=200}} }
-L_BUB{ *{L 1}10*{s 1.006 y -(1+SYP)/700 L -.03 z .01} BUBBLE{flipy FY} }
+L_BUB{ 
+  *{L 1}
+  10*{s 1+coalesce(frame, 1)/75 
+      y -(1+SYP)/700 L -.03 z .01 layer -.001} 
+  BUBBLE{flipy FY} }
 RRBUB { L_ROBUB{{FY=-20;SXP=coalesce(SXP,.4)}} }
 LRBUB { L_ROBUB{{FY=200;SXP=coalesce(SXP,.4)}} }
-L_ROBUB{ *{L 1}10*{s 1.006 y -(1+SYP)/700 L -.03 z .01} ROBUBBLE{flipy FY} }
-
-PBUB{ *{L 1}10*{s 1.006 y -(1+SYP)/700 L -.03 z .01} PUREBUBBLE{flipy FY} }
-PRBUB{ *{L 1}10*{s 1.006 y -(1+SYP)/700 L -.03 z .01} PUREROBUBBLE{flipy FY} }
+L_ROBUB{ 
+  *{L 1}
+  10*{s 1+coalesce(frame, 1)/75
+      y -(1+SYP)/700 L -.03 z .01 layer -.001}
+  ROBUBBLE{flipy FY} }
+PBUB{ 
+  *{L 1}
+  10*{s 1+coalesce(frame, 1)/75
+      y -(1+SYP)/700 L -.03 z .01 layer -.001} 
+  PUREBUBBLE{flipy FY} }
+PRBUB{ 
+  *{L 1}
+  10*{s 1+coalesce(frame, 1)/75
+      y -(1+SYP)/700 L -.03 z .01 layer -.001} 
+  PUREROBUBBLE{flipy FY} }
+  
 path BUBBLE {
     moveto(0.000, 0.500, 0.000)
     bend(0.600, 0.500, 0.000)

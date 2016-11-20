@@ -1,0 +1,177 @@
+
+foo{
+  Adolf{s .25 x -1 y .1 {PUPILS=1;WINGFLAP=160}}
+  *{s .25 y -1.3} {
+    Friedrich{x -1.5 ry -120}
+    Friedrich{x -.75 ry -90}
+    Friedrich{}
+    Friedrich{x .75 ry 40}
+  }
+}
+
+model{pushstack 200}
+include #geometry
+include #monospace
+
+Adolf {
+    *{y .5} {
+	 CIRCLE {sx .7 y .1}
+	 SQU {y -.15 sx 1 {r=1.2}}
+	 SQU{y -.17 sx .7 z .12 rz 10 ry 90 {r=1.4}}
+	 2*{flipy 0} TRIANGLE{y .57 s .15 x -1 rz 20 sx 1.5 sy 1.3 rz rndf()*15}
+	 *{ y .3 s .2 z -1 {PUPILS=coalesce(PUPILS,1)}} {
+	   *{x -.5+rndf()*.1} {
+	     SPHERE { sx .9 L 1 }  
+	     SPHERE{s .3*PUPILS z -.4 x (LOOKAX+rndf())*.1 y (LOOKUP+rndf())*.1}
+	   }
+	   *{x .5+rndf()*.2} {
+	     SPHERE { sx .9 L 1 }  
+	     SPHERE{s .3*PUPILS z -.4 x (LOOKAX+rndf())*.1 y (LOOKUP+rndf())*.1}
+	   }
+	   SQUARE{y .4 sx 2.2 sy .3 y rndf()*2-BROWDROP z -.2}
+	   *{y -.5 rz rndf()*10} {
+	     SQUARE{sx 2.5*rndf() sy .2+rndf()*.1 L 1}
+	     SQU{sx 1*rndf() y .2*(-3*rndf()-JAWDROP) sy .2+rndf()*2 z -.2*rndf() L 1 {r=rndf()}}
+	   }
+	   SQU{y -1 z -.2 ry 90 rz -20 sy .6 {r=.7}}
+	 }
+
+	 //right wing
+	 *{s .06 x -4 layer .001}
+	 *{flipx coalesce(WINGFLAP, 180)}
+	 *{rz -60 L 1 {SX=.2+.1*rndf()}} 
+	 3*{y -1.4 {N=N-1}} (8+N)*{x 1 rz 5}  {
+	   2*{s 1.1 sx 10 z .7 L -.7}
+	   SQU{ z -2.5 sx SX {r=.8}}
+	 }
+    }
+}
+
+Friedrich {
+	*{s .75 y .5} {
+	 6*{ry 60} CIRCLE {sx .7 y .1}
+	 6*{ry 60} SQU {y -.15 sx .8 {r=1.2}}
+	 //SQU{y -.17 sx .7 z .12 rz 10 ry 90 {r=1.4}}
+	 2*{flipy 0} *{y .57 s .15 x -1 rz 20 rz rndf()*15}
+	 6*{ry 60} TRIANGLE{ sx 1.5 sy 1.3 }
+	 *{ y .3 s .2 z -1 {PUPILS=coalesce(PUPILS,1)}} {
+	   *{x -.5+rndf()*.1 z -.3} {
+	     6*{ry 60} SPHERE { sx .9 L 1 }
+	     *{z -.25 x (LOOKAX+rndf())*.1 y (LOOKUP+rndf())*.1}
+	     6*{ry 60} SPHERE{s .3*PUPILS}
+	   }
+	   *{x .5+rndf()*.2 z -.3} {
+	     6*{ry 60} CIRCLE { sx .9 L 1 }
+	     *{z -.25 x (LOOKAX+rndf())*.1 y (LOOKUP+rndf())*.1}
+	     6*{ry 60} CIRCLE {s .3*PUPILS}
+	   }
+	   SQUARE{y .4 sx 2 sy .3 y rndf() z -.2}
+	   *{y -.5 rz rndf()*10} {
+	     SQUARE{sx 1.25*rndf() sy .2+rndf()*.1 L 1}
+	     SQUARE{sx 1*rndf() y .*(-3*rndf()-JAWDROP) rz 30 sy .2  z -.2*rndf() L 1}
+	   }
+	   SQU{y -1 z -.2 ry 90 rz -20 sy .6 {r=.7}}
+	 }
+	 
+	 *{s .06 x -4 rz -60} 8*{x 1 rz 5} 2*{y -1.4} 
+	   SQU{ z -2.5 L 1 sx .3*rndf() {r=.8}}
+	}
+}
+
+
+RA {
+  TEXT{{
+    WIDE=coalesce(WIDE, 1);
+    CAROL=coalesce(CAROL, .5);
+    DANCE=coalesce(DANCE, 1);
+    BOLD=coalesce(BOLD, -.5);
+    
+  }}
+}
+RF {
+  TEXT{{
+    WIDE=coalesce(WIDE, 2);
+    CAROL=coalesce(CAROL, .5);
+    DANCE=coalesce(DANCE, 1);
+    BOLD=coalesce(BOLD, 1);
+    ITALIC=coalesce(ITALIC, 0);
+    FLAT=coalesce(FLAT,1);
+  }}
+}
+RB {
+  TEXT{{
+    WIDE=coalesce(WIDE, 1);
+    CAROL=coalesce(CAROL, .5);
+    BOLD=coalesce(BOLD, -.5);
+    ITALIC=coalesce(ITALIC, 1);
+    FLAT=coalesce(FLAT, 2);
+  }}
+}
+PROL {
+  TEXT{{
+    WIDE=coalesce(WIDE, 2.5);
+    ITALIC=coalesce(ITALIC, .75);
+  }}
+}
+
+
+
+
+
+
+McBat {
+  *{s .5} {
+    BOX{sx .75}
+    2*{x .3} {
+      BOX{z -.5 s .2 x -1 L 1}
+      CIRCLE{z -.55 s .2 x -1 s .5}
+    }
+    *{y .1} {
+      BOX{z -.6 s .8 sy .1 sz .1 L 0}
+    }
+    2*{x .6} {
+      *{y .675 s .2 x -1.5 sy 2} 
+      6*{ry 60} TRIANGLE{}
+    }
+    *{z -.55 y -.1 s .3 ry 90}
+      *{ry -30} 5*{ry 15} TRIANGLE{ }
+    *{z -.51 y -.35 sy .2} {
+      *{ry 90 z .5 sx .3 x .5 L 1}2*{z -1}SQUARE{}
+      SQUARE{L 1}
+      SQUARE{s .3 sy .2}
+    }
+    BOX{y -.5 sx .5 sz .5 }
+
+    2*{x .5} 
+      BOX{y -.95 x -.25 rx SIT*90 sy .75 y .25 sx .1 sz .1  }
+    2*{x .4}
+      BOX{y -.65 x -.25 rx 90 sy .5 y .25 sx .1 sz .1}
+    TRIANGLE{y -.3 z .2 s 1.5}
+  }
+}
+
+Batcat {
+  *{s .5} {
+    BOX{}
+    2*{x .3} {
+      BOX{z -.5 s .2 x -1 L 1}
+      CIRCLE{z -.55 s .2 x -1 s .5}
+    }
+    *{y .1} {
+      BOX{z -.6 s .8 sy .1 sz .1 L 0}
+    }
+    2*{x .8} {
+      *{y .725 s .2 x -2 sy 2} 
+      6*{ry 60} TRIANGLE{}
+    }
+    *{z -.55 y -.2 s .2} {
+      RIM{{ANG=360;rim=.2;} L 1}
+    }
+    BOX{y -.5 sx .5 sz .5 }
+    BOX{y -.75 rx 90 y -.75 sx .1 sz .1  }
+    2*{x .5} 
+      BOX{y -.95 x -.25 rx SIT*90 sy .75 y .25 sx .1 sz .1  }
+    2*{x .4}
+      BOX{y -.65 x -.25 rx 90 sy .5 y .25 sx .1 sz .1}
+  }
+}
