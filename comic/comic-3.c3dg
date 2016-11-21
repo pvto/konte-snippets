@@ -1,11 +1,11 @@
- startshape echtbird2
+ startshape echtbird3
 
 include "./characters-3.c3dg"
 include "./bubbles-3.c3dg"
 
 fov{z -4.8 y -1.4}
 
-echtbird2 {
+echtbird3 {
 
   *{y .5  layer 6 } {
     *{x -.4 s .15 rx 30} {
@@ -150,23 +150,8 @@ echtbird2 {
     }
     RUBBER{s .4 y -1.15 z -.2}
   }
-  } // x transö
-/*
-  *{y -.2 x -.2 layer 1} {
-    *{s .25} {
-      McBat{y 1 ry -20 }
-      *{y 1 x -.3 s 2} {
-        LBUB{layer -.001}
-        PRBUB{sx 1.5 x .3 rz -30 ry -60 layer -.001 {frame=.01}}
-        PBUB{sx 1.5 x .3 y .1 rz 20 layer -.001}
-        *{x -.4 y .3 s .07} {
-          //RB{ PUSH "^m^TAKE ME TO YOUR BASE, OWLS." }
-          //RB{y -2 PUSH "^m^(Resistance is futile)" }
-        }
-      }
-    }
-  }
- */ 
+  } // x trans
+
   0*{} *{y -4 x -.2 layer 3} {
     *{s .25} {
 //      5*{z 1.5 x -2 } 

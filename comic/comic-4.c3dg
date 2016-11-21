@@ -1,0 +1,73 @@
+startshape echtbird4
+
+include "./characters-3.c3dg"
+include "./bubbles-3.c3dg"
+
+fov{z -2.8 y -.7}
+
+echtbird4 {
+
+  *{y .5  layer 0 } {
+    *{x -.4 s .15 rx 30} {
+      2*{y -3 rz 2 x 2 s .9 rz 180 }
+      *{x -.4 y -.5 s 1.3} 10*{x .7} 
+        PRBUB{s 2.4+rndf() y sin(x*30)*.1 layer -.001}
+      3*{ z .1 x .02 {IT=IT+1;}}*{L -L+IT%2} {
+        TEXT{ PUSH "^m^what is it that makes an" 
+          y 1 s .5}
+        TEXT{ PUSH "^m^ECHT BIRT"
+          {BOLD=BOLD+2;FLAT=FLAT-.5;CAROL=-3}}
+        TEXT{y -.7 x 5.2 s .2 {FLAT=-7;BOLD=15;WIDE=30} rz 10 
+          PUSH "^m^interlude"}
+      }
+      TEXT{y -.7 x 2.2 s .2 {BOLD=3} PUSH "^m^COMIC"}
+    }
+  }
+
+  *{x -.5 y -.15 s .1} { 
+    Friedrich{}
+
+    *{x 5 y 2 s 4} 3*{x .8}PRBUB{}
+    *{x -4 y 2.75 layer 1 s .5} {
+      BULLET{PUSH "^m^1."}
+      TEXT{PUSH "^m^    It's a MUST read for the authoritarian type."
+        {ITALIC=0}}
+    }
+  }
+
+
+  *{x .1 y -.7 s .1} { 
+    Friedrich{}
+    LINE{{X1=.3;Y1=.5;X2=.6;Y2=1.6;width=.03}}
+    3*{y -1}
+    *{x -3 y 2 s 4} 5*{x .8}PRBUB{s 1+rndf()*.3}
+    *{x -4 y 2.5 layer 1 s .5} {
+      BULLET{PUSH "^m^2."}
+      *{{FLAT=2;WIDE=2;CAROL=10}} {
+        TEXT{PUSH "^m^    Take your hate speech to next level"        }
+        TEXT{PUSH "^m^    (with  FRIEDRICH  and  Adolf)"
+          y -2}
+      }
+    }
+  }
+
+  *{x -.3 y -1.3 s .1} {
+    *{x 1} { 
+      Friedrich{}
+      LINE{{X1=.3;Y1=.5;X2=.5;Y2=1.5;width=.03}}  }
+    *{x -3 y 2 s 4} 5*{x .8}PRBUB{s 1+rndf()*.3}
+    *{x -4 y 2.5 layer 1 s .5} {
+      BULLET{PUSH "^m^3."}
+      TEXT{PUSH "^m^    CUTE OWLS      GERMAN NAMES."
+        {FLAT=2;ITALIC=2;WIDE=2;CAROL=10}}
+      TEXT{PUSH "^m^              WITH              "
+        {FLAT=-10;ITALIC=2;WIDE=2;BOLD=2;CAROL=10}}
+
+    }
+  }
+}
+
+BULLET { 
+  3*{s 1.2 L .08}RIM{ s 2.4 {rim=.05} L .8 } 
+  TEXT{{BOLD=5}}
+}
