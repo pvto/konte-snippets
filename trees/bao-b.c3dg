@@ -1,0 +1,32 @@
+fov{z -4}
+
+bao {
+  *{s .1 y -12}
+  baochunk{}
+}
+
+baochunk {
+  *{{Snext=coalesce(Snext, 1)}} {
+    5*{y rndf()*.2 x rndf()*.5 ry 90}
+    bnCONE{s 4 .6 4 {bent=.01+rndf()*.1;F=.03;n=30
+      q=Snext; NBEXCL=floor(i/100)} RGB #302010 L -.1*rndf()}
+    if (i < 220) { // and nbdist(x,y+.07,z, .2, 1, 1) > .01) {
+      baochunk{{i=i+1} y .39 s Snext {Snext=.98+rndf()*.02} ry (2+rndf())*3 rz pareto(1,5,5)}
+    }
+    if (i > 10 and rndf() < .08 and BAO < 3 and i < 80
+      and j < i - 4) {
+      *{{SY=.6+rndf()*.4;i=i+(1-SY)*20}}
+        baochunk{y -.5 ry rndf()*180 rz 60 y .5 s SY 
+          {BAO=BAO+1; j=i;}}
+    }
+  }
+}
+
+include #geometry
+
+light {AMBIENT s .25}
+light {PHONG specular 10 alpha 10 s 1.5 {RGB 1 1 1}
+  point(
+    0,30,-2
+  )
+}

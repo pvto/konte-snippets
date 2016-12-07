@@ -1,0 +1,30 @@
+fov{z -4.5}
+
+bao {
+  *{s .1 y -10 x 2}
+  *{rz -15-7.5} 4*{rz 15} baochunk{y 4}
+}
+
+baochunk {
+  *{{Snext=coalesce(Snext, 1)}} {
+    5*{y rndf()*.2 x rndf()*.5 ry 90}
+    bnCONE{s 4 .6 4 {bent=.01+rndf()*.1;F=.03;n=30
+      q=Snext; NBEXCL=floor(i/10)} 
+      L 1 S 1 H i*60 S -abs(sin(i*23))
+    }
+//    if (rndf() < .5) { 2*{z 10*3} MIX{s 3 z -5} }
+//    if (rndf() < .5) { 2*{z 10*3} RADTR{s 1 z -5} }
+    if (i < 200) { // and nbdist(x,y+.07,z, .2, 1, 1) > .01) {
+      baochunk{{i=i+1} y .39 s Snext {Snext=.98+rndf()*.02} 
+        ry (2+rndf())*3 rz pareto(1,15,15)}
+    }
+    if (i > 10 and rndf() < .08 and BAO < 3 and i < 80
+      and j < i - 4) {
+      *{{SY=.6+rndf()*.4;i=i+(1-SY)*20}}
+        baochunk{y -.5 ry rndf()*180 rz 60 y .5 s SY 
+          {BAO=BAO+1; j=i;}}
+    }
+  }
+}
+
+include #geometry

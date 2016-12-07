@@ -1,0 +1,65 @@
+fov{camA z -2 y .5 lookat(0,0,0)}
+fov{camB z -1}
+bg{B .3}
+
+bao {
+  *{lr -1 {n=200} fov camB}
+  6*{rz 30}*{y -.5}
+  (n)*{y 1/n {i=i+1}} {
+    SQUARE { s 1.2 1/n 1/n 
+      B i%2+(i/10%.5)
+      A -i/10%2
+      S -i/n
+    }
+    *{x rndf()-.5}RADTR{z -abs(x) s .03 R 1 B .8}
+  }
+  3*{rz 30}
+  *{lr -.5 {n=300} fov camB}
+  *{y -.5}
+  (n)*{y 1/n {i=i+1}} {
+    SQUARE { rz sin(i/10)*10 
+      s 1.2 .5/n 1/n 
+      B .2
+      A -.5 +sin(i/5)*.3
+    }
+  }
+  *{s .1 {iv=1} y -11.5}
+  1*{ry 30}
+  *{{iv=iv+1}} 5*{ry 75} baochunk{}
+}
+
+baochunk {
+  *{{Snext=coalesce(Snext, 1)}} {
+    1*{y rndf()*.2 x rndf()*.5 ry 90}
+      CIRCLE{s .2 L -1}
+    bnCONE{s .2 .6 .5 {bent=.01+rndf()*.1;F=.03;n=30
+      q=Snext; NBEXCL=floor(i/10)} 
+      L 1-abs(sin(i*iv*.1)*.2)
+      A 0*1*(-1+abs(sin(i*iv*.05))*.5)
+    }
+    if (i%11=10) { 2*{z 10*3} 
+        RADTR{s 1 z -5 s 4 R .6 B .8} }
+    if (i < 180) { // and nbdist(x,y+.07,z, .2, 1, 1) > .01) {
+      baochunk{{i=i+1} y .39 
+        s Snext {Snext=.97+abs(sin(i/10))*.02} 
+        ry (abs(saw(i/10)))*5 
+        //rz 3*abs(saw(i/20))
+      }
+    }
+    if (i > 10 and i%6 = 5 and BAO < 3 and i < 80
+      and j < i - 4) {
+      *{{SY=.6+abs(sin(i/30))*.4;i=i+(1-SY)*20}}
+        baochunk{y -.5 ry abs(sin(i*5))*180 rz 60 y .5 s SY 
+          {BAO=BAO+1; j=i;}}
+    }
+  }
+}
+
+include #geometry
+
+light {AMBIENT s .75}
+light {PHONG specular 100 alpha 10 s 6.5 {RGB 1 1 1}
+  point(
+    5,5,0
+  )
+}
