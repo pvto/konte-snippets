@@ -7,24 +7,27 @@ bao {
 
 baochunk {
   *{{Snext=coalesce(Snext, 1)}} {
-    treeSeg{}
-    //5*{y rndf()*.2 x rndf()*.5 ry 90}
-    //bnCONE{s 4 .6 4 {bent=.01+rndf()*.1;F=.03;n=30
-    //  q=Snext; NBEXCL=floor(i/100)} RGB #302010 L -.1*rndf()}
-    if (i < 20) { // and nbdist(x,y+.07,z, .2, 1, 1) > .01) {
+    //treeSeg{s 4 L .4}
+    5*{y rndf()*.2 x rndf()*.5 ry 90}
+    bnCONE{s 8 .6 8 {bent=.01+rndf()*.1;F=.03;n=30
+      q=Snext; NBEXCL=floor(i/100)} RGB #505040 L -.1*rndf()}
+    if (i < 240) { // and nbdist(x,y+.07,z, .2, 1, 1) > .01) {
       baochunk{{i=i+1} y .39 s Snext {Snext=.98+rndf()*.02} ry (2+rndf())*3 rz pareto(1,5,5)}
     }
-    if (i > 10 and rndf() < .08 and BAO < 3 and i < 80
+    if (i = 240) {
+      CIRCLE{s 8 rx 90}
+    }
+    if (i > 30 and rndf() < .08 and BAO < 3 and i < 80
       and j < i - 4) {
       *{{SY=.6+rndf()*.4;i=i+(1-SY)*20}}
-        baochunk{y -.5 ry rndf()*180 rz 60 y .5 s SY 
+        baochunk{y -.5 ry rndf()*180 rz 80 y .5 s SY 
           {BAO=BAO+1; j=i;}}
     }
   }
 }
 
 treeSeg {
-  20*{{RY=RY+STEP;STEP=.3+rndf()*.2}}
+  20*{{RY=RY+STEP-.01;STEP=.3+rndf()*.2}}
   *{{
       x1=cos(RY);z1=sin(RY);
       x2=cos(RY+STEP);z2=sin(RY+STEP);
