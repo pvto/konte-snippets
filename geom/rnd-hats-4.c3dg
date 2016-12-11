@@ -1,0 +1,14 @@
+fov{z -1.2}
+
+hats {
+  *{{rn=6}}
+  *{x -.5+.5/rn y -.5 +.5/rn s 1/rn}
+  (rn)*{x 1}(rn)*{y 1}
+  *{s .5 sy .75+rndf()*.5 rx 40}
+  (1+irndf(3))*{y rndf()*.5}
+  bnCONE{
+    {n=20*(2+irndf(4));
+      bent=1*(rndf()-.5);q=rndf()*2-1} ry 20}
+}
+
+include #geometry

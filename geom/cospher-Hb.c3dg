@@ -1,0 +1,39 @@
+DEF RT rnd()
+DEF ITER 20
+DEF GRID (50+irnd(50))
+DEF rim .01
+DEF DSPROC rnd()
+
+fov{z -1.3}
+ap0{
+  4*{rz 90}100*{y .01}CIRCLE{x -.5 y -.5 s .01 A -1 {T=1}}
+  *{x .5 y .5}(GRID)*{x -1/GRID}(GRID)*{y -1/GRID} {
+    delay{{T=1}}
+  }
+  ap{{ds=1}}
+}
+ap {
+  RIMa{s ds}
+  *{{i=i+1;ds0=ds}} (lopas(i, ITER)%ITER/i)*{} {
+    *{{ds=ds*RT}}     ap{y -(ds0-ds)/2}
+    2*{flipy 0} 5*{rz -90*RT {ds=ds*DSPROC}}
+    *{{ds=ds*(1-RT)}} RIMa{y (ds0-ds)/2 s ds}
+      //ap{y (ds0-ds)/2}
+  }
+}
+
+RIMa {
+  *{{n=360*ds}}
+  (n+1)*{rz 360/n} CIRCLE{y .5 A -1
+    s min(rim/ds, 2*nbdist(x,y,z,.3,2, T=1))
+    {T=1}}
+}
+
+delay {
+  *{B rndf() {ms=2*nbdist(x,y,z,.3,2, T=1); r=1.7}
+      rz sin((x*10)**2+(y*10)**2)*90  
+  }
+  10*{{NBEXCL=1} S -.1 {r=r*.9} layer .1 sx .85}
+    SQU{s min(0.1, ms)}
+}
+include #geometry

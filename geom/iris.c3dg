@@ -1,0 +1,10 @@
+fov{z -2}
+
+iris {
+  3*{rz 120} {
+    PETAL{{ANG=60;ROUND=1} s .5 sx 1+SEPW sy 1+SEPL}
+    PETAL{L 1 {ANG=30;ROUND=2} s .125 sx 1+PETW sy 1+PETL}
+  }
+}
+
+include #geometry

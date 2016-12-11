@@ -1,0 +1,91 @@
+DEF BG .5
+test {
+  *{s .25 x -1 y -.7 s .5}
+  *{{
+    x1=-.5;y1=-.5;z1=0;
+    x2=-.5;y2=.5;z3=0;
+    x3=.5;y3=.5;z3=0;
+    x4=.5;y4=-.5;z4=0;}} {
+
+    RECT{x -.5}
+    PLATE{x 1 ry -250 { 
+      y1a=-.5;y1b=.5;
+      z1a=-BG;z1b=-BG;
+      y3a=.5;y3b=-.5;
+      z3a=-BG;z3b=-BG
+      }}
+  }
+
+
+  nCONE{s .25 x -1.5 y .75 rx 40 {n=6}}
+  bnCONE{s .25 x -.25 y .75 rx 40 {n=60;bent=.7;q=.1} ry 20}
+
+  *{s .25 x 1 y -.75 ry -40 } {
+    nPIPE{{p=.5} rx 40}
+    nPIPE{{p=.75;q=.4} y 1.5 x .25 rx 40}
+  }
+}
+
+nCONE { nPIPE{{q=0.001}} }
+
+nPIPE {
+  *{{
+     F=coalesce(F, .009);
+     p=coalesce(p, 1);
+     q=coalesce(q, 1);
+     r=coalesce(r, .5);
+     n=coalesce(n, 40);}}
+    *{{Ry=PI*2/n}}
+  (n*p)*{{Ry0=Ry; Ry=Ry+PI*2/n}} {
+    RECT{{
+      x1=cos(Ry0)*r; y1=-r; z1=sin(Ry0)*r;
+      x2=cos(Ry0)*r*q; y2=r; z2=sin(Ry0)*r*q;
+      x3=cos(Ry+F)*r*q; y3=r; z3=sin(Ry+F)*r*q;
+      x4=cos(Ry+F)*r; y4=-r; z4=sin(Ry+F)*r;
+    }}
+  }
+}
+
+path RECT {
+  moveto(x1,y1,z1)
+  lineto(x2,y2,z2)
+  lineto(x3,y3,z3)
+  lineto(x4,y4,z4)
+  close
+}
+
+
+bnCONE {
+  *{{
+     F=coalesce(F, .009);
+     p=coalesce(p, 1);
+     q=coalesce(q, 1);
+     r=coalesce(r, .5);
+     n=coalesce(n, 40);}}
+    *{{Ry=PI*2/n}}
+  (n*p)*{ry Ry/PI*180} {
+    PLATE{{
+      x1=cos(0)*r; y1=-r; z1=sin(0)*r;
+      x2=cos(0)*r*q; y2=r; z2=sin(0)*r*q;
+      x3=cos(Ry+F)*r*q; y3=r; z3=sin(Ry+F)*r*q;
+      x4=cos(Ry+F)*r; y4=-r; z4=sin(Ry+F)*r;
+      y1a=-.25; y1b=.25; y3a=.25; y3b=-.25;
+      z1a=coalesce(bent, -.5);
+      z1b=coalesce(bent, -.5);
+      z3a=coalesce(bent, -.5);
+      z3b=coalesce(bent, -.5);
+    }}
+  }
+}
+
+path PLATE {
+  moveto(x1,y1,z1)
+  bend((x2+x1)/2+x1a,(y2+y1)/2+y1a,(z2+z1)/2+z1a)
+  bend((x2+x1)/2+x1b,(y2+y1)/2+y1b,(z2+z1)/2+z1b)
+  curveto(x2,y2,z2)
+  lineto(x3,y3,z3)
+  bend((x4+x3)/2+x3a,(y4+y3)/2+y3a,(z4+z3)/2+z3a)
+  bend((x4+x3)/2+x3b,(y4+y3)/2+y3b,(z4+z3)/2+z3b)
+  curveto(x4,y4,z4)
+  close
+}

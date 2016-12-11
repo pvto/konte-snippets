@@ -1,0 +1,21 @@
+DEF RT rnd()
+DEF ITER irnd(20)
+DEF rim .01
+
+fov{z -1.3}
+ap0{ap{{ds=1}}}
+ap {
+  RIMa{s ds}
+  *{{i=i+1;ds0=ds}} (lopas(i, ITER)%ITER/i)*{} {
+    *{{ds=ds*RT}}     ap{y -(ds0-ds)/2}
+    2*{flipy 0} 5*{rz -53 {ds=ds*.86}}
+    *{{ds=ds*(1-RT)}} RIMa{y (ds0-ds)/2 s ds}
+      //ap{y (ds0-ds)/2}
+  }
+}
+
+RIMa {
+  *{{n=360*ds}}
+  (n+1)*{rz 360/n} CIRCLE{y .5 s rim/ds s .1 10 1}
+}
+include #geometry

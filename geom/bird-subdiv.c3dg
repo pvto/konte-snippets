@@ -1,0 +1,32 @@
+DEF RAD (PI/180)
+DEF H6YH .5/cos(PI/6)
+DEF Ba 0.73
+DEF Bb 2
+DEF Bc -.5
+fov{z -1.5}
+lat {
+  *{s .1 x -5 y -H6YH*3*3+H6YH*.75}
+  6*{y H6YH*3}
+  11*{x 1}
+  2*{y H6YH*1.5 x .5}
+  h6{L .8 S .3 H irndf(360) L -pareto(3,6,10)/10}
+}
+
+path h6 {
+  moveto(0, H6YH, 0)
+  bend(cos(RAD*(90+60*0.5))*H6YH, sin(RAD*(90+60*0.5))*H6YH, 0)
+  bend(cos(RAD*(90+60*0.5))*H6YH, sin(RAD*(90+60*0.5))*H6YH, 0)
+  curveto(cos(RAD*(90+60*1))*H6YH, sin(RAD*(90+60*1))*H6YH, 0)
+  bend(cos(RAD*(90+60*1.25))*H6YH*Bb, sin(RAD*(90+60*1.25))*H6YH*Bb, 0)
+  bend(cos(RAD*(90+60*1.75))*H6YH*Bb, sin(RAD*(90+60*1.75))*H6YH*Bb, 0)
+  curveto(cos(RAD*(90+60*2))*H6YH, sin(RAD*(90+60*2))*H6YH, 0)
+  lineto(cos(RAD*(90+60*3))*H6YH, sin(RAD*(90+60*3))*H6YH, 0)
+  bend(cos(RAD*(90+60*3.5))*H6YH*Ba, sin(RAD*(90+60*3.5))*H6YH*Ba, 0)
+  bend(cos(RAD*(90+60*3.5))*H6YH*Ba, sin(RAD*(90+60*3.5))*H6YH*Ba, 0)
+  curveto(cos(RAD*(90+60*4))*H6YH, sin(RAD*(90+60*4))*H6YH, 0)
+  bend(cos(RAD*(90+60*4.25))*H6YH*Bc, sin(RAD*(90+60*4.25))*H6YH*Bc, 0)
+  bend(cos(RAD*(90+60*4.75))*H6YH*Bc, sin(RAD*(90+60*4.75))*H6YH*Bc, 0)
+  curveto(cos(RAD*(90+60*5))*H6YH, sin(RAD*(90+60*5))*H6YH, 0)
+  close
+
+}
