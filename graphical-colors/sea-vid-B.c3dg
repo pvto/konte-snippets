@@ -1,0 +1,25 @@
+MACRO p RYY/180*PI
+model{order STREAM}
+sea {
+  *{y .5} 60*{y -.01 L .005}SQUARE{B .06 sy .012} // sky
+  
+  *{{tr=10} rz sin(p*4)*10}
+  23*{y -.02 DEF{tr=tr-.5}}
+  1050*{DEF{n=n+.1}}{
+    feat{x -.5 y 0 s (1/100) x n
+        y sin(-.2-p*32+n*.01*tr)*(1+.9*sin((RYY-235)/180*PI)) +
+         (1/(E**(sin(n*tr*.10-p*32) * (.8+.7*sin(-p*32+n*.01*tr)) ))
+           + pareto(1,3,10)*.05*sin(-p*32+n*.01*tr))
+        sy 10 B .05
+    }
+  }
+}
+feat{
+  SQUARE{s .95}
+  RIM{{rim=.05} L 1 S -1}
+  if (rndf() < sin(-.5-p*32+n*.01*tr)*.1) {
+    MIX32{A -.6 s 2 .2 2 s 8}
+  }
+}
+
+include #geometry
