@@ -1,0 +1,88 @@
+DEF BLOCKS 20
+
+bg {B .1}
+
+fov { CABINET 10 0.75 y .1 x -.1}
+all {
+  *{{frame=.1}} {
+    city { y .225 z .1 shading skies {BREAK=0}}
+    city { y -.225 z .1 shading skies {BREAK=1}}
+  }
+}
+
+
+
+rule city {
+  (BLOCKS)*{x 1/BLOCKS}
+    (BLOCKS)*{z 1/BLOCKS layer -.1}
+    {
+      create_building{x -.5 z -.25 rx 90 scale 1/BLOCKS}
+      //SQUARE{layer -2 x -.5 z -.25 rx 90 z -.5/BLOCKS scale 4/BLOCKS}
+    }
+}
+create_building 3{
+  create_building{col0 (col0+.1)
+  {frame=0.1+rndf()*.3}
+  {SAT=.125}}
+}
+create_building {building{sx .5 sy .5 sz .8}}
+building {
+  block{}
+  building_{z 1}
+}
+building_ .4 {
+  2*{x .5} 2*{y .5}
+  building { s .5 x -.5 y -.5 z -.5}
+}
+building_ 1{}
+building_ 1{building{}}
+
+block {
+  RBOX{s .9 A -.5 PUSH SQUARE
+    {SAT=rndf()**6}}
+  cub{PUSH FRAME {}}
+  if (rndf() < BREAK) {
+    10*{} {
+      EDGE{
+        rx 90
+        z -.1+-rndf()*.1
+      
+        x (-.5+rndf())*2 
+//        y (-.5+rndf())*3.5
+        s 1 1 1 B 1 R 1}
+      RADBLUR{
+        rx 90
+        z .3 
+        s 1.5
+        x (-.5+rndf())*2 
+        A 1 R 1
+      }
+    }
+  }
+  
+}
+
+
+cub{
+  PEEK{z -.5}
+  PEEK{z .5 ry 180}
+  PEEK{x -.5 ry -90}
+  PEEK{x .5 ry 90}
+  PEEK{y -.5 rx 90}
+  PEEK{y .5 rx -90}
+}
+
+include "../colors/skies.c3dg"
+include #geometry
+
+RBOX {
+    2* { ry 90 }
+    2* { z 1 } popper { z -.5 }
+    2* { y -1 } popper { rx 90 z .5 }
+
+}
+popper{POP{}}
+
+
+DEF BO 0.25
+

@@ -1,0 +1,58 @@
+include empty tab
+
+MACRO COL .25+irnd(16)*12/192
+
+sc {
+  void{x trow(tab, 
+    COL,COL,COL,
+    COL,COL,COL,
+    COL,COL,COL,
+    COL,COL,COL)
+    x trow(tab, 
+    COL,COL,COL,
+    COL,COL,COL,
+    COL,COL,COL,
+    COL,COL,COL)
+  }
+    
+  foo{{n=60} shading sha {T=1;C=1}}
+  RCross { {D=1;SUB=.6;SUBX=.65} shading shb {T=2;C=1}
+    s .3 z -.5 PUSH foo box  rotx 40 roty 45 {n=20}}
+}
+
+foo{
+  *{x -.5+.5/n y -.5+.5/n s 1/n {X=-.5;Y=-.5} L 1}
+  (n)*{y 1 {Y=Y+1/n}}
+  (n)*{x 1 {X=X+1/n} L 1/n 
+    {C=C-2/n*abs(sin(Y*40))}
+    col0 ((Y+X)*30%1)
+  }
+  2*{col0 (col0+abs(X)) {C=.2} s pareto(3,5,10)*.1*Y*4} {
+    SQUARE{s .9 ry sin((X*X*Y*Y)*30)*20
+      {C=C-pareto(1,10,10)*.07*(X*X+Y*Y)}
+    }
+    GBLUR{}
+    3*{}RADTR{B 1 rz irnd(10) s 3 .1 .1 x rndf()-10 y rndf()*10 z -1}
+  }
+}
+
+
+rule Popper {   POP { } }
+
+rule box {
+    2* { ry 90}
+    2* { z 1} Popper { z -.5 }
+    2* { y -1 } Popper { rx 90 z .5}
+}
+
+include #recursions
+
+shading sha {
+    point (0.0) { RGB .5*C*tget(tab,T,1) C*tget(tab,T,2) C*tget(tab,T,2)  A (A)  }
+    point (.25) { RGB C*tget(tab,T,4) .5*C*tget(tab,T,5) C*tget(tab,T,6)  A (A)  }
+    point (.5) { RGB .5*C*tget(tab,T,7) C*tget(tab,T,8) C*tget(tab,T,9)  A (A)  }
+    point (1) { RGB C*tget(tab,T,10) .5*C*tget(tab,T,11) C*tget(tab,T,12)  A (A)  }
+}
+
+
+void{}

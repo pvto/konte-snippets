@@ -1,0 +1,54 @@
+include #recursions
+include #geometry
+startshape wcs
+//fov{ ORTOGRAPHIC}
+model{maxshapes 20000000}
+
+wcs{
+  *{s .12 x -4.5 y -4.5 col0 .01 A -.8}
+    7*{y 1.5}
+    2*{x .85/2 y .75}
+    11*{x .85}
+    wc {shading greens col0 rndf()**6}
+}
+wc {
+  R6{{D=4} s 1 PUSH wchex_}
+}
+wchex_{wchex{s 1+rndf()*2*0}}
+wchex .1{wchex{A .3}}
+wchex{wchex{A -.05 col0 .1 {SAT=SAT-.05}}}
+wchex 2 {wchex{{SAT=SAT-.1}}}
+wchex{wchex{x rndf()}}
+wchex{wchex{x rndf()*2}}
+wchex {
+  1*{y rndf()}
+  20*{rz 10*sin(x**2*1+y**2*1) y .5 sx .98 S -.04 L .03} {
+    HEXAGON{s .75*rndf() z -.01/(.1+s*100) L .2*rndf()}
+    if (rndf() < .01) {
+      SATURATEHEX{s 10 .1 .1 z -3 {SAT=SAT+ ((y+.4*rndf())*3)*rndf()}}
+    }
+    if (rndf() < .001) {
+      GBLUR{z -2 rz rndf()*90 s .5 3 .5}
+    }
+    if (rndf() < .001) {
+      SQUARE{z -2 rz rndf()*90 s .3 5 .3 {SAT=SAT+1}}
+    }
+    if (rndf() < x*x*.05+y*y*.05) {
+      GBLUR{z -3 s .2 4 .2}
+    }
+  }
+}
+
+shading greens {
+    point(0.0) { A (A)
+        RGB lirp(0,1,.5,.1,SAT) lirp(0,1,.5,.4,SAT) lirp(0,1,.5,.2,SAT)}
+    point(0.15) { A (A)
+        RGB lirp(0,1,.2,1,SAT) lirp(0,1,.5,1,SAT) lirp(0,1,.5,0,SAT) }
+    point(.4) { A (A)
+        RGB lirp(0,1,.5,.1,SAT) lirp(0,1,.5,1,SAT) lirp(0,1,.5,.4,SAT) }
+    point(.75) { A (A)
+        RGB lirp(0,1,.5,.7,SAT) lirp(0,1,.5,1,SAT) lirp(0,1,.5,1,SAT) }
+    point(1) { A (A)
+        RGB lirp(0,1,.5,0,SAT) lirp(0,1,.5,.3,SAT) lirp(0,1,.5,0,SAT) }
+}
+

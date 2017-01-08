@@ -1,0 +1,76 @@
+include #recursions
+include #geometry
+include "../colors/skies.c3dg"
+startshape wcs
+fov{ ORTOGRAPHIC}
+model{maxshapes 30000000 order STREAM}
+//fov {z -1 y -.3 x -.2 lookat(0,0,0)}
+wcs{
+  *{s .12 x -4.5 y -4.5 A -.3 shading kq_rainbow
+  {SS=rndf()*3; 
+   CC=rndf()*30; 
+   RR=rndf()*30;
+   TILERTM=rndf()*100;
+   TILEROT=rndf()*180;
+   ISKEWY=rndf()*100;
+   FRZ=rndf()*180; 
+   FTRY=rndf()*10;
+   FN=irndf(30)+1;
+   BLURF=rndf()*100;
+   BLURN=irndf(5);
+   BLURRZ=rndf()*180;
+   MIXING=rndf()*2;
+   }}
+    14*{y 1.5/2}
+    2*{x .85/2/2 y .75/2}
+    22*{x .85/2}
+    wc {
+      rz sin(x*x*TILERTM+y*y*TILERTM)*TILEROT
+      col0 abs(sin(CC+x**5*2+x**2*CC+y**2*CC)**3) 
+      {SAT=-1*abs(sin(SS+(x*10%.1+y*17%.3*SS)*30**(x+1/SS)))}
+      R sin(y**2*RR)
+    }
+}
+wc {
+  R4{{D=6} s .1+MIXING PUSH wchex_}
+}
+wchex_{wchex{}}
+wchex {wchex{A .03}}
+wchex {
+  //3*{y .03}
+  5*{z rndf() x .1 {SAT=SAT+.2}} {
+    HEXAGON{
+      y rndf()*25
+      s 1 5 1
+      skewy ISKEWY
+      col0 (col0+.4*rndf())
+    }
+      if (rndf() < 0.1*sin(x*BLURF+y*BLURF)*sin(y*BLURF)) {
+        (BLURN)*{rz BLURRZ} 
+        RADBLUR32{
+          rz BLURRZ
+          s 4 .2 .2
+          z -1
+          x rndf() y -rndf()*.200
+          A -.5 R .6}
+      }
+      if (rndf() < 0.01) {
+        *{rz sin(x**2*1.5+y**2*15)*90
+          s .2
+          x rndf()
+          z -20
+        }
+        (FN)*{y FTRY rz FRZ}
+        RADTR{sx 100*sin(y*5) 
+          sy sin(x*3)*.5
+          B 1 R .6}
+      }
+  }
+}
+
+light {AMBIENT s .9}
+light {PHONG specular 10 alpha 10 s 1.5 {RGB 1 1 1}
+  point(
+    0,-.2,-1
+  )
+}
