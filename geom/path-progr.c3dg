@@ -1,0 +1,43 @@
+fov{z -1.2}
+DEF feat .1
+DEF m .00001
+scene {
+  foo{s feat A -.9 B .3}
+}
+MACRO M (irndf(3)-1)*.1
+foo{
+  bent{} 
+  4*{rz 90}fooCont{{trials=0}}
+}
+fooCont {
+  *{{test=nbdist(x,y+feat,z, feat, 1, 1=1)}} {
+    if (x**2+(y+feat)**2 < .2 and test > feat/2-m) {
+      foo{y 1 rz -90  rz -irndf(2)*90 
+        {
+          LOVI=LOVI+M;
+          SAKARA=SAKARA+M;
+        }
+      }
+    }
+  }
+}
+
+
+path bent {
+    moveto(0.400+SAKARA, 0.500, 0.000)
+    bend(-0.300-LOVI, -0.200, 0.000)
+    bend(0.500, -0.200, 0.000)
+    curveto(0.500, -0.200, 0.000)
+    bend(0.500, -0.200, 0.000)
+    bend(0.500, -0.400, 0.000)
+    curveto(0.500, -0.400, 0.000)
+    bend(-0.400, -0.400, 0.000)
+    bend(-0.400, 0.300, 0.000)
+    curveto(-0.400, 0.300, 0.000)
+    bend(-0.400, 0.300, 0.000)
+    bend(-0.400, 0.500, 0.000)
+    curveto(-0.400, 0.500, 0.000)
+    bend(-0.400, 0.500, 0.000)
+    bend(0.400, 0.500, 0.000)
+    close
+}

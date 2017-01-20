@@ -1,0 +1,15 @@
+fov{z -1.4}
+tt{arc{{w=.3;bendx=-.2;bulge=-.1}}}
+
+path arc {
+  moveto(-w/2,-.5,0)
+  bend(-w/2+bendx+bulge,-.5+bendy,0)
+  bend(-w/2+bendx+bulge,.5-bendy,0)
+  curveto(-w/2,.5,0)
+  lineto(w/2,.5,0)
+  bend(w/2+bendx,.5-bendy,0)
+  bend(w/2+bendx,-.5+bendy,0)
+  curveto(w/2,-.5,0)
+  lineto(-2/2,-.5,0)
+  close
+}
