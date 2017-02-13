@@ -1,0 +1,50 @@
+DEF phi (1 + sqrt(5)) / 2
+
+bar {
+  *{{ x1=-.5;y1=-.5; x2=.5;y2=-.5; x3=.5;y3=.5; x4=-.5;y4=.5; 
+      r=(1-1/phi); border=.05}} {
+    foo{s 1 {dpth=1/phi; dpth2=1/phi;}} 
+  }
+}
+foo{
+  _4_2r.h { 
+    PUSH b1 _4_2r.v
+    s 1
+  }
+}
+b1 {
+  _4_8t { {r=1/phi} PUSH twoTRI oneHEX _3_h3t oneHEX _3_h3t }
+}
+
+oneHEX {
+  *{{ z1=(x1**2+y1**2)*dpth; z2=(x2**2+y2**2)*dpth2; z3=(x3**2+y3**2)*dpth2; 
+      z4=(x4**2+y4**2)*dpth; z5=(x5**2+y5**2)*dpth2; z6=(x6**2+y6**2)*dpth2; }}
+  HEXANGLE{}
+}
+twoTRI {
+  *{{ z1=(x1**2+y1**2)*dpth; z2=(x2**2+y2**2)*dpth2; z3=(x3**2+y3**2)*dpth2; }} {
+    TRI{A -.8}
+    *{{xc=(x1+x2+x3)/3; yc=(y1+y2+y3)/3; border=coalesce(border, .01);}}
+    *{{ nr=1-border; }}
+      TRI{{
+        x1=x1*nr+xc*border; x2=x2*nr+xc*border; x3=x3*nr+xc*border;
+        y1=y1*nr+yc*border; y2=y2*nr+yc*border; y3=y3*nr+yc*border;
+      }}
+  }
+}
+
+twoRECT {
+  *{{ z1=(x1**2+y1**2)*dpth; z2=(x2**2+y2**2)*dpth2; z3=(x3**2+y3**2)*dpth2; z4=(x4**2+y4**2)*dpth2;}} {
+    RECT{A -.8}
+    *{{xc=(x1+x2+x3+x4)/4; yc=(y1+y2+y3+y4)/4; border=coalesce(border, .01);}}
+    *{{ nr=1-border; }}
+      RECT{{
+        x1=x1*nr+xc*border; x2=x2*nr+xc*border; x3=x3*nr+xc*border; x4=x4*nr+xc*border;
+        y1=y1*nr+yc*border; y2=y2*nr+yc*border; y3=y3*nr+yc*border; y4=y4*nr+yc*border; 
+      }}
+  }
+}
+
+include #geometry
+include #subdivs
+

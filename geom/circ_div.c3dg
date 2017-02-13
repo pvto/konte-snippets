@@ -1,0 +1,25 @@
+
+bg{L .1}
+MACRO incr 2*PI/n
+MACRO inc2 1/(n2)
+
+scene {
+  wheel{s .25 x -1 y 1 {n=10; n2=2} L 1}
+  wheel{s .25 x 1 y 1 {n=16; n2=3} L .8}
+  wheel{s .25 x -1 y -1 {n=24; n2=5} B 1 S -.8}
+  wheel{s .25 x 1 y -1 {n=48; n2=7} G 1 S -.8}
+}
+wheel {
+  *{{a=incr}} (n)*{{a=a+incr; ax=a;}}
+  *{{r=1; r_=1;}} (n2+1)*{{r=r-inc2; r_=r}}
+  DIV {{x1=cos(a)*r;y1=sin(a)*r; x2=cos(a)*r_;y2=sin(a)*r_; 
+         x3=cos(ax)*r_;y3=sin(ax)*r_; x4=cos(ax)*r;y4=sin(ax)*r; 
+  }}
+}
+
+DIV {
+  _4_8t{ PUSH TRI {r=.5}}
+}
+
+include #geometry
+include #subdivs

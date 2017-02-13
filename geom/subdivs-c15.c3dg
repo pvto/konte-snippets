@@ -1,0 +1,65 @@
+DEF phi (1 + sqrt(5)) / 2
+
+bar {
+  *{{ x1=-.5;y1=-.5; x2=.5;y2=-.5; x3=.5;y3=.5; x4=-.5;y4=.5; 
+      r=.45; border=.3}} {
+    foo{s 1 {dpth=0*1/phi/2; dpth2=0*1/phi/2;}} 
+  }
+}
+foo{
+  _4_4r { 
+    PUSH b1 _4_2r.v _4_2r.h
+    s .85
+  }
+}
+b1 { 
+  _4_4t { {r=.5} PUSH 
+//    twoTRI oneHEX _3_h3t
+//    twoTRI oneHEX _3_h3t
+    twoTRI oneHEX _3_h3t HEXANGLE _3_h3t _3_3t _3_3t }
+}
+
+
+MACRO XD 4  MACRO YD 4
+MACRO ZZ1 (sin(XD*x1**2+YD*y1**2)*dpth)
+MACRO ZZ2 (sin(XD*x2**2+YD*y2**2)*dpth)
+MACRO ZZ3 (sin(XD*x3**2+YD*y3**2)*dpth)
+MACRO ZZ4 (sin(XD*x4**2+YD*y4**2)*dpth)
+MACRO ZZ5 (sin(XD*x5**2+YD*y5**2)*dpth)
+MACRO ZZ6 (sin(XD*x6**2+YD*y6**2)*dpth)
+
+oneHEX {
+  *{{ z1=ZZ1; z2=ZZ2; z3=ZZ3; z4=ZZ4; z5=ZZ5; z6=ZZ6; }}
+  HEXANGLE{}
+}
+twoTRI {
+  *{{ z1=ZZ1; z2=ZZ2; z3=ZZ3; }} {
+    TRI{A -.8}
+    *{{xc=(x1+x2+x3)/3; yc=(y1+y2+y3)/3; border=coalesce(border, .01);}}
+    *{{ nr=1-border; }}
+      TRI{{
+        x1=x1*nr+xc*border; x2=x2*nr+xc*border; x3=x3*nr+xc*border;
+        y1=y1*nr+yc*border; y2=y2*nr+yc*border; y3=y3*nr+yc*border;
+      }}
+  }
+}
+oneRECT {
+  *{{ z1=ZZ1; z2=ZZ2; z3=ZZ3; z4=ZZ4; }} {
+    RECT{ }
+  }
+}
+twoRECT {
+  *{{ z1=ZZ1; z2=ZZ2; z3=ZZ3; z4=ZZ4; }} {
+    RECT{A -.8}
+    *{{xc=(x1+x2+x3+x4)/4; yc=(y1+y2+y3+y4)/4; border=coalesce(border, .01);}}
+    *{{ nr=1-border; }}
+      RECT{{
+        x1=x1*nr+xc*border; x2=x2*nr+xc*border; x3=x3*nr+xc*border; x4=x4*nr+xc*border;
+        y1=y1*nr+yc*border; y2=y2*nr+yc*border; y3=y3*nr+yc*border; y4=y4*nr+yc*border; 
+      }}
+  }
+}
+
+include #geometry
+include #subdivs
+

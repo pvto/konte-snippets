@@ -1,0 +1,71 @@
+DEF phi (1 + sqrt(5)) / 2
+bg{B 0}
+include "/home/paavo/konte/gram/color-work/2016-11-12-20-37-brown-painting-M-ADK.png" Ia
+
+bar {
+  *{{ x1=-.5;y1=-.5; x2=.5;y2=-.5; x3=.5;y3=.5; x4=-.5;y4=.5; 
+      r=.3; border=.3}} {
+    foo{s 1} 
+  }
+}
+foo{
+  _4_4r { 
+    PUSH b1 _4_2r.v _4_2r.h _4_4r _4_4r
+    s 1
+  }
+}
+b1 { 
+  _4_4t { {r=.25} PUSH 
+//    twoTRI oneHEX _3_h3t
+//    twoTRI oneHEX _3_h3t
+    twoTRI oneHEX _3_h3t HEXANGLE_ _3_h3t _3_3t }
+}
+
+MACRO zf sin(x1**2+y1**2)
+
+TRI_{ *{{ xc=(x1+x2+x3)/3+.5; yc=(y1+y2+y3)/3+.5; }}
+  *{{ clr = imgred(Ia, xc*imgwidth(Ia), yc*imgheight(Ia));
+      clg = imggreen(Ia, xc*imgwidth(Ia), yc*imgheight(Ia)); 
+      clb = imgblue(Ia, xc*imgwidth(Ia), yc*imgheight(Ia)); }}
+  *{{ z1=clr*zf; z2=clr*zf; z3=clr*zf; }}
+  TRI { R clr G clg B clb} }
+RECT_{ *{{ xc=(x1+x2+x3+x4)/4+.5; yc=(y1+y2+y3+y4)/4+.5; }}
+  *{{ clr = imgred(Ia, xc*imgwidth(Ia), yc*imgheight(Ia));
+      clg = imggreen(Ia, xc*imgwidth(Ia), yc*imgheight(Ia)); 
+      clb = imgblue(Ia, xc*imgwidth(Ia), yc*imgheight(Ia)); }}
+  *{{ z1=clr*zf; z2=clr*zf; z3=clr*zf; z4=clr*zf; }}
+  RECT { R clr G clg B clb} }
+HEXANGLE_ { *{{ xc=(x1+x2+x3+x4+x5+x6)/6+.5; yc=(y1+y2+y3+y4+y5+y6)/4+.5; }}
+  *{{ clr = imgred(Ia, xc*imgwidth(Ia), yc*imgheight(Ia));
+      clg = imggreen(Ia, xc*imgwidth(Ia), yc*imgheight(Ia)); 
+      clb = imgblue(Ia, xc*imgwidth(Ia), yc*imgheight(Ia)); }}
+  *{{ z1=clr*zf; z2=clr*zf; z3=clr*zf; z4=clr*zf; z5=clr*zf; z6=clr*zf; }}
+  HEXANGLE { R clr G clg B clb} }
+oneHEX {
+  HEXANGLE_{}
+}
+twoTRI {
+    TRI_{A -.8}
+    *{{xc=(x1+x2+x3)/3; yc=(y1+y2+y3)/3; border=coalesce(border, .01);}}
+    *{{ nr=1-border; }}
+      TRI_{{
+        x1=x1*nr+xc*border; x2=x2*nr+xc*border; x3=x3*nr+xc*border;
+        y1=y1*nr+yc*border; y2=y2*nr+yc*border; y3=y3*nr+yc*border;
+      }}
+}
+oneRECT {
+    RECT_{ }
+}
+twoRECT {
+    RECT_{A -.8}
+    *{{xc=(x1+x2+x3+x4)/4; yc=(y1+y2+y3+y4)/4; border=coalesce(border, .01);}}
+    *{{ nr=1-border; }}
+      RECT_{{
+        x1=x1*nr+xc*border; x2=x2*nr+xc*border; x3=x3*nr+xc*border; x4=x4*nr+xc*border;
+        y1=y1*nr+yc*border; y2=y2*nr+yc*border; y3=y3*nr+yc*border; y4=y4*nr+yc*border; 
+      }}
+}
+
+include #geometry
+include #subdivs
+

@@ -1,0 +1,25 @@
+start{ aa{{SZ=.5} ry 360 
+  rz sin((360)/180*PI*2)*30
+  PUSH fa ad ae ab ad aa ab ad ad ab ae ab ba bb bc} }
+
+aa { 2*{flipy 0} pop{x SZ/2} }
+ab { 2*{flipx 0} pop{y SZ/2} }
+ac { *{rz 45} 2*{flipx 0} pop{y SZ/4} }
+ad { *{rz 45} 2*{flipx 0} pop{y SZ/4 {SZ=SZ*.5}} }
+ae { *{rz 30} 2*{flipx 0} pop{y SZ/2} }
+
+ba { 2*{rz 45+sin((360)/90*PI*2)*15} pop{} }
+bb { 2*{rz 90} pop{} }
+bc { 2*{rz 180} pop{} }
+
+fa {
+  *{z sin((360)/90*PI*2)*.2*sin(x*x*4+y*y*4)*2} {
+    2*{s .8 L 1} RSQU{s .25 1 1 s (x*x+y*y)*2 s SZ} 
+    *{{SZ=sin((x*x+y*y)*sin(360/90)*3)*SZ*2}} {
+      if (SZ > .05) { RADTR{s SZ R .9 B .8} } }
+  }
+}
+ff { 2*{s .98 L 1} pop{s SZ} }
+
+pop{POP{}}
+fov{z -2.5}
