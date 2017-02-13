@@ -1,0 +1,9 @@
+fov {
+  x 2.5
+  z -0.1
+  lookat(0,0,0)
+  }
+
+foo {
+  2*{ry 90} SQUARE{}
+}

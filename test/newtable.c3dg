@@ -1,0 +1,12 @@
+
+include "/dev/null" emptytab
+
+foo {
+  10*{}{void{x trow(emptytab, rndf()-.5)}} //,rndf()-.5,3)}}
+  *{{I=1}} (len(emptytab))*{{I=I+1}} *{s .5} {
+      SQUARE{ x csv(emptytab, I,1) y csv(emptytab, I,1) 
+        s .1 layer 1}
+  }
+}
+
+void{}

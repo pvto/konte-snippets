@@ -1,0 +1,41 @@
+include 
+"https://www.takemefishing.org/tmf/assets/images/fish/dolphinfish-464x170.png"
+img0
+model{order STREAM}
+DEF NX 7
+DEF NY 7
+fov { FISHEYE .45 3 z -.2 }
+rule wrap {
+    draw_img
+    {
+        ry -45 rx 30
+        DEF
+        {
+            iw = imgwidth(img0);
+            ih = imgheight(img0);
+            pixsize = (1/imgwidth(img0));
+        }
+    }
+}
+rule draw_img {
+    (iw*NX) * { DEF {u=u+1} }
+        (ih*NY) * { DEF {v=v+1} }
+            *
+            {
+                x -NX/2 y ((NY/2)*ih/iw)
+                z .4
+                s pixsize x u y -v
+  
+                RGB imgred(img0,u%iw,v%ih) imggreen(img0,u%iw,v%ih) imgblue(img0,u,v)
+                A -1+imgalpha(img0,u%iw,v%ih)
+            }
+            *{s 1.6 {n=1}}*{s 1/n}
+            *{x -1 y -1}(n)*{x 1}(n)*{y 1}
+            {
+              if (abs(x) > .1 or abs(y) > .1) { SQUARE { } }
+              if (abs(x) <= .1 and abs(y) <= .1) {
+                *{{n=3}}*{s 1/n}*{x -(n-1)/2 y -(n-1)/2}
+                  (n)*{x 1}(n)*{y 1}SQUARE{s 1.2}
+              }
+            }
+}
