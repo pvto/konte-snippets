@@ -1,0 +1,48 @@
+model{order STREAM}
+MACRO bran pareto(1,2,10)*.1-.5+x*0
+fov{z -2 y 1 FISHEYE .4 1 1.5 .8}
+include empty Grid
+DEF N 100
+dev {
+
+  (N)*{{i=i+1;y1=sin(i*1);x1=0;}} void { 
+    col0 trow(Grid, 
+      0,
+      .03+round(sin(i*3)*5)/100, 
+      rndf()*.0001, 
+      x1,y1,
+      x1,y1) }
+  600*{{row=row+1}} {
+    (N)*{{i=i+1}} draw {
+         {x1=tget(Grid, i+1, 6); y1=tget(Grid, i+1, 7);
+  	    x2=tget(Grid, i+1, 6); y2=tget(Grid, i+1, 5);
+  	    x3=tget(Grid, i+1, 4); y3=tget(Grid, i+1, 5);
+  	    x4=tget(Grid, i+1, 4); y4=tget(Grid, i+1, 7);
+  	    foo=tget(Grid, i+1, 1);
+  	    }
+    }
+    (N)*{{i=i+1}} void {
+      col0 tset(Grid, i+1, 6, tget(Grid, i+1, 4))
+      col0 tset(Grid, i+1, 7, tget(Grid, i+1, 5))
+      col0 tadd(Grid, i+1, 4, cos(tget(Grid, i+1, 1))*tget(Grid, i+1, 2) )
+      col0 tadd(Grid, i+1, 5, sin(tget(Grid, i+1, 1))*tget(Grid, i+1, 2) )
+      col0 tadd(Grid, i+1, 1, .1)
+      //col0 tset(Grid, i+1, 2, tget(Grid, i+1, 2))
+    }
+  }
+
+}
+draw {
+  CIRCLE{x x1 y y1 s .001 
+    rz -90+foo/PI*180 
+    sy 100}
+/*
+  LINE{{x2=x3;y2=y3;width=.01;}}
+  RECT{z -.2 
+    {y2=y2+bran*.6;  x4=(x4+x1)/2;y4=(y4+y1)/2;} 
+    A -.9 R 1 S -.7 H sin(x4*2+y4)*360}*/
+}
+void{}
+
+
+include #geometry
