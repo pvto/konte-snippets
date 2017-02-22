@@ -1,0 +1,53 @@
+include #monospace
+fov{z -2.5 y -.3 lookat(0,0,0)}
+startshape lawn
+bg { G .05 R .05}
+
+light {AMBIENT s .25}
+light {PHONG specular 10 alpha 10 s 2.5 {RGB 1 1 1}
+  point(
+    2,-2,-1
+  )
+}
+
+
+lawn {
+  *{{N=8}}*{s 1/N x -(N-1)/2 y -(N-1)/2}
+  (N)*{x 1 {U=U+1}} (N) *{y 1 {U=U+N+1}}
+  {
+    if (U % 2 < 1) {
+        RECURSE4x4{{D=0} PUSH grasspiece}
+    }
+    if (U % 2 >= 1) {
+        grasspiece{R 1}
+    }
+    if (U % 1.5 < 1) {
+        tt { z -2.4 s .3 {DANCE=4*rndf();CAROL=-40*rndf();WIDE=4*rndf();FLAT=4*rndf()}  }
+    }
+  }
+}
+
+tt { TEXT{PUSH "^m^LAWN"} }
+tt { TEXT{PUSH "^m^MOWER"} }
+tt { TEXT{PUSH "^m^move"} }
+tt { TEXT{PUSH "^m^BLADE"} }
+tt {}
+
+RECURSE4x4 {
+  if (D = 0) { POP{} }
+  if (D > 0) {
+    *{s .5 x -.5 y -.5 {D=D-1}}  2*{x 1} 2*{y 1} 
+        RECURSE4x4{}
+  }
+}
+
+grasspiece {
+  *{{N=24}} *{x -.5 y -.5}
+  (N)*{x 1/N} (N)*{y 1/N}
+      blade{s .3 x rndf()*1 y rndf()*1}
+}
+blade {
+  *{rx 90 G .3+rndf()*.2 ry rndf()*30 {RZ=3+rndf()*17}} 
+  5*{s .9 1.3 .9 y 1 rz RZ} 
+    2*{ry 90}SQUARE{sx .1}
+}

@@ -1,0 +1,132 @@
+include #monospace
+startshape line
+model { pushstack 32 }
+
+DEF NR 8
+line {
+
+
+
+  *{s .05 x -7 y 6.5 s .3 s .75}
+  {
+ 
+    (NR)*{y -1.5 DEF{ITALIC=ITALIC+1}}
+      TEXTR{PUSH "^m\^ITALIC incr" }
+
+    *{x 10}
+    (NR)*{y -1.5 DEF{ITALIC=ITALIC-1}}
+      TEXTR{PUSH "^m\^ITALIC decr" }
+
+    *{x 10+10}
+    (NR)*{y -1.5 DEF{BOLD=BOLD+1}}
+      TEXTR{PUSH "^m\^BOLD incr" }
+
+    *{x 10+10+10}
+    (NR)*{y -1.5 DEF{BOLD=BOLD-1}}
+      TEXTR{PUSH "^m\^BOLD decr" }
+
+    *{x 10+10+10+10}
+    (NR)*{y -1.5 DEF{CAROL=CAROL+3}}
+      TEXTR{PUSH "^m\^CAROL incr" }
+
+    *{x 10+10+10+10+10}
+    (NR)*{y -1.5 DEF{CAROL=CAROL-3}}
+      TEXTR{PUSH "^m\^CAROL decr" }
+
+    *{x 10+10+10+10+10+10}
+    (NR)*{y -1.5 DEF{DANCE=DANCE+1}}
+      TEXTR{PUSH "^m\^DANCE incr" }
+
+    *{x 10+10+10+10+10+10+10}
+    (NR)*{y -1.5 DEF{DANCE=DANCE-1}}
+      TEXTR{PUSH "^m\^DANCE decr" }
+
+    *{y -(NR+3.5) * 1.5}
+    {
+      *{x 6 rz -30}
+      (NR)*{y -1.5 DEF{WIDE=WIDE+1}}
+        TEXTR{PUSH "^m\^WIDE incr" }
+
+      *{x 6 rz -30 x 8}
+      (NR)*{y -1.5 DEF{WIDE=WIDE-1}}
+        TEXTR{PUSH "^m\^WIDE decr" }
+
+      *{x 6+8+6+10+10+10 rz 30 y -2}
+      (NR)*{y -1.5 DEF{FLAT=FLAT+1}}
+        TEXTR{PUSH "^m\^FLAT incr" }
+
+      *{x 6+8+6+10+10+10 rz 30 y -2 x 8}
+      (NR)*{y -1.5 DEF{FLAT=FLAT-1}}
+        TEXTR{PUSH "^m\^FLAT decr" }
+    }
+
+    *{x -7 y -21 * 1.5}
+    {
+      *{ y -0 {ITALIC=1;BOLD=-3}} TEXT{PUSH "^m^ITALIC 1 BOLD -3" }
+      *{ y -1.5 {ITALIC=1;BOLD=7}} TEXT{PUSH "^m^ITALIC 1 BOLD 7" }
+      *{ y -3 {ITALIC=3;BOLD=3}} TEXT{PUSH "^m^ITALIC 3 BOLD 3" }
+      *{ y -4.5 {CAROL=20;BOLD=-3}} TEXT{PUSH "^m^CAROL 20 BOLD -3" }
+      *{ y -6 {CAROL=20;BOLD=3}} TEXT{PUSH "^m^CAROL 20 BOLD 3" }
+      *{ y -7.5 {CAROL=20;ITALIC=3}} TEXT{PUSH "^m^CAROL 20 ITALIC 3" }
+      *{ y -9 {CAROL=-20;ITALIC=-2}} TEXT{PUSH "^m^CAROL -20 ITALIC -2" }
+      *{ y -10.5 {DANCE=3;ITALIC=-.5}} TEXT{PUSH "^m^DANCE 3 ITALIC -.5" }
+      *{ y -12 {DANCE=2;ITALIC=1}} TEXT{PUSH "^m^DANCE 2 ITALIC 1" }
+      *{ y -13.5 {DANCE=4;BOLD=-2}} TEXT{PUSH "^m^DANCE 4 BOLD -2" }
+      *{ y -15 {DANCE=5;CAROL=-20}} TEXT{PUSH "^m^DANCE 5 CAROL -20" }
+      *{ y -16.5 {DANCE=1.5;CAROL=5}} TEXT{PUSH "^m^DANCE 0.5 CAROL 5" }
+    }  
+
+    *{x 60 y -21 * 1.5}
+    {
+      *{ y -0 {WIDE=-1;BOLD=-3}} TEXT{PUSH "^m^WIDE -1 BOLD -3" }
+      *{ y -1.5 {WIDE=3;BOLD=-2}} TEXT{PUSH "^m^WIDE 3 BOLD -2" }
+      *{ y -3 {WIDE=4;BOLD=3}} TEXT{PUSH "^m^WIDE 4 BOLD 3" }
+      *{ y -4.5 {WIDE=7;BOLD=7}} TEXT{PUSH "^m^WIDE 7 BOLD 7" }
+      *{ y -6 {WIDE=4;FLAT=-4}} TEXT{PUSH "^m^WIDE 4 FLAT -4" }
+      *{ y -7.5 {WIDE=-1;FLAT=2}} TEXT{PUSH "^m^WIDE -1 FLAT 2" }
+      *{ y -9 {WIDE=4;FLAT=4}} TEXT{PUSH "^m^WIDE 4 FLAT 4" }
+      *{ y -10.5 {BOLD=2;FLAT=3}} TEXT{PUSH "^m^BOLD 2 FLAT 3" }
+      *{ y -12 {BOLD=2;FLAT=-3}} TEXT{PUSH "^m^BOLD 2 FLAT -3" }
+      *{ y -13.5 {ITALIC=2;FLAT=-3}} TEXT{PUSH "^m^ITALIC 2 FLAT -3" }
+      *{ y -15 {ITALIC=2;WIDE=3}} TEXT{PUSH "^m^ITALIC 2 WIDE 3" }
+      *{ y -16.5 {ITALIC=2;FLAT=3}} TEXT{PUSH "^m^ITALIC 2 FLAT 3" }
+      *{ y -18 {ITALIC=-2;FLAT=3}} TEXT{PUSH "^m^ITALIC -2 FLAT 3" }
+
+    }
+  }
+
+
+// Konte monospace cheatsheet
+
+  *{s .05 x -7.5 y -6 {ITALIC=2;BOLD=5;WIDE=2} {BW=.075} ry -30 rx 20} {
+    box{layer -1 z -.25 y .1}
+    TEXT{ s .4 PUSH "^m^Konte #monospace" }
+    TEXT{ y -.5 s .4 PUSH "^m^ cheatsheet" }
+  }
+
+
+
+// In a galaxy far far away...
+
+  *{y .1 s .012 x -8 DEF{ITALIC=4; DANCE=2} z -20}
+  16*{y -2 x -1 z 1.5
+        DEF {
+        ITALIC=ITALIC-.2;
+        WIDE=WIDE+1.5;
+        BOLD=BOLD+.02;
+        CAROL=CAROL+6; 
+        DANCE=DANCE*.9}
+  } TEXT{
+         PUSH 
+         "^m^In a galaxy far far away..."
+     }
+
+  *{y -.3 s .02} TEXT { PUSH "^m^Regular monospace" }
+}
+
+
+box{cbox{L 1}}
+cbox {
+ 4*{ry 90}{SQUARE{z -.5 RGB #000000}SQUARE{z -.5 s .9+BW}}
+ 2*{rx 180}{SQUARE{rx 90 z -.5 RGB #000000}SQUARE{rx 90 z -.5 s .9+BW}}
+}

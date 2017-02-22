@@ -1,0 +1,32 @@
+fov{z -1.5}
+
+test{
+  SQUARE{}
+  5*{{D=D+1} lr 1} R6{ PUSH hex}
+}
+
+R6y{R6{s cos(PI/6)}}
+R6x{R6{}}
+R6 {
+  if (D=0) { POP {} }
+  if (D > 0) {
+    *{{D=D-1}} {
+      6*{rz 360/6}
+        R6{ y _HY/2 s .5}
+    }
+  }
+}
+
+hex{2*{L 1 s .99}HEXAGON{}}
+
+DEF _HY .5/cos(PI/6)
+DEF RAD (PI/180)
+path HEXAGON {
+  moveto(0,_HY,0)
+  lineto(cos(RAD*(90+60*1))*_HY, sin(RAD*(90+60*1))*_HY, 0)
+  lineto(cos(RAD*(90+60*2))*_HY, sin(RAD*(90+60*2))*_HY, 0)
+  lineto(cos(RAD*(90+60*3))*_HY, sin(RAD*(90+60*3))*_HY, 0)
+  lineto(cos(RAD*(90+60*4))*_HY, sin(RAD*(90+60*4))*_HY, 0)
+  lineto(cos(RAD*(90+60*5))*_HY, sin(RAD*(90+60*5))*_HY, 0)
+  close
+}

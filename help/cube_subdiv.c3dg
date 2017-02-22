@@ -1,0 +1,20 @@
+fov {z -2.5}
+
+rule test {
+  R2d3{ry 30 rx 20 {D=1} PUSH box}
+}
+
+R2d3 {
+  if (D = 0) { POP{} }
+  if (D > 0) {
+      *{{D=D-1} x -.25 y -.25 z -.25 s .5}
+      2*{x 1} 2*{y 1} 2*{z 1} R2d3{}
+  }
+}
+
+
+box{cbox{L 1}}
+cbox {
+  4*{ry 90}{SQUARE{z -.5 RGB #000000}SQUARE{z -.5 s .9+BW}}
+  2*{rx 180}{SQUARE{rx 90 z -.5 RGB #000000}SQUARE{rx 90 z -.5 s .9+BW}}
+}

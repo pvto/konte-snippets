@@ -1,0 +1,39 @@
+fov{z -1.5}
+
+foo {
+  SQUARE{layer -1}
+  Rn{{D=2;n=7} PUSH TRInGON tri}
+}
+
+R7 { Rn{{n=7}} }
+R8 { Rn{{n=8}} }
+R9 { Rn{{n=9}} }
+R10 { Rn{{n=10}} }
+R11 { Rn{{n=11}} }
+R12 { Rn{{n=12}} }
+Rn { Rn_{s cos(PI/n)} }
+Rn_ {
+  if (D=0) { POP {} }
+  if (D > 0) {
+    *{{D=D-1}} {
+      (n)*{rz 360/n}
+        Rn_{ y NGYH/2 s .5}
+    }
+  }
+}
+
+rule tri { 2*{L 1 s .99 z -.001} popper{}}
+popper{POP{}}
+
+rule TRInGON {
+  (n)*{rz 360/n} TRIN {}
+}
+
+DEF RAD (PI/180)
+MACRO NGYH .5/cos(PI/n)
+path TRIN {
+  moveto(0, NGYH, 0)
+  lineto(NGYH*cos(RAD*(90-360/n)), NGYH*sin(RAD*(90-360/n)), 0)
+  lineto(0, 0, 0)
+  close
+}

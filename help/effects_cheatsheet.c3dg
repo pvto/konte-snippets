@@ -1,0 +1,47 @@
+include #monospace
+startshape help
+model { pushstack 32 }
+DEF W .05
+
+help {
+  *{s W}
+  {
+
+// effects
+  checkers{{N=8} x -7 y -2 }
+    RUBBER{x -7 +.1 y -2 s .75 z -.3 } 
+      TEXT{x -6 y -2 s .3 PUSH "^m^RUBBER"}
+  checkers{{N=8} x -7 y -3.5 }
+    RUBBERHEX{x -7 +.1 y -3.5 s .75 z -.3 } 
+      TEXT{x -6 y -3.5 s .3 PUSH "^m^RUBBERHEX"}
+  checkers{{N=8} x -7 y -5 }
+    RUBBER32{x -7 +.1 y -5+.07 s .75 z -.4 } 
+      TEXT{x -6 y -5 s .3 PUSH "^m^RUBBER32"}
+
+  checkers{{N=8} x -3.5 y -2 }
+    GBLUR{x -3.5 +.05 y -2 s .75 z -.3 } 
+      TEXT{x -2.5 y -2 s .3 PUSH "^m^GBLUR"}
+  checkers{{N=8} x -3.5 y -3.5 }
+    GBLURTRI{x -3.5 +.05 y -3.5 s .75 z -.3 } 
+      TEXT{x -2.5 y -3.5 s .3 PUSH "^m^GBLURTRI"}
+  checkers{{N=8} x -3.5 y -5 }
+    GBLURHEX{x -3.5 +.05 y -5+.07 s .75 z -.3 } 
+      TEXT{x -2.5 y -5 s .3 PUSH "^m^GBLURHEX"}
+  checkers{{N=8} x -3.5 y -6.5 }
+    GBLUR32{x -3.5 +.05 y -6.5+.1 s .75 z -.3 } 
+      TEXT{x -2.5 y -6.5 s .3 PUSH "^m^GBLUR32"}
+
+  checkers{{N=8} x 0 y -2 }
+    MIX{x 0 y -2 s .75 z -.3 } 
+      TEXT{x 1 y -2 s .3 PUSH "^m^MIX"}
+  checkers{{N=8} x 0 y -3.5 }
+    MIX32{x 0 y -3.5 s .75 z -.3 } 
+      TEXT{x 1 y -3.5 s .3 PUSH "^m^MIX32"}
+  checkers{{N=8} x 0 y -5 }
+    RADBLUR{x 0 y -5+.07 s .75 z -.3 R .5 A -.9 } 
+      TEXT{x 1 y -5 s .3 PUSH "^m^RADBLUR"}
+  checkers{{N=8} x 0 y -6.5 }
+    RADBLUR32{x 0 y -6.5+.07 s .75 z -.3 R .5 A -.9 } 
+      TEXT{x 1 y -6.5 s .3 PUSH "^m^RADBLUR32"}
+  }
+}

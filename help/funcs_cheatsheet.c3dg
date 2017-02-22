@@ -1,0 +1,135 @@
+include #monospace
+startshape funcHelp
+model { pushstack 32 }
+DEF W .05
+DEF LW 1/5  DEF DW 1/7
+DEF F 1
+
+funcHelp {
+  *{s W s .275 x -22 y 22 {BOLD=-1.5;WIDE=-2;FLAT=2}}
+  {
+    *{layer -1 x -.5 y 2.5} 22*{x 1} 50*{y -1} { SQUARE{s 1 L .5} SQUARE {s .95 lightness 1 } }
+
+    *{y 0 {mesh=1}}{  TEXTR{ s F x -2 PUSH "^m\^sin(x)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y sin(X)+row*LW }
+    }
+    *{y -3 {mesh=2}}{  TEXTR{ s F x -2 PUSH "^m\^cos(x)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y cos(X)+row*LW }
+    }
+    *{y -6 {mesh=3}}{  TEXTR{ s F x -2 PUSH "^m\^tan(x)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y tan(X)+row*LW }
+    }
+    *{y -9 {mesh=4}}{  TEXTR{ s F x -2 PUSH "^m\^asin(x)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y asin(X)+row*LW }
+    }
+    *{y -12 {mesh=5}}{  TEXTR{ s F x -2 PUSH "^m\^axos(x)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y acos(X)+row*LW }
+    }
+    *{y -15 {mesh=5}}{  TEXTR{ s F x -2 PUSH "^m\^atan(x)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y atan(X)+row*LW }
+    }
+
+  
+    *{y -18 {mesh=6}}{  TEXTR{ s F x -2 PUSH "^m\^saw(x)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y saw(X)+row*LW }
+    }
+    *{y -21 {mesh=9}}{  TEXTR{ s F x -2  PUSH "^m\^square(x)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y square(X)+row*LW }
+    }
+  
+    *{y -24 {mesh=10}}{  TEXTR{ s F x -2 PUSH "^m\^hipas(x,thres)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y hipas(sin(X),0)+row*LW }
+    }
+    *{y -27 {mesh=11}}{  TEXTR{ s F x -2 PUSH "^m\^lopas(x,thres)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y lopas(sin(X),0)+row*LW }
+    }
+    *{y -30 {mesh=12}}{  TEXTR{ s F x -2 PUSH "^m\^abs(x)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y abs(sin(X))+row*LW }
+    }
+    *{y -33 {mesh=13}}{  TEXTR{ s F x -2 PUSH "^m\^round(x)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y round(sin(X))+row*LW }
+    }
+    *{y -36 {mesh=14}}{  TEXTR{ s F x -2 PUSH "^m\^floor(X)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y floor(sin(X))+row*LW }
+    }
+    *{y -39 {mesh=15}}{  TEXTR{ s F x -2 PUSH "^m\^pow(x,exp)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y pow(sin(X), 5)+row*LW }
+    }
+    *{y -42 {mesh=16}}{  TEXTR{ s F x -2 PUSH "^m\^sqrt(x)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y sqrt(sin(X))+row*LW }
+    }
+    *{y -45 {mesh=17}}{  TEXTR{ s F x -2 PUSH "^m\^log(x)" }
+      200*{{X=X+.1}} 2*{{row=row+1}} MESH { x X y log(sin(X))+row*LW }
+    }
+
+
+
+
+  }
+
+
+
+  *{s .05 x -8 y -6.5 {ITALIC=2;BOLD=5;WIDE=2} {BW=.075} ry -30 rx 20} {
+    box{layer -1 z -.25 y .1}
+    TEXT{ s .4 PUSH "^m\^Konte functions" }
+    TEXT{ y -.5 s .4 PUSH "^m\^ cheatsheet" }
+  }
+
+
+
+  *{s W s .275 x 10 y 22 {BOLD=-1.5;WIDE=-2;FLAT=2}}
+  {
+    *{layer -1 x -.5 y 2.5} 22*{x 1} 50*{y -1} { SQUARE{s 1 L .5} SQUARE {s .95 lightness 1 } }
+
+    *{y 0}{  TEXTR{ s F x -2 PUSH "^m\^rndf()" }
+      200*{{X=X+.1}} SQUARE { x X y rndf() s DW }
+    }
+    *{y -3}{  TEXTR{ s F x -2 PUSH "^m\^rnd()" }
+      200*{{X=X+.1}} SQUARE { x X y rnd() s DW }
+    }
+    *{y -6}{  TEXTR{ s F x -2 PUSH "^m\^rnd()+var" }
+      200*{{X=X+.1}} SQUARE { x X y rnd()+FF s DW }
+    }
+    *{y -9}{  TEXTR{ s F x -2 PUSH "^m\^irndf(i)" }
+      200*{{X=X+.1}} SQUARE { x X y irndf(2) s DW }
+    }
+    *{y -12}{  TEXTR{ s F x -2 PUSH "^m\^irnd(i)" }
+      200*{{X=X+.1}} SQUARE { x X y irnd(2) s DW }
+    }
+    *{y -15}{  TEXTR{ s F x -2 PUSH "^m\^irnd(i)+va" }
+      200*{{X=X+.1}} SQUARE { x X y irnd(2)+FF s DW }
+    }
+    *{y -20}{  TEXTR{ s F x -2 PUSH "^m\^binm(n,p,i)" }
+      200*{{X=X+.1}} SQUARE { x X y binm(20, .5, X) * 10 s DW }
+      TEXTR{B .4 {FLAT=1;} x 20 y 2 rz 10 s F*.9 PUSH "^m\^scaled " }
+    }
+    *{y -23}{  TEXTR{ s F x -2 PUSH "^m\^binmc(n,p,i)" }
+      200*{{X=X+.1}} SQUARE { x X y binmc(20, .5, X) s DW }
+    }
+    *{y -26}{  TEXTR{ s F x -2 PUSH "^m\^brndf(n,p)" }
+      200*{{X=X+.1}} SQUARE { x X y brndf(10, .5)*.1 s DW }
+      TEXTR{B .4 {FLAT=1;} x 20 y 2 rz 10 s F*.9 PUSH "^m\^scaled " }
+    }
+    *{y -29}{  TEXTR{ s F x -2 PUSH "^m\^brnd(n,p)" }
+      200*{{X=X+.1}} SQUARE { x X y brnd(10, .5)*.1 s DW }
+      TEXTR{B .4 {FLAT=1;} x 20 y 2 rz 10 s F*.9 PUSH "^m\^scaled" }
+    }
+    *{y -32}{  TEXTR{ s F x -2 PUSH "^m\^pareto(mx,a,d)" }
+      200*{{X=X+.1}} SQUARE { x X y pareto(1, 1, 10)*.1 s DW }
+      TEXTR{B .4 {FLAT=1;} x 20 y 2 rz 10 s F*.9 PUSH "^m\^scaled" }
+    }
+    *{y -35}{  TEXTR{ s F x -2 PUSH "^m\^pareto(1,3,100)" }
+      200*{{X=X+.1}} SQUARE { x X y pareto(1, 3, 100)*.01 s DW }
+      TEXTR{B .4 {FLAT=1;} x 20 y 2 rz 10 s F*.9 PUSH "^m\^scaled" }
+    }
+  }
+
+}
+
+
+
+box{cbox{L 1}}
+cbox {
+ 4*{ry 90}{SQUARE{z -.5 RGB #000000}SQUARE{z -.5 s .9+BW}}
+ 2*{rx 180}{SQUARE{rx 90 z -.5 RGB #000000}SQUARE{rx 90 z -.5 s .9+BW}}
+}

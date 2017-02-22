@@ -1,0 +1,130 @@
+include #monospace
+include #geometry
+
+startshape geometrySheet 
+model { pushstack 100 }
+
+
+geometrySheet {*{s .05 x -8 y 6.5 s .75 {F=.3}} {
+
+  *{s .6 {F=F*2} x .1} {
+    *{y -0} { TEXT { s F PUSH "^m^DEF   RAD  (PI/180)" } }
+    *{y -1} { TEXT { s F PUSH "^m^DEF   DEC  (180/PI)" } }
+    *{y -2} { TEXT { s F PUSH "^m^MACRO SECLB .275*ANG/4/90" } }
+    *{y -3} { TEXT { s F PUSH "^m^DEF   H5YH .5/cos(PI/5)" } }
+    *{y -4} { TEXT { s F PUSH "^m^DEF   H6YH .5/cos(PI/6)" } }
+    *{y -5} { TEXT { s F PUSH "^m^MACRO NGYH .5/cos(PI/n)" } }
+  }
+
+  *{y -4.5} {
+    *{y -0} { SECTOR{{ANG=270}} TEXT { x 1 s F PUSH "^m^SECTOR {{ANG=270}}" } }
+    *{y -1.5} { SECTOR{{ANG=90} rz 45} TEXT { x 1 s F PUSH "^m^SECTOR {{ANG=90} rz 45}" } }
+    *{y -3} { PETAL{{ANG=30;ROUND=0} rz 90} TEXT { x .5 s F PUSH "^m^PETAL {{ANG=30;ROUND=0} rz 90}" } }
+    *{y -3.75} { PETAL{{ANG=30;ROUND=.5} rz 90} TEXT { x .5 s F PUSH "^m^PETAL {{ANG=30;ROUND=.5}" } }
+    *{y -4.5} { PETAL{{ANG=30;ROUND=1} rz 90} TEXT { x .5 s F PUSH "^m^PETAL {{ANG=30;ROUND=1}" } }
+    *{y -5.25} { PETAL{{ANG=30;ROUND=-.1} rz 90} TEXT { x .5 s F PUSH "^m^PETAL {{ANG=30;ROUND=-.1}" } }
+    *{y -6} { PETAL{{ANG=90;ROUND=1} rz 90} TEXT { x .5 s F PUSH "^m^PETAL {{ANG=90;ROUND=1}" } }
+    *{y -7.5 x -.5 } { *{{ANG=30}}(360/ANG)*{rz ANG}PETAL{{ROUND=.5} s .5} 
+        TEXT { x 1 s F PUSH "^m^*{{ANG=30}}" } 
+        TEXT { y -.5 x 1 s F PUSH "^m^    (360/ANG)* {rz ANG}" } 
+        TEXT { y -1 x 1 s F PUSH "^m^        PETAL{{ROUND=.5} s .5}" } 
+    }
+    *{y -10} { FTRI{{X0=-1;Y0=0;X1=.5;Y1=0;X2=.5;Y2=.5}}
+        TEXT { x 1 y .5 s F PUSH "^m^FTRI{{X0=-1;Y0=0;" }
+        TEXT { x 1 s F PUSH "^m^  X1=.5;Y1=0; X2=.5;Y2=.5}}" } 
+    }
+    *{y -11.5} { LINE{{X1=-1;Y1=0;X2=.5;Y2=.5;width=.07;cap=1}}
+        TEXT { x 1 y .5 s F PUSH "^m^LINE{{X1=-1;Y1=0;" }
+        TEXT { x 1 s F PUSH "^m^  X2=.5;Y2=.5;" }
+        TEXT { x 1 y -.5 s F PUSH "^m^  width=.07;cap=1}}" }
+    }
+  }
+
+
+  *{x 7} {
+    PENTAGON {} TEXT{ x 1 s F PUSH "^m^PENTAGON {}" }
+      TEXT{ x 1 y -.5 s F PUSH "^m^( or  TRInGON {{n=5}} )" }
+ 
+    *{y -1.5} { HEXAGON {} TEXT{ x 1 s F PUSH "^m^HEXAGON {}    ,,," } }
+    *{y -3} { OCTAGON {} TEXT{ x 1 s F PUSH "^m^OCTAGON {}" } }
+    *{y -4.5} { TRInGON {{n=9}} TEXT{ x 1 s F PUSH "^m^TRInGON {{n=9}}" } }
+    *{y -6} { DECAGON {} TEXT{ x 1 s F PUSH "^m^DECAGON {}" } }
+    *{y -7.5} { TRInGON {{n=12}} TEXT{ x 1 s F PUSH "^m^TRInGON {{n=12}}" } }
+    *{y -8.5} { TEXT{ x 1 s F PUSH "^m^..." } }
+  }
+  *{x 7} {
+    *{y -9.5} {
+        SKEWSTAR{{n=5;TOOTH=.5}}
+        TEXT { x 1 s F PUSH "^m^SKEWSTAR{{n=5;TOOTH=.5}}" }
+    }
+    *{y -10.5} {
+        SKEWSTAR{{n=5;TOOTH=.8}}
+        TEXT { x 1 s F PUSH "^m^SKEWSTAR{{n=7;TOOTH=.8}}" }
+    }
+   *{y -11.5} {
+        SKEWSTAR{{n=3;TOOTH=.1}}
+        TEXT { x 1 s F PUSH "^m^SKEWSTAR{{n=3;TOOTH=.1}}" }
+    }
+   *{y -12.5} {
+        SKEWSTAR{{n=3;TOOTH=1.2}}
+        TEXT { x 1 s F PUSH "^m^SKEWSTAR{{n=3;TOOTH=1.2}}" }
+    }
+   *{y -13.5} {
+        SKEWSTAR{flipx 0 {n=10;TOOTH=.5}}
+        TEXT { x 1 s F PUSH "^m^SKEWSTAR{flipx 0 {n=10;TOOTH=.5}}" }
+    }
+ }
+ *{x 7 y -15} {
+   *{y -0} { FRAME{{frame=.1}} TEXT { x 1 s F PUSH "^m^FRAME{{frame=.1}}" } }
+   *{y -1.5} { FRAME{{frame=.5}} TEXT { x 1 s F PUSH "^m^FRAME{{frame=.5}}" } }
+
+   *{x 5.5} {
+     *{y -0} { RIM{{ANG=360;rim=.1}} TEXT { x 1 s F PUSH "^m^RIM{{ANG=360;rim=.1}}" } }
+     *{y -1.5} { RIM{{ANG=270;rim=.5}} TEXT { x 1 s F PUSH "^m^RIM{{ANG=270;rim=.5}}" } }
+
+   }
+ }
+
+  *{y -17.5 {ITALIC=2;BOLD=5;WIDE=2} {BW=.075} ry -30 rx 20} {
+    box{layer -1 z -.25 y .1 L 1 }
+    TEXT{ s .4 PUSH "^m^Konte #geometry" }
+    TEXT{ y -.5 s .4 PUSH "^m^ cheatsheet"}
+  }
+
+
+
+  *{x 13} {
+    *{y -0} { nSPHERE{{n=6;mesh=-1} PUSH MESH ry 30 rx 20}
+        TEXT { x 1 s F PUSH "^m^nSPHERE { {n=6} PUSH MESH }" }
+    }
+    *{y -1.5} { nSPHERE{{n=12;mesh=2} PUSH TRIANGLEs01 }
+        TEXT { x 1 s F PUSH "^m^nSPHERE { {n=12}" }
+        TEXT { y -.5 x 1 s F PUSH "^m^ PUSH TRIANGLEs01 }" }
+    }
+    *{y -3} { RBOX{ PUSH mW Xframe s .75} TEXT { x 1 s F PUSH "^m^RBOX{ PUSH mW Xframe }" } }
+    *{y -4.5} { RBOX{ PUSH mQ Xframe s .75 rx 20 } TEXT { x 1 s F PUSH "^m^RBOX{ PUSH mQ Xframe }" } }
+  }
+
+}}
+
+
+nSPHERE {
+  (n+1)*  { ry 360/n {row=row+1}}  
+    (n+1)* { rx 360/n }
+      popper{z -.5}
+}
+
+RBOX {
+    2* { ry 90 }
+    2* { z 1 } popper { z -.5 }
+    2* { y -1 } popper { rx 90 z .5 }
+}
+
+
+popper{POP{}}
+
+TRIANGLEs01 { TRIANGLE { s .1 } }
+Xframe {
+  2*{L 1 s .95} SQUARE { }
+  POP { }
+}
