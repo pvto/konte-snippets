@@ -1,23 +1,26 @@
 MACRO RNDNEG (-1+2*irndf(2))
 MACRO SIGRND rndf()*RNDNEG
-DEF SCALE .0025
-MACRO DEP 1000
+DEF SCALE .00125
+MACRO DEP 1200
 DEF DIM 5
 DEF RETRY 1
 DEF w 0.4
 
-include "http://www.cityofsydney.nsw.gov.au/__data/assets/image/0005/223961/CityArt_logo_RGB.png" hmap
-
+include 
+  //C: "http://doc.qt.io/qt-5/images/ConicalGradient_gradient2.png"
+  //D: "http://0.tqn.com/d/forestry/1/L/Z/8/1/103545157.jpg"
+  "http://chenxing.tjcsabah.com/wp-content/uploads/2014/06/holy-spirit-dove-pvagza1t1.jpg"
+  hmap
+  
 DEF STEP SCALE*1.1
 bg { L 1 }
 
-fov {z -.2 lookat(0, 0, 0)}
+fov {z -.1 lookat(0, 0, 0)}
 
 bar{ //3*{rz 120 {mesh=mesh+1}}
-
-  1*{
-      {nz = nz + SCALE*2; 
-      //VX = SIGRND*.2; VY = SIGRND*.2;
+  10*{ 
+      {nz = nz + 0*SCALE*2; 
+      VX = SIGRND*.2; VY = SIGRND*.2;
   }}
     *{{
     k = rndf()*7;
@@ -44,13 +47,13 @@ foo {
        }
        *{{IX=floor(imgwidth(hmap)/w*(nx+w/2)); 
           IY=floor(imgheight(hmap)/w*(ny+w/2)); }}
-       *{{val=1-imggreen(hmap,IX,IY)}}
-       (RETRY)*{}*{{dim=3+(nx**2+ny**2)**2*120000}}
-	  (dim)*{{DIR=DIR+((1-val)*5)*PI/dim}}
+       *{{val=imggreen(hmap,IX,IY)}}
+       (RETRY)*{}*{{dim=3+(nx**2+ny**2)**2*1000}}
+	  (dim)*{{IT=IT+1}}*{{DIR=(IT+val)*PI/dim}}
 	  *{{
 	      ox=nx; oy=ny; oz=nz;
-	      ny = ny+sin(DIR)*STEP*(1+(.4-saw(ny*3))*4*sin(nx*20+ny*4));
-	      nx = nx+cos(DIR)*STEP*(1+(.4-saw(nx*3))*8*sin(ny*60+nx*2));
+	      ny = ny+sin(DIR)*(STEP*(1));
+	      nx = nx+cos(DIR)*(STEP*(1));
 	      nz = nz
 	  }}
 	  *{{nb=nearby(nx, ny, nz, SCALE/2 + VOID)}}
@@ -66,16 +69,14 @@ foo {
   }
 }
 foo {foo{{DIR=DIR+PI/4*SIGRND}}}
-//foo .05 { foo{} foo{x -1 rz 80 {mesh=irnd(10000000)} } }
-//foo .05 { foo{} foo{x 1 rz -80 {mesh=irnd(10000000)} } }
-//foo { foo{flipy 0} }
 
-DEF WD 4
+
+DEF WD .25
 MACRO ANX SCALE/WD*cos(DIR-PI/2)
 MACRO ANY SCALE/WD*sin(DIR-PI/2)
 MACRO ANZ SCALE/WD
 FOO {
-  FOO_{ x ox y oy z oz} 
+  FOO_{ x ox y oy z oz A -.9+rndf()**12*.5} 
 }
 path FOO_ {
   moveto(-ANX,-ANY,-ANZ)
