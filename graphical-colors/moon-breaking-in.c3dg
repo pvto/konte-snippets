@@ -1,0 +1,42 @@
+DEF ROW 32
+bg{B .1}
+fov{z -1 y -.25}
+
+do {
+  *{z .1 x .1 layer -1 rz 30} {
+    60*{s .99 R .01 G .01}
+      CIRCLE{s .7 R .5 G .5 B .4}
+    RUBBER32{s .6 x -.1 y .1 z -.3}
+  }
+
+  3*{s 1.01 layer 1}
+  (ROW)*{x 1/ROW}
+    *{y -.5} (ROW*1.5)*{y 1/ROW}
+      draw{x -.5 + .5/ROW y -.5 + .5/ROW s 1/ROW z -rndf()}
+}
+draw {
+  SQUARE{s .9 sx 1.5 R .1 G .1}
+  RUBBERHEX{s .5 rz rndf()*90}
+  if (rndf() < .2) {
+    RUBBER32{s 3 x rndf() y rndf() z -.1}
+  }
+  if (rndf() < .2 and sqrt(x**2+y**2) < .37) {
+    //CIRCLE{L 1 S -1 A -.5
+    *{s 3 x rndf() y -rndf()*3 z -.1} {
+      CIRCLE{L 1 S -1 A -.8}
+      BRIGHTNESS32{B .5+rndf()*.2 {LZ=-.2}}
+    }
+  }
+  if (rndf() < .06) {
+    10*{x rndf() rz rndf()*90}
+    RUBBERHEX{s .1 10 1}
+  }
+  GBLUR{s 1.5}
+}
+
+light {AMBIENT s .5}
+light{ PHONG specular 10 alpha 10 s 2.5 {RGB 1 1 1}
+  point(
+    .1,0,.05+LZ
+  )
+}

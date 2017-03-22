@@ -8,12 +8,13 @@ DEF FOLIAGE 600
 
 DEF STEP SCALE*1.1
 
-fov {z -1 y -.1 lookat(0, 0, 0)}
+fov {z -.3 y -2.2 rx -70}
 
 bar{ //3*{rz 120 {mesh=mesh+1}}
-  SQUARE{z 1 s 3 R .2 G .15 B .05}
-  *{{FOO=1}}12000*{}*{{X=SIGRND*.5; Y=SIGRND*.5 }}
-    deco{z .2 x X+sin(X*32)*.2 y Y+sin(Y*4)*.2 
+  500*{y -.01}
+    SQUARE{ z .02 rz rndf()*5 s 1.8 .01 .01 L .2}//R .2 G .15 B .05}
+  *{{FOO=1}}200000*{}*{{X=SIGRND*2.1; Y=SIGRND*4 }}
+    deco{z .2 x X+sin(X*32)*.2 y Y+sin(Y*8)*.1 
       rz rndf()*90 
       s rndf()*.1
       sy rndf() 
@@ -26,17 +27,15 @@ bar{ //3*{rz 120 {mesh=mesh+1}}
 }
 
 deco{BRIGHTNESS{}}
-deco .1{SQUARE{ s .5 z .2 L -.8}}
+deco .1{SQUARE{ s .5 z .2 L -.8 B .04 A -.7}}
 
 foo {
   *{{nb=nearby(nx, ny, nz, SCALE)}}
   {
     if (nb = 0 and D > 0) {
        CIRCLE{x nx y ny z nz R .2 B .4 s SCALE*.1 A -1}
-       FOO{
-         L 1
-       }
-       tree{x (nx+ox)/2 y (ny+oy)/2 z (nz+oz)/2 
+       //FOO{L 1}
+       tree{x ox*.7 y oy-rndf()*2 z .1+oz
          rx 90
          s .005+rndf()*.025}
        (RETRY)*{}
@@ -53,16 +52,13 @@ foo {
 	      and nx**2+ny**2+nz**2 < .12
 	      and nx**2+ny**2+nz**2 > .02
 	    ) {
-	      foo { {D=D-1}}
+	      foo { {D=D-1} }
 	     }
 	  }
     }
   }
 }
 foo {foo{{DIR=DIR+PI/4*SIGRND}}}
-//foo .05 { foo{} foo{x -1 rz 80 {mesh=irnd(10000000)} } }
-//foo .05 { foo{} foo{x 1 rz -80 {mesh=irnd(10000000)} } }
-//foo { foo{flipy 0} }
 
 MACRO ANX SCALE/3*cos(DIR-PI/2)
 MACRO ANY SCALE/20*sin(DIR-PI/2)
@@ -81,11 +77,11 @@ path FOO_ {
 
 include #geometry
 
-tree 4{}
+tree 2{}
 DEF TREEH 10
 tree {
   *{{D=TREEH+irndf(10)}}
-  tree_{ layer 1 }
+  tree_{ }
 }
 tree_ {
   if (D=0) {
@@ -99,7 +95,7 @@ tree_ {
   }
   if (D > 0) {
     pipe{s .2 1 .2 L 1}
-    tree_{y 1 rz 5 ry rndf()*720 s .97 {D=D-1}}
+    tree_{y .5 rz 1 ry rndf()*720 s .97 y .5 {D=D-1}}
   }
   if (D < TREEH - 2 and D > 4) {
      tree_{rz 30+rndf()*30 s .6 y .25 {D=D-2}}
@@ -107,7 +103,7 @@ tree_ {
 }
 
 pipe {
-  10*{ry 360/10} SQUARE{z -.5 s .15 1 .15}
+  10*{ry 360/10} SQUARE{z -.5 s .35 1 .15}
 }
 
 

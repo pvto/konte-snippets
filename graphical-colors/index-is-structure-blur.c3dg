@@ -1,0 +1,60 @@
+//fx 0 { 770000000000000000000000000000000077777777777777700000000000000000000000000000000000000000000000000000000077777777777777777777777777777777777777777777777777777777777777 }
+//fx 0 {77000000000000000000000000007777777000000000777}
+fx 1 { 7 0 0 0 7 7 0 0 7 0 0 0 0 0 0 0 0 0 7 7 7 7 7 7 7 7 7 7 0 0 0 0 0 0 0 7}
+
+include "/home/paavoto/src/solita.github.com.pvto/img/index-is-structure-0.png" finflag_img
+fov { z -1}
+rule wrap {
+    draw_img
+    {
+        DEF
+        {
+            img0 = finflag_img;
+            iw = imgwidth(im0);
+            ih = imgheight(im0);
+            pixsize = (1/imgwidth(im0));
+        }
+        x .1 y -.02 ry 15 rx -15
+    }
+}
+rule draw_img {
+    now_draw{}
+//    now_draw { rx 150 ry 90 y .1 z -.1}
+}
+rule now_draw {
+    (iw) * { DEF {u=u+1} }
+        (ih) * { DEF {v=v+1} }
+          {
+          if (imgred(img0,u,v) = 0) {
+            2*{x .01}
+            flower
+            {
+                x -.5 y (.5*ih/iw)
+                s pixsize x u y -v s (.6+rnd()*.05+z)
+                RGB imgred(img0,u,v) imggreen(img0,u,v) imgblue(img0,u,v)
+            }
+          }
+          }
+}
+rule flower {
+    flow_ { flipy 0 } 
+    2*{layer 2}
+    {  
+       neon{}
+    }
+}
+rule neon {
+      CIRCLE { y -1 s 3 A -.9 }
+      CIRCLE {y .3 z -.5}
+      CIRCLE {G .6 R .6 z -1.6}
+//   if (nn < 8) { neon { y -15 z 1 s .9 rz 10 A -.05 layer -.5  DEF{nn=nn+1}}}
+}
+rule flower {flow_ { }}
+rule flow_ {
+    2*{layer 1}SQUARE { G (0.5-u/200-sin(u)*.1) }
+    flow_ { s .92 y 1 rz 3 rx (z+rnd()-0.5)}
+}
+//rule i_pxl { i_pxl { x 1 } }
+//rule i_pxl { i_pxl { rz 77 } }
+//rule i_pxl { CIRCLE { s 1.5 L -.2 } SQUARE { s .9 z -.1} }
+light  { point( .2,-.2,0) { RGB 1 1 1 } s 1 }

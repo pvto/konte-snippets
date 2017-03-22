@@ -1,0 +1,49 @@
+MACRO RNDNEG (-1+2*irndf(2))
+MACRO SIGRND rndf()*RNDNEG
+DEF MAX .25
+DEF MIN .01
+DEF MOUTH 120
+DEF COC 10
+DEF PACS 800
+fov { z -1 }
+
+foo {
+  //RIM{s .5 layer 1 {rim=.2}}
+  (PACS)*{{N=N+1}}
+    *{x rndf()-.5 y rndf()-.5}
+    place{PUSH PACMAN}
+//  foobar{}
+}
+place {
+  *{{MD=mindist(x,y,z,MAX)*2}} {
+    if (MD > MIN) {
+      POP{s min(MAX, MD)}
+    }
+    if (MD <= MIN) {
+      place{x MAX*SIGRND y MAX*SIGRND R SIGRND}
+    }
+  }
+  
+}
+foobar 1 {
+  *{rz -45 x -1.5 z 1}400*{x .01}SQUARE{s .001 3 .001 layer -1}
+}
+foobar{ foobar{} }
+
+PACMAN {
+  *{{ANG=rndf()*MOUTH+360-MOUTH}}
+  *{s (1.04/1.04**(COC-1))}
+    (COC)*{s 1.04 {No=No+1} L -L*.9+.99**No*RNDNEG}
+      SECTOR {}
+  CIRCLE{s .1 rz 30 y 2.5 z -1.5 L 1 S -1}
+  *{L 1 rz -130 s .3 y 1.5 z -1 y rndf()*.1 x rndf()} {
+    12*{rz 360/12} SQUARE{s .06 .5 .5 y .5}
+    RIM{L 1 S -1  {rim=.15;ANG=360}}
+    RIM{s 1.1 L -1  {rim=.25;ANG=360}}
+  }
+}
+
+
+
+
+include #geometry

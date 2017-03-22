@@ -1,0 +1,15 @@
+sea {
+  64*{y .0125 DEF{tr=tr+.5}}
+  1000*{DEF{n=n+.1}}{
+    feat{x -.5 y -.4 s (1/100) x n
+        y (1/(E**(sin(n*tr*.10)))*1)
+        sy 10 B .05
+    }
+  }
+}
+feat{
+  SQUARE{s .95}
+  RIM{{rim=.05} L 1 S -1}
+}
+
+include #geometry

@@ -1,0 +1,41 @@
+rule set {
+    3* { layer -1 x .5}
+    loop { DEF { re = -1.5 ; im = -0.9} 
+            x -.5    
+            rx (45*x) ry (-45*x)
+            s .3
+    }
+}
+rule loop {
+    262* { rx 1.8 DEF { re=(re+.003) % 1} }
+    400* { ry 1.8 DEF { im=(im+.0027) % 1} }
+      mandelbro { 
+                  DEF { mcolor =
+                        julia(re,im,0.1,0.5)/256
+                  }
+                  s .02 z 15}
+
+}
+
+rule mandelbro { 
+    draw { z ((256/mcolor)*0.002) d (mcolor*40+1)
+             R mcolor 
+             G (1-mcolor)
+             B (saw(mcolor*6+re)+.5)
+             s .8
+    }
+}
+rule draw {
+    SQUARE{lr -1 A -.7 L -.9 s 5 y rndf()-.5 sx .3 skewy 300}
+    CIRCLE { }
+    CIRCLE { z -1 s 2 RGB .2 .2 .2
+             L (square(mcolor*30)+.5) 
+        }
+}
+
+rule trail { 
+    CIRCLE { }
+    trail { A -.04 z 1 }
+}
+bg {RGB 1 1 .9}
+camera { z -2 }

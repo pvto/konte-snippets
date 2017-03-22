@@ -1,32 +1,22 @@
 MACRO RNDNEG (-1+2*irndf(2))
 MACRO SIGRND rndf()*RNDNEG
-DEF SCALE .025
-DEF DEP 80
-DEF DIM 9
-DEF RETRY 20
+DEF SCALE .005
+DEF DEP 1000
+DEF DIM 12
+DEF RETRY 2
 DEF FOLIAGE 600
 
 DEF STEP SCALE*1.1
+bg { G .05 }
 
 fov {z -1 y -.1 lookat(0, 0, 0)}
 
 bar{ //3*{rz 120 {mesh=mesh+1}}
-  SQUARE{z 1 s 3 R .2 G .15 B .05}
-  *{{FOO=1}}12000*{}*{{X=SIGRND*.5; Y=SIGRND*.5 }}
-    deco{z .2 x X+sin(X*32)*.2 y Y+sin(Y*4)*.2 
-      rz rndf()*90 
-      s rndf()*.1
-      sy rndf() 
-      B .5+rndf()*.03 }
-      
   foo{{D=DEP;DIR=PI/2;
       nx=-.25;
       ox=-.25;oy=0;oz=0;
   }}
 }
-
-deco{BRIGHTNESS{}}
-deco .1{SQUARE{ s .5 z .2 L -.8}}
 
 foo {
   *{{nb=nearby(nx, ny, nz, SCALE)}}
@@ -34,11 +24,11 @@ foo {
     if (nb = 0 and D > 0) {
        CIRCLE{x nx y ny z nz R .2 B .4 s SCALE*.1 A -1}
        FOO{
-         L 1
+         L 1 - D%2 * .4
        }
        tree{x (nx+ox)/2 y (ny+oy)/2 z (nz+oz)/2 
          rx 90
-         s .005+rndf()*.025}
+         s .005+rndf()*.015}
        (RETRY)*{}
 	  (DIM)*{{DIR=DIR+2*PI/DIM}}
 	  *{{
@@ -64,27 +54,24 @@ foo {foo{{DIR=DIR+PI/4*SIGRND}}}
 //foo .05 { foo{} foo{x 1 rz -80 {mesh=irnd(10000000)} } }
 //foo { foo{flipy 0} }
 
-MACRO ANX SCALE/3*cos(DIR-PI/2)
-MACRO ANY SCALE/20*sin(DIR-PI/2)
-MACRO ANZ SCALE/20
-FOO {
-  FOO_{ x ox y oy z oz} 
-}
-path FOO_ {
-  moveto(-ANX,-ANY,-ANZ)
-  lineto(-ox+nx-ANX,-oy+ny-ANY,-oz+nz-ANZ)
-  lineto(-ox+nx+ANX,-oy+ny+ANY,-oz+nz+ANZ)
-  lineto(ANX,ANY,ANZ)
+MACRO ANX SCALE/10*cos(DIR-PI/2)
+MACRO ANY SCALE/10*sin(DIR-PI/2)
+MACRO ANZ SCALE/10
+path FOO {
+  moveto(ox-ANX,oy-ANY,oz-ANZ)
+  lineto(nx-ANX,ny-ANY,nz-ANZ)
+  lineto(nx+ANX,ny+ANY,nz+ANZ)
+  lineto(ox+ANX,oy+ANY,oz+ANZ)
   close
 }
 
 
 include #geometry
 
-tree 4{}
+tree 30{}
 DEF TREEH 10
 tree {
-  *{{D=TREEH+irndf(10)}}
+  *{{D=TREEH+irndf(3)}}
   tree_{ layer 1 }
 }
 tree_ {
@@ -111,10 +98,9 @@ pipe {
 }
 
 
-light {AMBIENT s .25+FOO*.75}
-light {PHONG specular 10 alpha 10 s 2 {RGB 1 1 1}
+light {AMBIENT s .25}
+light {PHONG specular 10 alpha 10 s 3.5 {RGB 1 1 1}
   point(
-    0, 1+FOO*3, -1+FOO
+    0,1,-1
   )
 }
-
