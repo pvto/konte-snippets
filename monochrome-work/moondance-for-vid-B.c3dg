@@ -1,0 +1,45 @@
+
+
+sc {
+  foo{{n=12}}
+  if (RYY>148) {
+    10*{L-L+it%2{it=it+1} s .9}
+      CIRCLE{s sin(hipas(RYY-45,0)/360*PI) z hipas(RYY-60,0)/90}
+  }
+}
+
+foo{
+  *{x -.5+.5/n y -.5+.5/n s 1/n {X=-.5;Y=-.5}}
+    (n)*{x 1 {X=X+1/n}}(n)*{y 1 {Y=Y+1/n}}
+      2*{L 1 s pareto(3,9,10)*.1*Y*4}
+        draw{s .9 ry sin((X+Y)*6+(2*X*X-3*Y*Y)*10)*20}
+
+}
+
+draw{
+  arc{s 1 
+    { w=.3*abs(sin(x*100));
+      bendx=-.1-.5*abs(sin(y*PI*100+sin(hipas(RYY-90,0)/90*PI/2)));
+      bulge=-.3-.3*abs(sin((y)*PI*100));
+    } 
+    rz sin((x*PI)**3*.3+(y*PI)*.3+hipas(RYY-0,0)*.25*x*y)*360
+  }
+  if (sin(X**2*15+Y**2*.1)%.1 < .03) { 
+    RADTR{ rz sin(Y*3)*180 y sin(X*5) 
+      z -.3 
+      B abs(sin(RYY/90*PI/2))
+      R -R+.53+sin(hipas(RYY-90,0)/90*PI)*.47 s 2} } 
+}
+
+path arc {
+  moveto(-w/2,-.5,0)
+  bend(-w/2+bendx+bulge,-.5+bendy,0)
+  bend(-w/2+bendx+bulge,.5-bendy,0)
+  curveto(-w/2,.5,0)
+  lineto(w/2,.5,0)
+  bend(w/2+bendx,.5-bendy,0)
+  bend(w/2+bendx,-.5+bendy,0)
+  curveto(w/2,-.5,0)
+  lineto(-2/2,-.5,0)
+  close
+}

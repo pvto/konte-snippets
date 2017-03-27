@@ -1,0 +1,57 @@
+
+
+light {AMBIENT s .25}
+light {PHONG specular 10 alpha 10 s 2 {RGB 1 1 1}
+  point(
+    -2,-3,2
+  )
+}
+
+
+background { RGB #000000 }
+//model { maxshapes 30000000 order STREAM}
+camera { z -1.5 lookat(-.08,0,0)}
+rule do {
+    *{x -.4 y .1} 2*{x .7 y -.2} *{s .5}
+    *{ry (x*30)}
+    *{rz 180}
+    10*{s .8}
+    tower_top { s .85 L .5 d 7
+      ry 0*45
+    }
+}
+ 
+
+
+rule CUBE {
+    face { x -.5 L .2 ry 90 }
+    face { x .5 L .4 ry 90 }
+    face { z -.5 L .5 }
+    face { y .5 rx 90 L .2 }
+    face { y -.5 rx -90 L .5}
+}
+
+DEF SLIN (1-1/sqrt(2))/2
+DEF PROTR .75
+ 
+rule tower_top {
+    CUBE { ry 110 }
+//    tower_top { x -.5 rx 45 s .75 x -(PROTR-.5) rz 90 rx 45  }
+//    tower_top { z -.5 y .15 x -.6 s .5 z -0*(PROTR-.5) }
+//    tower_top { y -.5 s .75 x -.5 y -(PROTR-.5)}
+}
+
+face {
+    *{{n=2**(d+3)}}
+    (n)*{x 1/n {u=u+1}} (n)*{y 1/n {v=v+1}} {
+      if ((u/n-.5)**2+(v/n-.5)**2 > .24) {
+        SQU11{x -.5 y -.5 s 1/n L -rndf()*.3}
+      }
+    }
+}
+
+SQU11{CIRCLE{s 1.5 rz (y**2)*3*90 skewx 200
+  }
+}
+include #recursions
+include #geometry

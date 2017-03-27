@@ -1,0 +1,25 @@
+
+
+sc {
+  foo{{n=60}}
+  RCross { {D=1;SUB=.6;SUBX=.65}
+    s .3 z -.5 PUSH foo box  rotx 40 roty 45 {n=20}}
+}
+
+foo{
+  *{x -.5+.5/n y -.5+.5/n s 1/n {X=-.5;Y=-.5}}
+  (n)*{x 1 {X=X+1/n}}(n)*{y 1 {Y=Y+1/n}}
+  2*{L 1 s pareto(3,5,10)*.1*Y*4}
+  SQUARE{s .9 ry sin((X+Y)*60+(2*X*X-3*Y*Y)*10)*20}
+}
+
+
+rule Popper {   POP { } }
+
+rule box {
+    2* { ry 90}
+    2* { z 1} Popper { z -.5 }
+    2* { y -1 } Popper { rx 90 z .5}
+}
+
+include #recursions

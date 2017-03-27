@@ -1,0 +1,6 @@
+f{
+  *{s .75}360*{rz 1}15*{s .7}
+  FRAME{{frame=.001}}
+}
+
+include #geometry

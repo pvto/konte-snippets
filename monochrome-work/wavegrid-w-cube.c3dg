@@ -1,0 +1,21 @@
+sc {
+  foo{}
+  box{s .5 PUSH foo}
+}
+
+foo{
+  *{{n=60}}
+  *{x -.5+.5/n y -.5+.5/n s 1/n}
+  (n)*{x 1}(n)*{y 1}
+  2*{L 1 s pareto(3,5,10)*.1*y*4}
+  SQUARE{s .9 ry sin((x+y)*60+(2*x*x-3*y*y)*10)*20}
+}
+
+
+rule Popper {   POP { } }
+
+rule box {
+    2* { ry 90 H -20}
+    2* { z 1 L 1 S .5 H 240} Popper { z -.5 }
+    2* { y -1 H 20 } Popper { rx 90 z .5 L .3 H 20 }
+}
