@@ -1,0 +1,41 @@
+DEF N 40
+system Particle2 Parts init(N, 1, .8, 1,
+    10, 1, -0.005)
+system Particle2 Parts2 init(N, .1, .8, 1,
+    10, 1, -0.002)
+system Particle2 Parts3 init(N, .1, .8, 1,
+    10, 1, -0.004)
+
+model{order STREAM}
+fov{z -1}
+partt{
+  void{col0 syswrite(Parts, 0, 0, 0.0000001)
+    col0 syswrite(Parts, 0, 3, 10)
+    col0 syswrite(Parts, 1, 3, 10)
+    }
+  void{col0 syswrite(Parts2, 0, 0, 0.0000001)}
+  void{col0 syswrite(Parts3, 0, 0, 0.000001)}
+
+  foo{{SYS=Parts}}
+  //foo{{SYS=Parts2}}
+  //foo{{SYS=Parts3}}
+}
+
+foo {
+  *{s .9}
+  20000*{ col0 syseval(SYS) }
+  (N)*{{p=p+1}}
+  *{ A -.9
+    x .2 + sysread(SYS, p, 1)
+    y sysread(SYS, p, 2)
+    s .005 + sysread(SYS, p, 3)*.01
+    R (p+2)%2 G (p*2+1)%3 B p%2
+    L -(1/(.001+10000*abs(sysread(SYS,p,10))))
+  } {
+    //CIRCLE{lr -1 s 3 R 1 B -1 G -1}
+    CIRCLE{s (2-L)*3 rz rndf()*90 sx (.01+L)*.5 }
+  }
+
+}
+
+void{}

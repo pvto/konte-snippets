@@ -1,0 +1,54 @@
+DEF N 100
+system Particle2 Parts init(N, .1, .8, 1,
+    10, 1, -0.001)
+system Particle2 Parts2 init(N, .1, .8, 1,
+    10, 1, -0.002)
+
+model{order STREAM}
+fov{z -1}
+partt{
+  void{col0 syswrite(Parts, 0, 0, 0.000001)} // set time increment to 0.01
+  void{col0 syswrite(Parts2, 0, 0, 0.000001)} // set time increment to 0.01
+
+//  foo{{SYS=Parts}}
+//  foo{{SYS=Parts2}}
+ 
+  *{s .9}
+  3000*{ col0 syseval(Parts) }
+  (N)*{{p=p+1}}
+  CIRCLE{ A -.9
+    x .2 + sysread(Parts, p, 1)
+    y sysread(Parts, p, 2)
+    s .005 //s (sysread(Parts, p, 3) * 5)**2.5
+    R (p+2)%2 G (p*2+1)%3 B p%2
+    L -(1/(.001+10000*abs(sysread(Parts,p,10))))
+  }
+
+  *{s .9}
+  3000*{ col0 syseval(Parts2) }
+  (N)*{{p=p+1}}
+  CIRCLE{ A -.9
+    x .2 + sysread(Parts2, p, 1)
+    y sysread(Parts2, p, 2)
+    s .005 //s (sysread(Parts2, p, 3) * 5)**2.5
+    B p*.5%2
+    L -(1/(.001+10000*abs(sysread(Parts2,p,10))))
+  }
+  
+}
+
+foo {
+  *{s .9}
+  3000*{ col0 syseval(SYS) }
+  (N)*{{p=p+1}}
+  CIRCLE{ A -.9
+    x .2 + sysread(SYS, p, 1)
+    y sysread(SYS, p, 2)
+    s .005 //s (sysread(SYS, p, 3) * 5)**2.5
+    R (p+2)%2 G (p*2+1)%3 B p%2
+    L -(1/(.001+10000*abs(sysread(SYS,p,10))))
+  }
+
+}
+
+void{}

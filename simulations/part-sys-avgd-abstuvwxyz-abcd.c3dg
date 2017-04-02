@@ -1,0 +1,35 @@
+DEF N 8
+DEF C 20000
+
+system Particle2 Parts init(N, .1, 9, 10,
+    3, 1, 7, -.01)
+system Particle2 Parts2 init(N, .2, 1, 3,
+    0, 1, 2, 0)
+system Particle2 Parts3 init(N, .6, 9, 10,
+    0, 1, 7, 0)
+
+MACRO PP i/C*.5 + .2
+
+model{order STREAM}
+fov{z -2 }//x 1.15 y 1.1}
+partt{
+  void{col0 syswrite(Parts, 0, 0, 0.0000001)
+  	       +syswrite(Parts2, 0, 0, 0.0000001)
+            +syswrite(Parts3, 0, 0, 0.0000001)}
+  
+
+  *{s .9}
+  (C)*{ col0 syseval(Parts)+syseval(Parts2)+syseval(Parts3) {i=i+1}}
+  (N)*{{p=p+1}} {
+  CIRCLE{ A -.98 R PP x -.75 y .5 x .5*sysread(Parts, p, 1) y .5*sysread(Parts, p, 2) s .007}
+  CIRCLE{ A -.98 G PP x .75 y .5 x .5*sysread(Parts2, p, 1) y .5*sysread(Parts2, p, 2) s .007}
+   CIRCLE{ A -.6
+    x -.2*0+.5*((sysread(Parts, p, 1)+sysread(Parts2, p, 1)))**1
+    y -.3+.5*((sysread(Parts, p, 2)+sysread(Parts2, p, 2)))**1
+    s .007 G PP R PP
+    //sx 50*rndf()**20
+    }
+  }
+}
+
+void{}

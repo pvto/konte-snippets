@@ -1,0 +1,28 @@
+DEF N 24
+DEF C 6000
+
+system Particle2 Parts2 init(N, .3, .8, 1,
+    10, 0, 5, -.01)
+
+model{order STREAM}
+fov{z -2}
+partt{
+  void{col0 syswrite(Parts2, 0, 0, 0.000005)} // set time increment to 0.01
+  
+
+  *{s .9}
+  (C)*{ col0 syseval(Parts2) {i=i+1}}
+  (N)*{{p=p+1}}
+  CIRCLE{ A -.9
+    x .2 + sysread(Parts2, p, 1)
+    y sysread(Parts2, p, 2)
+    s .005 //s (sysread(Parts2, p, 3) * 5)**2.5
+    B p*.5%2*.5
+    G i/C
+    L -(1/(.001+10000*abs(sysread(Parts2,p,10))))
+    rz 90+atan(sysread(Parts2, p, 20) / max(.00001,sysread(Parts2, p, 10))) / PI * 180
+    sx 400*rndf()**10
+  }
+}
+
+void{}

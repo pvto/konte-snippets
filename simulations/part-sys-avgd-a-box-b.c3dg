@@ -1,0 +1,29 @@
+DEF N 200
+DEF C 300
+
+system Particle2 Parts init(N, .6, .8, 1,
+    10, 0, 1, 0)
+system Particle2 Parts2 init(N, .1, .8, 1,
+    10, 0, 1, 0)
+
+model{order STREAM}
+fov{z -1}
+partt{
+  void{col0 syswrite(Parts, 0, 0, 0.00004)} // set time increment to 0.01
+  void{col0 syswrite(Parts2, 0, 0, 0.00004)} // set time increment to 0.01
+  
+
+  *{s .9}
+  (C)*{ col0 syseval(Parts)+syseval(Parts2) {i=i+1}}
+  (N)*{{p=p+1}}
+  CIRCLE{ A -.5
+    x -.5+i/C  //.2 + (sysread(Parts, p, 1)+sysread(Parts2, p, 1))/2
+    y -.5+p/N  //(sysread(Parts2, p, 1)+sysread(Parts2, p, 2))/2
+    s 1/N*1.25
+    L atan((sysread(Parts, p, 2)+sysread(Parts2, p, 2))/2, (sysread(Parts, p, 1)+sysread(Parts2, p, 1))/2)
+    S (sysread(Parts, p, 1)**2+sysread(Parts, p, 2)**2)**.5
+    
+   }
+}
+
+void{}
