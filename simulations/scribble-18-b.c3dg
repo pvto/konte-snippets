@@ -1,0 +1,44 @@
+DEF N 18
+DEF C 2000
+
+system Particle2 Parts init(N, .1, 8, 10,
+    100, -.1, 6, 0)
+system Particle2 Parts2 init(N, .1, 8, 10,
+    100, -.1, 6, 0)
+system Particle2 Parts3 init(N, .1, 8, 10,
+    100, -.1, 6, 0)
+    
+model{order STREAM}
+fov{z -.1 FISHEYE .3 3 2}
+
+partt{
+  void{col0 syswrite(Parts, 0, 0, 0.000001)
+            +syswrite(Parts2, 0, 0, 0.000001)
+            +syswrite(Parts3, 0, 0, 0.000001)}
+  
+
+  *{s .9}
+  (C)*{ col0 syseval(Parts)+syseval(Parts2)+syseval(Parts3)
+        {i=i+1; row=row+1}}
+  (N)*{{p=p+1; mesh=mesh+1}
+        col0 syswrite(Parts, p, 3, sysread(Parts,p,3)+.1)
+            +syswrite(Parts2, p, 3, sysread(Parts2,p,3)+.1)
+            +syswrite(Parts3, p, 3, sysread(Parts3,p,3)+.1)
+  }
+  *{ {u=(sysread(Parts, p, 1)+sysread(Parts2, p, 1)+sysread(Parts3, p, 1))/12;
+      v=((sysread(Parts2, p, 1)+sysread(Parts2, p, 2)+sysread(Parts3, p, 1)))/12;}}
+  *{
+    x u
+    y v
+    s .007
+    L p*.5%2*.5
+    S i/C
+    L -(1/(.001+10000*abs(sysread(Parts2,p,10))))
+    L 1/((u**2+v**2)**3*10000000+.0001)
+  } {
+    MESH{}
+    MESH{x .2}
+  }
+}
+
+void{}
