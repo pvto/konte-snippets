@@ -1,0 +1,60 @@
+fov {z -2 x -1.5 y 1 lookat(.3,0,.6)}
+DEF MAXITER 6
+DEF SUBSZ .5
+DEF SUBSZ2 .4
+DEF REACH .4
+DEF REACH2 .75
+
+
+light {AMBIENT s .25}
+light {PHONG specular 30 alpha 50 s 1.7 {RGB 1 1 1}
+  point(
+    -1,0, -2
+  )
+}
+
+
+scene{
+  subcross{ s 1}
+}
+subcross{
+  drawsubcross{}
+  if (ITER < MAXITER - 1) {
+    4*{rz 90}
+      sub_{x REACH s SUBSZ PUSH subcross2}
+    2*{rx 180}
+      sub_{z -REACH s SUBSZ PUSH subcross2}
+  }
+}
+
+
+subcross2{
+  drawsubcross{}
+  if (ITER < MAXITER - 1) {
+    4*{rz 90}
+      sub_{x REACH2 s SUBSZ2 PUSH subcross}
+    2*{rx 180}
+      sub_{z -REACH2 s SUBSZ2 PUSH subcross}
+  }
+}
+
+sub_ {
+  POP{
+    DEF{ITER=ITER+1}}
+}
+
+drawsubcross{
+  if (ITER > MAXITER*0) {
+    *{{SSQ=7-ITER}} {
+      4*{rz 90} subsqu{y .5 rx 90 L 1}
+      2*{rx 180} subsqu{z -.5 L 1}
+    }
+  }
+}
+
+subsqu{
+  if (SSQ=0){SQUARE{s 1.25}}
+  if (SSQ > 0) {
+    2*{x .5}2*{y .5}subsqu{x -.25 y -.25 s .5 DEF{SSQ=SSQ-1}}
+  }
+}

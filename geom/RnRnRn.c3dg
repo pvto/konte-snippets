@@ -1,0 +1,8 @@
+
+L1 {Rn{{n=6;D=3} PUSH L2}}
+L2 {Rn{{n=4;D=2} PUSH L3 s 3 }}
+L3 {Rn{{n=7;D=2} PUSH tri s 4}}
+tri { TRInGON{s .03+sqrt(x**2+y**2)*.2 
+  sy (1-2*sqrt(x**2+y**2))}}
+include #recursions
+include #geometry

@@ -1,0 +1,34 @@
+rule set {
+    1* { flipy 0 rz 90} loop { DEF { re = -1.5 ; im = -1} 
+            //s .75 .75 1 
+            ry 20
+    }
+}
+rule loop {
+    360* { DEF { re=re+.01} }
+    180* { DEF { im=im+.01; row=row+1} }
+    draw { 
+        shading yellows
+        DEF { mcolor =
+            julia(re,im,0.525,0.625)/256
+        }
+    }
+}
+rule draw {
+    16* {DEF { mesh=mesh+100} rx 130 ry 110 s 1.02} 
+    *{{Z=-(.6+sin(re*17+im*18+mesh)*.01)}}
+    MESH { 
+
+             ry (re*100) rx (im*100) 
+             z Z s .01
+             col0 (saw(mcolor**2*1000)+.5) 
+             {SAT=sin(mcolor*im*re*100)*.1-(Z+.5)*10}
+             //B (saw(mcolor*7+re)+.5)
+             A -1.5+sin(re**2*1+im**2*30)**3*1.3
+    }
+    
+
+}
+bg {RGB .2 .2 .2}
+camera { z -2 }
+include "../colors/bright-yellows.c3dg"

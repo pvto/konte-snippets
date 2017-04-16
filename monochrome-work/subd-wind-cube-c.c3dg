@@ -4,7 +4,42 @@ light {AMBIENT s 0}
 light {PHONG specular 100 alpha 10 s 2.5 {RGB 1 1 1}
   point(0,0,-.2) }
 
-startshape test
+DEF DEPTH 1
+
+
+tpaint {
+  spc{{D=DEPTH; X=0; Y=0; Z=0; SZ = 1} s .5 ry 30 rx -20}
+}
+
+spc {
+  if (D = 0) {
+    tpBox{}
+  }
+  if (D > 0) {
+    3*{{X=X+SZ/3}} 
+    2*{{Z=Z+2*SZ/3}}
+    2*{{Y=Y+2*SZ/3}}
+      spc_{{X=X-SZ/3; Y=Y-SZ/3; Z=Z-SZ/3}}
+    2*{{X=X+2*SZ/3}}
+    2*{{Z=Z+2*SZ/3}}
+      spc_{{X=X-SZ/3; Z=Z-SZ/3}}
+    2*{{Y=Y+2*SZ/3}}
+    2*{{X=X+2*SZ/3}}
+      spc_{{Y=Y-SZ/3; X=X-SZ/3}}
+  }
+}
+spc_{spc{{SZ=SZ/3; D=D-1}}}
+
+
+tpBox {
+  *{{Z=Z - .5*SZ}}	tt{{pX=X; pY=Y; RY=180}}
+  *{{Z=Z + .5*SZ}}	tt{{pX=-X; pY=Y}}
+  *{{X=X - .5*SZ}}	tt{{pX=-Z; pY=Y; RY=90}}
+  *{{X=X + .5*SZ}} 	tt{{pX=Z; pY=Y; RY=-90}}
+  *{{Y=Y - .5*SZ}}	tt{{pX=X; pY=Z; RX=90}}
+  *{{Y=Y + .5*SZ}} 	tt{{pX=-X; pY=Z; RX=-90}}
+}
+tt { test { x X y Y z Z s SZ ry RY rx RX} }
 
 R1{sd6_6r{PUSH R2 {O=1}}}
 R2{sd4_r4t{PUSH R3b R3a {O=O*o}}}
@@ -23,13 +58,13 @@ test {
   *{{
     //{x1=rf;y1=rf;x2=rf;y2=rf;x3=rf;y3=rf;x4=rf;y4=rf}
     //{x1=-.2;y1=.2;x2=.2;y2=.2;x3=.2;y3=-.2;x4=-.2;y4=-.2}
-    x1=.5; y1=H6YH;
-    x2=-.5+0*cos(RAD*(90+60*1))*H6YH; y2=H6YH+0*sin(RAD*(90+60*1))*H6YH;
-    x3=cos(RAD*(90+60*2))*H6YH; y3=sin(RAD*(90+60*2))*H6YH*0-H6YH;
-    x4=cos(RAD*(90+60*3))*H6YH; y4=sin(RAD*(90+60*3))*H6YH;
-    x5=cos(RAD*(90+60*4))*H6YH; y5=sin(RAD*(90+60*4))*H6YH*0-H6YH;
-    x6=cos(RAD*(90+60*5))*H6YH; y6=sin(RAD*(90+60*5))*H6YH; }}
-  R1 { {border = .2} s .85}
+    x1=.5; y1=.5;
+    x2=-.5; y2=.5;
+    x3=-.5; y3=-.5;
+    x4=.5; y4=-.5;
+    x5=.5; y5=-.5;
+    x6=.5; y6=.5; }}
+  R1 { {border = .1} s 1}
 }
 
 include #geometry
@@ -299,7 +334,7 @@ sd6_3r {
 pop{POP{}}
 
 twoRect{
-  RECT{L -1}
+  //RECT{L -1}
   *{{b1=1-border}}
   RECT{
     { 
@@ -312,7 +347,7 @@ twoRect{
 
 
 twoTri{
-  TRI{}
+  //TRI{}
   *{{b1=1-border}}
   TRI{B .2 A .5
     { x1=x1*b1+(x2+x3)*border/2; y1=y1*b1+(y2+y3)*border/2;

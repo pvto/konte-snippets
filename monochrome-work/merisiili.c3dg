@@ -1,0 +1,30 @@
+bg{RGB #101010}
+fov{x -1 lookat(0,0,-1)}
+
+light {AMBIENT s .5}
+light {PHONG specular 30 alpha 30 s 6 {RGB 1 1 1}
+  point(
+    1,
+    1,
+    0
+  )
+}
+
+
+DEF N 200
+DEF N1 360/N
+siili{do{z -1}}
+do{
+   (N)*{ry N1 ry rndf()*1}
+   (N)*{rx N1 rx rndf()*1}
+    h{d 20 s .04 y 2 L .5 
+      {mesh=inc();
+       ambient = .1;
+       diffuse = .7;
+}}
+}
+h{
+    6*{ry 60 d -1}MESH{z -.03}
+    h{y 1 s .95 sx .8 sz .8 {row=row+1} rx 4 ry 5}
+}
+h{h{rz .2}}  h{h{rz -.2}}

@@ -1,0 +1,69 @@
+bg {L .1}
+MACRO CONTOUR sin(Y*PI*2.3)*.25*sin(Y**2*PI/2)
+MACRO HEAD sin(Y*PI*5)*.075
+
+fov{z -1.6 y .05 x -.15}
+
+light {AMBIENT s .25}
+light {PHONG specular 10 alpha 10 s 1.5 {RGB 1 1 1}
+  point(
+    2,0,-2
+  )
+}
+
+
+contourLine {
+  *{x -1 y -1 z .1}
+  200*{y .01}
+  250*{x .008}
+  *{s .003 x rndf()}
+    5*{A -.15 x .1 rz irndf(10)}
+    TRIANGLE { 
+      s 1+pareto(1,1.001,6)
+      rz irndf(50)
+      shading misty_city_by_sea 
+      col0 (sin(y*150)+sin(x**2*10+y**2*.1)*.6)
+      {SAT=-1+rndf()**5*2}
+      
+    }
+*{rz -25} {
+  *{{N=100;Y=0;} s .7 y -.5}
+    (N)*{{Y=Y+1/N}}
+      200*{{SS=.5}}
+        xshift{{FORM=CONTOUR}}
+  *{{N=50;Y=0;SPAN=.5} y -.5 x -.3 rz -20}
+    (N)*{{Y=Y+SPAN/N}}
+      200*{{SS=.5}}
+        xshift{{FORM=CONTOUR}}
+  *{{N=25;Y=0;SPAN=.25} y .5}
+    (N)*{{Y=Y+SPAN/N}}
+      20*{{SS=.5}}
+        xshift{{FORM=HEAD}}
+  }
+}
+
+xshift {
+  *{x FORM*rndf()*(-1+2*irndf(2))}
+    element0{ 
+      z cos(abs(x))*.1
+      y Y s 1/N*16*SS
+      shading misty_city_by_sea 
+      col0 Y-rndf()*.2 
+      {SAT=rndf()**1.3}
+    }
+}
+
+element0 {
+  10*{y -.5 x sin((-.5-Y)**3*.5)} element{}
+}
+element{element{rz 10}}
+element .3 {element{z -.1 s .25}}
+element {
+//  SQUARE{s 15 rz rndf()*90 ry rndf()*30 A -.95 z rndf()*50}
+  SQUARE{A -.95 {SAT=SAT-.7} x -1 z .5}
+  SQUARE{s 1.03 {SAT=0}}
+  SQUARE{}
+}
+
+
+include "/home/paavo/konte/gram/colors/misty_city_by_sea.c3dg"

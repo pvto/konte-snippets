@@ -1,0 +1,24 @@
+
+L1 {Rn{{n=6;D=3} PUSH L2 shading myc} 
+//  5*{s .67} 2*{} RADTR{R 1 B .6}
+}
+L2 {Rn{{n=4;D=2;faa=faa+(x**2+y**2)*15} PUSH L3 s 3 }}
+L3 {Rn{{n=7;D=1} PUSH tri s 4}}
+tri { TRInGON{s rndf() A -.9
+  col0 sin((x**2+y**2+faa)*12)*1 }}
+include #recursions
+include #geometry
+
+
+shading myc {
+    point(0.0) { A (A)
+        RGB 0.2 .4 0.2 }
+    point(.5) { A (A)
+        RGB 0.498 0 0.498 }
+    point(1) { A (A)
+        RGB 0.4 1.0 1.0 }
+    point(0.25) { A (A)
+        RGB 0.8 0.8 0.8 }
+    point(.75) { A (A)
+        RGB 0.4 0.4 0.4 }
+}

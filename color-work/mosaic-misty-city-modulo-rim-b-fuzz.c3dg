@@ -1,0 +1,27 @@
+include "/home/paavo/konte/gram/colors/misty_city_by_sea.c3dg"
+include #geometry
+include #monospace
+include #recursions
+startshape frame
+fov {ORTOGRAPHIC z -1}
+
+frame {
+/*  *{{HIP=1+rndf()*2; HIY=1+rndf()*2}}
+  *{{n=49} x -.5 y -.5}
+  (n)*{x 1/n {u=u+1}} (n)*{y 1/n {v=v+1}}
+    *{shading misty_city_by_sea
+     col0 saw(u+v%2)
+      {SAT=floor((u+v)%2)
+        *
+        saw((u**HIP/2+v**HIY/3)%2)
+      }
+    } R4{{D=3} s 1.2/n PUSH sub}*/
+  10*{s .9 {i=i+1}} SQUARE{L i%2}
+  //10*{}*{x -.3+rndf()*.6 s .4 y -.3+rndf()*.6}
+  *{{n=4}}8*{{n=n+1}}
+  *{s 1/n x -(n-1)/2 y -(n-1)/2}(n)*{x 1}(n)*{y 1}
+  10*{}RADTR{R .5+.4*(-.5+rndf()) B .3+.3*rndf()}
+}
+sub .3 { sub{{SAT=SAT-.1}} }
+sub 3 { sub{col0 (col0+.1)} }
+sub { RIM{s 1.2*rndf()**3*12} }
