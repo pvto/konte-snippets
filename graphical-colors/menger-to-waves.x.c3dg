@@ -1,0 +1,59 @@
+DEF GRID 25
+DEF GRIDb 13
+DEF GRIDc 3
+system Perlin2 Perlin init(GRID, GRID)
+system Perlin2 Perlinb init(GRIDb, GRIDb, 10)
+system Perlin2 Perlinc init(GRIDc, GRIDc)
+MACRO PERL 
+  (sysread(Perlin, x*GRID, y*GRID)
+  + sysread(Perlinb, x*GRIDb, y*GRIDb)
+  + sysread(Perlinc, x*GRIDc, y*GRIDc))
+
+DEF niter 4
+
+rule req {  
+    1* {z 1 y .5 x .5 } 
+    pand { shading dim2 
+        d niter s .5  ry 60 rx 30} }
+
+rule pand {
+    bbox  {d -1 }
+    2*{ x .6666666 } 3*{ y .3333333 } 2*{ z .6666666 }
+    prand { s .3333333 x -1 y -1 z -1 DEF {count=count+1}}
+    2*{ y .6666666 } 2*{ z .6666666 }
+    prand { s .3333333 y -1 z -1 DEF {count=count+1}}
+    2*{ y .6666666 } 2*{ x .6666666 }
+    prand { s .3333333 y -1 x -1 DEF {count=count+1}}
+
+}
+rule prand { pand { d (d) } }
+rule  bbox { 
+    pre { niter < count+2 } 
+    draw{ }
+}
+
+rule draw { 
+
+    box { x sin(y*10)*30 s .99 1 1 col0 PERL}
+}
+rule box {
+    2* { ry 90 H -20}
+    2* { z 1 L 1 S .5} SQUARE { z -.5 }
+    2* { y -1 H 20 } SQUARE { rx 90 z .5 L .3 H 20 }
+
+}
+
+bg { RGB #000000 }
+DEF FIEL 0.001
+shading dim2 { 
+    point(-1) { RGB 0 0 .2}
+    point(2) { RGB 1 0 0}
+    point(0) { RGB 0 0 .1}
+    point(-2) { RGB .5 .5 0}
+    A (A)
+}
+light {AMBIENT s .3}
+light {PHONG specular 10 alpha 10 s 3 {RGB 1 1 1}
+  point(-4,0,2)}
+light {PHONG specular 10 alpha 1 s 4 {RGB 1 1 1}
+  point(4,0,-2)}

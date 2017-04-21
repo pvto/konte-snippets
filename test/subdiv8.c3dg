@@ -1,0 +1,73 @@
+DEF S8 2*PI/8
+octa {
+  *{{
+    x1=cos(1*S8)*.5; y1=sin(1*S8)*.5;
+    x2=cos(2*S8)*.5; y2=sin(2*S8)*.5;
+    x3=cos(3*S8)*.5; y3=sin(3*S8)*.5;
+    x4=cos(4*S8)*.5; y4=sin(4*S8)*.5;
+    x5=cos(5*S8)*.5; y5=sin(5*S8)*.5;
+    x6=cos(6*S8)*.5; y6=sin(6*S8)*.5;
+    x7=cos(7*S8)*.5; y7=sin(7*S8)*.5;
+    x8=cos(8*S8)*.5; y8=sin(8*S8)*.5;
+    border=.1
+  }}
+  _8_4r{ PUSH _a s .75}
+//  *{{N=8}}*{{step=2*PI/N}}(N)*{{i=i+1}}*{{a=i*step}}
+//  *{{x1=cos(a)*.5;y1=sin(a)*.5; x2=cos(a+step)*.5; y2=sin(a+step)*.5}}
+//  LINE{s .5 {width=.01}}
+}
+4to_8_4r{ _8_4r {{
+    x2=(x1+x2)/2; y2=(y1+y2)/2;
+    x3=x2; y3=y2;
+    x4=(x2+x3)/2; y4=(y2+y3)/2;
+    x5=x3; y5=y3;
+    x6=(x3+x4)/2; y6=(y3+y4)/2;
+    x7=x4; y7=y4;
+    x8=(x4+x1)/2; y8=(y4+y1)/2;
+}} }
+_a { _d{} }
+_a .1 { _4_4r{PUSH _b} }
+_a .5 { _4_4r{PUSH _b _4_4r} }
+_a { _4_4r{PUSH tr _3_3r _b _4_r4t} }
+_b .1 { 4to_8_4r { PUSH _b } }
+_b { tr {} }
+_b { _4_4r{PUSH tr} }
+_c { _4_4r{ PUSH _b }}
+_c { _b{ }}
+_d { 4to_8_4r { PUSH tr _3_3r _c _4_r4t } }
+
+_8_4r {
+  *{{xc=(1/8)*(x1+x2+x3+x4+x5+x6+x7+x8);
+     yc=(1/8)*(y1+y2+y3+y4+y5+y6+y7+y8);}} {
+    pop{{x4=xc;y4=yc}}
+    pop{{x1=x3;y1=y3; x2=x4;y2=y4; x3=x5;y3=y5; x4=xc;y4=yc}}
+    pop{{x1=x5;y1=y5; x2=x6;y2=y6; x3=x7;y3=y7; x4=xc;y4=yc}}
+    pop{{x1=x7;y1=y7; x2=x8;y2=y8; x3=x1;y3=y1; x4=xc;y4=yc}}
+  }
+}
+include #subdivs
+include #geometry
+
+
+
+tr{
+  RECT{L -1 A -.9}
+  *{{b1=1-border} A -.5}
+  RECT{ L 1
+    { 
+      x1=x1*b1+(x1+x2+x3+x4)*border/4; y1=y1*b1+(y1+y2+y3+y4)*border/4; z1=z1*b1+(z1+z2+z3+z4)*border/4;
+      x2=x2*b1+(x1+x2+x3+x4)*border/4; y2=y2*b1+(y1+y2+y3+y4)*border/4; z2=z2*b1+(z1+z2+z3+z4)*border/4;
+      x3=x3*b1+(x1+x2+x3+x4)*border/4; y3=y3*b1+(y1+y2+y3+y4)*border/4; z3=z3*b1+(z1+z2+z3+z4)*border/4;
+      x4=x4*b1+(x1+x2+x3+x4)*border/4; y4=y4*b1+(y1+y2+y3+y4)*border/4; z4=z4*b1+(z1+z2+z3+z4)*border/4;
+  }}
+  *{{xc=(x1+x2+x3+x4)/4; yc=(y1+y2+y3+y4)/4;}}
+  *{{ d1=sqrt((x1-xc)**2 + (y1-yc)**2); 
+      d2=sqrt((x2-xc)**2 + (y2-yc)**2); 
+      d3=sqrt((x3-xc)**2 + (y3-yc)**2); 
+      d4=sqrt((x4-xc)**2 + (y4-yc)**2); }} 
+  *{{ SZ=1.5*min(d1,min(d2,min(d3,d4)));
+      THRES = .05+rndf()*.1}} {
+    if (SZ < THRES) { CIRCLE{x xc y yc s SZ layer 1} }
+    if (SZ >= THRES) { _d{} }
+  }
+}

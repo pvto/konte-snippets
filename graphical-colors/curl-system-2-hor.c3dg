@@ -1,0 +1,23 @@
+DEF GRID 5
+DEF GRIDb 7
+
+system Perlin2 Perlin init(GRID, GRID)
+system Perlin2 Perlinb init(GRIDb, GRIDb, 1)
+system Curl2 Curl init(Perlin)
+system Curl2 Curlb init(Perlinb)
+
+DEF N 500
+
+
+curlt{
+  *{s .9 rx 0}
+  (N)*{{i=i+1}}
+  (N)*{{j=j+1}}
+  *{{cu=sysread(Curl, i/N*GRID, j/N*GRID);
+     cu2=sysread(Curlb, i/N*GRIDb, j/N*GRIDb)}}
+  CIRCLE{x -.5 y -.5 s 1/N x i y j s 1.6
+    rz 180/PI*(cu+cu2)
+    z -cu*27 G (cu+cu2+PI*2)/PI/6
+    sx .1 sy 10
+  }
+}

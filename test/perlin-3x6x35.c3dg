@@ -1,0 +1,14 @@
+DEF GRID 3
+DEF GRID2 35
+DEF GRID3 6
+system Perlin2 Perlina init(GRID,GRID)
+system Perlin2 Perlinb init(GRID2, GRID2)
+system Perlin2 Perlinc init(GRID3, GRID3)
+MACRO L1 sysread(Perlina, x1*GRID, y1*GRID)
+MACRO L2 sysread(Perlinb, x1*GRID2, y1*GRID2)
+MACRO L3 sysread(Perlinc, x1*GRID3, y1*GRID3)
+
+foo {
+  *{{N=300; x1=-.5;y1=-.5}}(N)*{{x1=x1+1/N}}(N)*{{y1=y1+1/N}}
+    SQUARE{x x1 y y1 s 1.5/N L L3*L2*L1*25}
+}

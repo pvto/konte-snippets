@@ -1,0 +1,64 @@
+//fov{y 1 z -2 lookat(0,0,0)}
+
+DEF GRID 3
+DEF GRID2 35
+system Perlin2 Perlina init(GRID,GRID)
+system Perlin2 Perlinb init(GRID2, GRID2)
+MACRO L1 sysread(Perlina, (x1+.55)*GRID, (y1+.55)*GRID)
+MACRO L2 sysread(Perlinb, (x1+.55)*GRID2, (y1+.55)*GRID2)
+
+foo {
+  *{{N=1}}*{s .9/N x -(N-1)/2 y -(N-1)/2}(N)*{x 1}(N)*{y 1} 
+  *{{border=.5} s .95 }
+  *{{x1=-.5;y1=-.5; x2=.5;y2=-.5; x3=.5;y3=.5; x4=-.5;y4=.5; }}
+  recur{}
+}
+recur { 
+  _4_4r.b { PUSH rr _3_3r /*_4_4t _3_3r*/ _4_4t }
+}
+
+
+rr { RECT{L y1*2 {border=.1}}}
+rr .1{if (D<1) { recur{{D=D+1}}}}
+rr .1 {rr2{L 1}}
+rr .1 {
+  rr2{L 1 A -.5} 
+  rr2{L 1 A -.8 {x1=x2;y1=y2;x2=x3;y2=y3;x3=x4;y3=y4;x4=x1;y4=y1;}}
+}
+
+rr2 {
+  *{{N=irndf(6)+4}}
+  *{{xa=x1;ya=y1;xb=x4;yb=y4;
+     xsa=(x2-x1)/N;ysa=(y2-y1)/N;
+     xsb=(x3-x4)/N;ysb=(y3-y4)/N;}}
+  (N)*{{xa=xa+xsa;ya=ya+ysa;xb=xb+xsb;yb=yb+ysb;}}
+  twoRect{{x1=xa;y1=ya;x2=xb;y2=yb;
+           x3=xb+xsb;y3=yb+ysb; x4=xa+xsa;y4=ya+ysa;}}
+  
+}
+include #subdivs
+include #geometry
+
+
+twoRect{
+  RECT{L -1}
+  *{{b1=1-border}}
+  RECT{ z -.001
+    { 
+      x1=x1*b1+(x1+x2+x3+x4)*border/4; y1=y1*b1+(y1+y2+y3+y4)*border/4; 
+      x2=x2*b1+(x1+x2+x3+x4)*border/4; y2=y2*b1+(y1+y2+y3+y4)*border/4; 
+      x3=x3*b1+(x1+x2+x3+x4)*border/4; y3=y3*b1+(y1+y2+y3+y4)*border/4; 
+      x4=x4*b1+(x1+x2+x3+x4)*border/4; y4=y4*b1+(y1+y2+y3+y4)*border/4; 
+  }}
+}
+
+
+twoTri{
+  TRI{L -1}
+  *{{b1=1-border}}
+  TRI{
+    { x1=x1*b1+(x2+x3)*border/2; y1=y1*b1+(y2+y3)*border/2;
+      x2=x2*b1+(x1+x3)*border/2; y2=y2*b1+(y1+y3)*border/2;
+      x3=x3*b1+(x1+x2)*border/2; y3=y3*b1+(y1+y2)*border/2;
+    }}
+}

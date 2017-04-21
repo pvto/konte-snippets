@@ -1,11 +1,15 @@
 startshape echtbird4
 
-include "./characters-3.c3dg"
+include "./characters-4.c3dg"
 include "./bubbles-3.c3dg"
 
-fov{z -2.8 y -.7}
 
 echtbird4 {
+
+
+  *{y -.7 x -.4 layer -1} moire{s .7}
+  *{y -2.2 x .4 layer -1} moire{}
+
 
   *{y .5  layer 0 } {
     *{x -.4 s .15 rx 30} {
@@ -25,7 +29,7 @@ echtbird4 {
   }
 
   *{x -.5 y -.15 s .1} { 
-    Friedrich{}
+    Friedrich{s 2}
 
     *{x 5 y 2 s 4} 3*{x .8}PRBUB{}
     *{x -4 y 2.75 layer 1 s .5} {
@@ -35,39 +39,118 @@ echtbird4 {
     }
   }
 
-
+  *{y -.3 s .2 layer 1 } {
+    TEXT{ rz 10 y .65 s .25 x -1.5 PUSH "^m^and" }
+    TEXT{ rz 10 y .7 s .3 x 1 PUSH "^m^WHAT'S" }
+    TEXT{ rz 10 {BOLD=7;WIDE=5;FLAT=3} PUSH "^m^HOT"}
+    TEXT{ rz 10 s .3 x 8.5 PUSH "^m^:"}
+  }
+  
   *{x .1 y -.7 s .1} { 
-    Friedrich{}
+    *{s 3 y -.5} {
+      Friedrich{layer .1}
+      RUBBER{y -.3 layer .1}
+    }
     LINE{{X1=.3;Y1=.5;X2=.6;Y2=1.6;width=.03}}
     3*{y -1}
     *{x -3 y 2 s 4} 5*{x .8}PRBUB{s 1+rndf()*.3}
     *{x -4 y 2.5 layer 1 s .5} {
       BULLET{PUSH "^m^2."}
-      *{{FLAT=2;WIDE=2;CAROL=10}} {
-        TEXT{PUSH "^m^    Take your hate speech to next level"        }
-        TEXT{PUSH "^m^    (with  FRIEDRICH  and  Adolf)"
-          y -2}
+      *{{FLAT=2;WIDE=2;CAROL=5}} {
+        TEXT{PUSH "^m^    Take your             to "        }
+        TEXT{PUSH "^m^              hate speech    next level"
+          {FLAT=-3;CAROL=10}}
+        TEXT{PUSH "^m^    with  FRIEDRICH."
+          y -2 {FLAT=-3;WIDE=3;CAROL=10}}
       }
     }
   }
 
-  *{x -.3 y -1.3 s .1} {
-    *{x 1} { 
-      Friedrich{}
+
+  *{x -.8 y -.9 s .08 layer 1 L 1} {
+    TEXT{ rz 10 y .7 PUSH "^m^NOT" }
+    TEXT{ rz 10 {BOLD=7;WIDE=2;FLAT=3} PUSH "^m^FORGETTING"}
+  }
+  
+  *{x -.4 y -1.4 s .1} {
+    *{x 1 s 1.5} { 
+      Friedrich{s 1.5 ry -20 layer .1}
       LINE{{X1=.3;Y1=.5;X2=.5;Y2=1.5;width=.03}}  }
-    *{x -3 y 2 s 4} 5*{x .8}PRBUB{s 1+rndf()*.3}
+    *{x -3 y 2 s 4} 6*{x .8 rz 1}PRBUB{s 1+rndf()*.3}
     *{x -4 y 2.5 layer 1 s .5} {
       BULLET{PUSH "^m^3."}
-      TEXT{PUSH "^m^    CUTE OWLS      GERMAN NAMES."
+      TEXT{PUSH "^m^    CUTE OWLS, "
         {FLAT=2;ITALIC=2;WIDE=2;CAROL=10}}
-      TEXT{PUSH "^m^              WITH              "
-        {FLAT=-10;ITALIC=2;WIDE=2;BOLD=2;CAROL=10}}
-
+      TEXT{PUSH "^m^           credible first names."
+        rz 3 {FLAT=-7;ITALIC=2;WIDE=7;BOLD=2;CAROL=10}}
     }
   }
+
+  *{x -.2 y -1.8 s .1} {
+    *{x 5 z -1 s 2} { 
+      Friedrich{{WINGFLAP=-80}}
+    }
+    *{x -3 y 2 s 4} 5*{x .8 sy 1.15 sx 1.07}
+      2*{y -.2 rx 10} PRBUB{s 1+rndf()*.3}
+    *{x -4 y 2.5 layer 1 s .5} {
+      BULLET{PUSH "^m^4."}
+      TEXT{PUSH "^m^    plus:                  "
+        {WIDE=7;}}
+      *{{FLAT=-3;ITALIC=2;WIDE=20;BOLD=2;CAROL=10}} {
+        TEXT{PUSH "^m^        EARS"}
+        TEXT{PUSH "^m^       ALL YEAR LONG."
+          y -1.5}
+      }
+    }
+  }
+
+  *{x -.5 y -2.5 s .1} { 
+    *{s 7 y -.7 x -.5} {
+      Friedrich{layer .1}
+      RUBBER{y -.2 z -.2 layer .1}
+    }
+
+    20*{x .2}5*{y .5}
+    PRBUB{y .6 x -1.75 s 7+rndf()*.3}
+    *{x -4 y 4 layer 1 s .5} {
+      BULLET{PUSH "^m^B."}
+      *{{FLAT=2;WIDE=2;CAROL=5}} {
+        TEXT{PUSH "^m^    Blurting"
+          {FLAT=-3;CAROL=10}}
+        TEXT{PUSH "^m^   Hobbes with"
+          y -2 {FLAT=-3;WIDE=3;CAROL=10}}
+        TEXT{PUSH "^m^ moral ambivalence."
+          y -4 {FLAT=-3;WIDE=3;CAROL=10}}
+
+      }
+    }
+  }
+
+  *{x -.15 y -3 s .1 } {
+    *{x -3 y 2 s 4} 5*{x .8 sy 1.15 sx 1.07}
+      2*{y -.2 rx 10} PRBUB{s 1+rndf()*.3}
+    *{x -4 y 2.5 layer 1 s .5} {
+      BULLET{PUSH "^m^5."}
+      TEXT{PUSH "^m^     And:                  "
+        {WIDE=7;}}
+      *{{FLAT=-3;ITALIC=2;WIDE=20;BOLD=2;CAROL=10}} {
+        TEXT{PUSH "^m^      MUCH,MUCH"}
+        TEXT{PUSH "^m^       MORE."
+          y -1.5}
+      }
+    }
+    Batcat{y -5 s 3 x 2.5 ry -30}
+    TEXT{y -3 x 1 PUSH "^m^OH, HOLÁ!"} 
+    LINE{{X1=6;Y1=-5;X2=5;Y2=-4;width=.05}}
+  }
 }
+
+fov{z -6 y -1.4}
 
 BULLET { 
   3*{s 1.2 L .08}RIM{ s 2.4 {rim=.05} L .8 } 
   TEXT{{BOLD=5}}
 }
+
+moire{ 360*{rz 1}15*{s .7}FRAME{{frame=.001}} }
+

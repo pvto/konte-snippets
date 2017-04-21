@@ -5,11 +5,10 @@ bao {
   3*{x 2}
   baochunk{
     ry RYY
-    rx RYY-300
   }
 }
 
-DEF WD 14.0-(RYY-180)/90*6
+DEF WD 8 // 14.0-(RYY-180)/90*6
 
 baochunk {
   *{{Snext=coalesce(Snext, 1)}} {
@@ -17,14 +16,15 @@ baochunk {
     5*{y rndf()*.2 x rndf()*.5 ry 90} {
       bnCONE{s WD .6 WD {bent=.01+rndf()*.1;F=.03;n=30
         q=Snext; NBEXCL=floor(i/100)} RGB #505040 L -.1*rndf()
-        A sin(RYY/10)
+        //A sin(RYY/10)
       }
       hash{ry irndf(360) s 8 z -.5 s .25 
         A -.5 rz 0}
     }
     if (i < 240) { // and nbdist(x,y+.07,z, .2, 1, 1) > .01) {
       baochunk{{i=i+1} y .39 s Snext {Snext=.98+rndf()*.02} ry (2+rndf())*3 
-      rz pareto(1,5,5)+sin((RYY-265)/10)*2}
+        rz pareto(1,5,5) //+sin((RYY-265)/10)
+      }
     }
     if (i = 240) {
       CIRCLE{s 8 rx 90 L .2}

@@ -1,0 +1,55 @@
+
+
+DEF niter 3
+DEF D2 2/3  DEF D1 1/3
+
+rule req {  
+    1* {z 1 y .5 x .5 } 
+    pand { shading dim2 
+        d niter s .5 rx 25 ry 45} }
+
+rule pand {
+    bbox  {d -1 }
+    2*{ x D2 } 3*{ y D1 } 2*{ z D2 }
+    prand { s D1 x -1 y -1 z -1 DEF {count=count+1}}
+    2*{ y D2 } 2*{ z D2 }
+    prand { s D1 y -1 z -1 DEF {count=count+1}}
+    2*{ y D2 } 2*{ x D2 }
+    prand { s D1 y -1 x -1 DEF {count=count+1}}
+     //3*{ry 60} 40*{s .95 y .025} RIM
+     4*{rz 90}
+      SPHERE{s .45 y 1 col0 0 {SAT=1;rim=.02} A -.8}
+
+}
+include #geometry 
+rule prand { pand { ry (x*y*300)  d (d) } }
+rule  bbox { 
+    pre { niter < count+2 } 
+    draw{ }
+}
+
+rule draw { 
+
+    box { s .99 1 1 col0 (sin(round((x+y+z)*3)%2)*3)}}
+
+rule box {
+    2* { ry 90 H -20}
+    2* { z 1 L 1 S .5} SQUARE { z -.5 }
+    2* { y -1 H 20 } SQUARE { rx 90 z .5 L .3 H 20 }
+
+}
+
+bg { RGB #000000 }
+DEF FIEL 0.001
+shading dim2 { 
+    point(-1) { RGB 0 0 .2}
+    point(2) { RGB 1 0 0}
+    point(0) { RGB 0+SAT 0+SAT .1+SAT}
+    point(-2) { RGB .5 .5 0}
+    A (A)
+}
+light {AMBIENT s .3+SAT}
+light {PHONG specular 10 alpha 10 s 3 {RGB 1 1 1}
+  point(-4,0,2)}
+light {PHONG specular 10 alpha 1 s 4 {RGB 1 1 1}
+  point(4,0,-2)}
