@@ -1,0 +1,44 @@
+DEF GRID 9
+
+system Perlin2 Perlin init(GRID, GRID)
+system Curl2 Curl init(Perlin)
+
+DEF N 500
+
+
+curlt{
+  2*{{D=rndf()}}
+  *{s .9 shading myc}
+  (N)*{{i=i+1}}
+  (N)*{{j=j+1}}
+  *{{cu=sysread(Curl, (i+D*GRID)/N*GRID, j/N*GRID)}}
+  *{
+    rz round(D*4)*90
+    x -.5 y -.5 s 1/N x i y j s 1.6
+  }
+  CIRCLE {
+    {SAT=(sin(cu*3))**.7+y*4}
+    ry 180/PI*cu
+    z -(5/(y**2+.1))
+    //z -SAT*.5
+    col0 (cu+PI*2)/PI/6*2
+    rz rndf()*10
+    sx .2 sy 10
+  }
+}
+
+
+shading myc {
+    point(0.0) { A (A)
+        RGB lirp(0,1,.5,.6,SAT) lirp(0,1,.5,.6,SAT) lirp(0,1,.5,.6,SAT) }
+    point(1.0) { A (A)
+        RGB lirp(0,1,.5,0,SAT) lirp(0,1,.5,1,SAT) lirp(0,1,.5,.8,SAT)}
+    point(0.579) { A (A)
+        RGB lirp(0,1,.5,.6,SAT) lirp(0,1,.5,0,SAT) lirp(0,1,.5,0,SAT)}
+    point(0.204) { A (A)
+        RGB lirp(0,1,.5,.6,SAT) lirp(0,1,.5,.6,SAT) lirp(0,1,.5,1,SAT)}
+    point(0.41721854) { A (A)
+        RGB lirp(0,1,.5,.4,SAT) lirp(0,1,.5,.4,SAT) lirp(0,1,.5,0,SAT)}
+    point(0.78618735) { A (A)
+        RGB lirp(0,1,.5,.8,SAT) lirp(0,1,.5,1,SAT) lirp(0,1,.5,.8,SAT)}
+}

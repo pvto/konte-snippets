@@ -1,0 +1,20 @@
+include "/home/paavo/konte/gram/colors/misty_city_by_sea.c3dg"
+include #geometry
+include #monospace
+include #recursions
+startshape frame
+fov {z -.9 ZPOW 2}
+
+frame {
+  *{{n=29} x -.5 y -.5}
+  (n)*{x 1/n} (n*2)*{y 1/n sy .973 sx 1.05 {RZ=RZ+.5}}
+    *{shading misty_city_by_sea
+      //col0 rndf()*.1+(x*3-y*3)**7 
+      //{SAT=rndf()*.3+sin(y*10%x*1)}
+      col0 rndf()
+      {SAT=rndf()}
+    } R4{{D=4} s 1.2/n PUSH sub rz RZ}
+}
+sub .3 { sub{{SAT=SAT-.1}} }
+sub 3 { sub{col0 (col0+.1)} }
+sub { SQUARE{s 1.2} }
