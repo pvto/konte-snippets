@@ -1,0 +1,58 @@
+DEF full 1
+
+system Perlin2 Perl init(7,7)
+system Perlin2 Perl2 init(2,2)
+
+grid {
+  *{{n=1200} x -.5 y -.5  // 1000
+    {iw=imgwidth(noise);ih=imgheight(noise);}
+    {iw2=imgwidth(noise2);ih2=imgheight(noise2);}
+    }
+  *{s 1/n}
+  (n*full)*{{v=v+1}} (n*full)*{{u=u+1}} 
+  *{x u y v}
+  *{
+      z (abs(cos(x*PI)))*300
+      ry sin(v*.1+rndf()*.01)*30 
+      z -10
+      }
+  {
+    CIRCLE{ L 1 s 2.5 sy .5}
+  }
+}
+fov {z -.9 }
+include 
+"/home/paavo/konte/gram/geom/2017-06-23-15-29-asupp-c21bcdefg-ABI.png" noise
+include
+"/home/paavo/konte/gram/geom/2017-06-23-02-14-supp-eden-ab-AGV.png" noise2
+
+bg{B 0}
+DEF CLUST .00085
+DEF BX 300
+MACRO TWIST .000025*((v-ih/2)**2 + (u-iw/2)**2)
+MACRO SPx (n+u**2*.005+cos(TWIST)*BX) / n*iw%iw
+MACRO SPy (n+v**2*.005+sin(TWIST)*BX) / n*ih%ih
+MACRO S2x (n+u+cos(TWIST)*BX) / n*iw2%iw2
+MACRO S2y (n+v+sin(TWIST)*BX) / n*ih2%ih2
+
+MACRO lightR 1+sin(u**2*.009+v**2*.01)*.5
+MACRO lightG 1+sin(u**2*.01+v**2*.01)*.5
+MACRO ir  imgred(noise, SPx, SPy)
+MACRO ig  imggreen(noise, SPx, SPy)
+MACRO ib  imgblue(noise, SPx, SPy)
+MACRO ir2 imgred(noise2, S2x, S2y)
+MACRO ig2 imggreen(noise2, S2x, S2y)
+MACRO ib2 imgblue(noise2, S2x, S2y)
+
+MACRO PP abs(sysread(Perl,x,y)+sysread(Perl2,x,y))*3
+
+light {AMBIENT s 0}
+light {PHONG specular 10 alpha 10 
+  s abs(3*y)+2*sin(ir+ib+ig+ib2*3)
+  {RGB ir*ir2+PP ig*ig2+PP ib*ib2+PP}
+  point(
+    x,
+    y, 
+    -(1-ir2)*ig2/y
+  )
+}

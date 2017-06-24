@@ -1,0 +1,39 @@
+foo {
+  CURVE{{
+    x1=-.3;y1=0;
+    c1bx=-.3;c1by=.1;
+    c2ax=.3;c2ay=.2;
+    x2=.3;y2=.3;
+    width=.01;
+  }}
+  CIRCLE{x -.3 y -.01 s .01}
+}
+
+rule CURVE {
+ *{{c1bx= coalesce(c1bx, x1); c1by= coalesce(c1by, y1)
+    c2ax= coalesce(c2ax, x2); x2ay= coalesce(c2ay, y2); }}
+ *{{
+   dx1= 3*(c1bx-x1); dy1= 3*(c1by-y1);
+   dx2= 3*(x2-c2ax); dy2= 3*(y2-c2ay);
+   width= coalesce(width, 00001)*.5;
+ }} 
+ *{{
+   dx1= dx1/sqrt(dx1**2 + dy1**2 + .00001);
+   dy1= dy1/sqrt(dx1**2 + dy1**2 + .00001);
+   dx2= dx2/sqrt(dx2**2 + dy2**2 + .00001);
+   dy2= dy2/sqrt(dx2**2 + dy2**2 + .00001);
+ }}
+   CURVE__ {}
+}
+path CURVE__ {
+  moveto(x1 - width * dy1, y1 + width * dx1, z1)
+  bend(c1bx - width * dy1, c1by + width * dx1, c1bz)
+  bend(c2ax - width * dy2, c2ay + width * dx2, c2az)
+  curveto(x2 - width * dy2, y2 + width * dx2, z2)
+  lineto(x2 + width * dy2, y2 - width * dx2, z2)
+  bend(c2ax + width * dy2, c2ay - width * dx2, c2az)
+  bend(c1bx + width * dy1, c1by - width * dx1, c1bz)
+  curveto(x1 + width * dy1, y1 - width * dx1, z1)
+  lineto(x1 - width * dy1, y1 + width * dx1, z1)
+  close
+}

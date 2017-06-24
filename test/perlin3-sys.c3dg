@@ -1,0 +1,22 @@
+DEF GRID 2
+DEF GRID2 3
+system Perlin3 Perlin init(GRID, GRID, GRID, SMOOTHSTEP)
+system Perlin3 Perlinb init(GRID2, GRID2, GRID2, SMOOTHSTEP)
+DEF N 300
+DEF Xn 3
+model{order STREAM}
+
+perlint{
+  *{s .9 {Za=1.5; Zb=0} G .5}
+  (Xn)*{{Za=Za+GRID/Xn;  Zb=Zb+GRID2/Xn} 
+     G -.5/Xn B .5/Xn x 1/N/Xn}
+  (N)*{{i=i+1}}
+  (N)*{{j=j+1}}
+  SQUARE{x -.5 y -.5 s 1/N x i y j sy 1.6
+    L (sysread(Perlin, i/N*GRID, j/N*GRID, Za)
+      + sysread(Perlinb, i/N*GRID2, j/N*GRID2, Zb))*2 - .5
+    sx 1/Xn*1.2
+  }
+}
+
+

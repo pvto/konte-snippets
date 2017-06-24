@@ -1,0 +1,130 @@
+fov{y 0 z -1}
+DEF tano .532
+DEF h3 .5**3
+DEF t_3 1/3
+DEF t23 2/3
+DEF t_6 1/6
+DEF t56 5/6
+DEF ITS 12
+
+test {
+  *{{n=6; D=ITS;} }
+  (n)*{rz 360/n}
+  subs{{
+    x1=0;y1=0;
+    x2=cos(PI/2+1*PI/n)*.5;
+    y2=sin(PI/2+1*PI/n)*.5;
+    c2bx=cos(PI/2+1/3*PI/n)*tano;
+    c2by=sin(PI/2+1/3*PI/n)*tano;
+    c3ax=cos(PI/2-1/3*PI/n)*tano;
+    c3ay=sin(PI/2-1/3*PI/n)*tano;
+    x3=cos(PI/2-1*PI/n)*.5;
+    y3=sin(PI/2-1*PI/n)*.5;
+  }}
+}
+// (1-t)^3*P0 + 3(1-t)^2*t*P1 + 3(1-t)t^2*P2 + t^3*P3
+maybe { subs{{D=D-irndf(5)*irndf(1)}} }
+
+subs {
+  if (D > 0) { 
+      *{{len1=(x2-x1)**2+(y2-y1)**2;
+         len2=(x3-x1)**2+(y3-y1)**2;
+         len3=(x3-x2)**2+(y3-y2)**2;}}
+      *{{tx1=choice(len1>len2,
+               choice(len1>len3, 0, 2),
+               choice(len3>len2, 2, 1)) + (rndf()*.1-.04);
+                  D=D-1; }} {
+    if (tx1 <= 0) {
+      *{{P=.5+rndf()*0; Q=1-P;}} {
+        //maybe{{x1=x2*P+x1*Q; y1=y2*P+y1*Q; }}
+        //maybe{{x2=x2*P+x1*Q;y2=y2*P+y1*Q; c2bx=0;c2by=0; c3ax=0;c3ay=0; }}
+        maybe{{x1= (x2+x1)/2; y1= (y2+y1)/2; }}
+        maybe{{x2= (x2+x1)/2; y2= (y2+y1)/2; c2bx=0;c2by=0; c3ax=0;c3ay=0; }}
+    }}
+    if (tx1 > 0 and tx1 <= 1) {
+      maybe{{x1=(x3+x1)/2;y1=(y3+y1)/2; }}
+      maybe{{x3=(x3+x1)/2;y3=(y3+y1)/2; c2bx=0;c2by=0; c3ax=0;c3ay=0; }}
+    }
+    if (tx1 > 1 and c2bx=0 and c2by=0) {
+      maybe{{x3=(x3+x2)/2;y3=(y3+y2)/2; }}
+      maybe{{x2=(x3+x2)/2;y2=(y3+y2)/2; }}
+    }
+    if (tx1 > 1 and c2bx!=0 or tx1 > 1 and c2by!=0) {
+    *{{
+      x23= h3*x2 + 3*h3*c2bx + 3*h3*c3ax + h3*x3;
+      y23= h3*y2 + 3*h3*c2by + 3*h3*c3ay + h3*y3;
+    }} *{{    
+      tx1= t56**3*x2 + 3*t56**2*t_6*c2bx + 3*t56*t_6**2*c3ax + t_6**3*x3; // 1/6 midpoint on curve
+      ty1= t56**3*y2 + 3*t56**2*t_6*c2by + 3*t56*t_6**2*c3ay + t_6**3*y3;      
+      tx2= t23**3*x2 + 3*t23**2*t_3*c2bx + 3*t23*t_3**2*c3ax + t_3**3*x3; // 1/3 midpoint on curve
+      ty2= t23**3*y2 + 3*t23**2*t_3*c2by + 3*t23*t_3**2*c3ay + t_3**3*y3;
+      tx3= t_3**3*x2 + 3*t_3**2*t23*c2bx + 3*t_3*t23**2*c3ax + t23**3*x3; // 2/3 midpoint on curve
+      ty3= t_3**3*y2 + 3*t_3**2*t23*c2by + 3*t_3*t23**2*c3ay + t23**3*y3;
+      tx4= t_6**3*x2 + 3*t_6**2*t56*c2bx + 3*t_6*t56**2*c3ax + t56**3*x3; // 5/6 midpoint on curve
+      ty4= t_6**3*y2 + 3*t_6**2*t56*c2by + 3*t_6*t56**2*c3ay + t56**3*y3;      
+
+    }} *{{
+      dx2= 3*(c2bx-x2); dy2= 3*(c2by-y2);
+      dx3= 3*(x3-c3ax); dy3= 3*(y3-c3ay);
+      dx23= 0.75*(-x2 - c2bx + c3ax + x3);
+      dy23= 0.75*(-y2 - c2by + c3ay + y3);
+      l2_t1= sqrt((tx1-x2)**2 + (ty1-y2)**2);
+    }} *{{
+      tx1= x2 + l2_t1 * dx2 / sqrt(dx2**2 + dy2**2); // future c2bx
+      ty1= y2 + l2_t1 * dy2 / sqrt(dx2**2 + dy2**2);
+      tx2= x23 - l2_t1 * dx23 / sqrt(dx23**2 + dy23**2); // future c3ax
+      ty2= y23 - l2_t1 * dy23 / sqrt(dx23**2 + dy23**2);
+      tx3= x23 + l2_t1 * dx23 / sqrt(dx23**2 + dy23**2); // future c2bx
+      ty3= y23 + l2_t1 * dy23 / sqrt(dx23**2 + dy23**2);
+      tx4= x3 - l2_t1 * dx3 / sqrt(dx3**2 + dy3**2); // future c3ax
+      ty4= y3 - l2_t1 * dy3 / sqrt(dx3**2 + dy3**2);
+    }}
+    {
+      subs{{ c2bx= tx1;c2by= ty1; c3ax= tx2;c3ay= ty2; x3=x23;y3=y23; } }
+/*      TRI{{x3=tx1;y3=ty1} L .5 lr 1 A -.5}
+      TRI{{x2=tx2;y2=ty2;x3=x23;y3=y23} R .5 lr 1 A -.5}
+      TRI{{x2=x3;y2=y3; x3=tx4;y3=ty4} B .5 lr 1 A -.5}*/
+      subs{{ c2bx= tx3;c2by= ty3; c3ax= tx4;c3ay= ty4; x2=x23;y2=y23; x3=x3;y3=y3; } }
+    }
+    }
+  }}
+  if (D <= 0) {
+    ddd{}
+  }
+}
+include #geometry
+
+TRIARC{
+  TRIARC__{{
+    c1ax=coalesce(c1ax,x1);
+    c1ay=coalesce(c1ay,y1);
+    c1bx=coalesce(c1bx,x1);
+    c1by=coalesce(c1by,y1);
+    c2ax=coalesce(c2ax,x2);
+    c2ay=coalesce(c2ay,y2);
+    c2bx=coalesce(c2bx,x2);
+    c2by=coalesce(c2by,y2);
+    c3ax=coalesce(c3ax,x3);
+    c3ay=coalesce(c3ay,y3);
+    c3bx=coalesce(c3bx,x3);
+    c3by=coalesce(c3by,y3);
+  }}
+}
+path TRIARC__{
+  moveto(x1,y1,z1)
+  bend(c1bx,c1by,0) // TODO: z...
+  bend(c2ax,c2ay,0)
+  curveto(x2,y2,z2)
+  bend(c2bx,c2by,0)
+  bend(c3ax,c3ay,0)
+  curveto(x3,y3,z3)
+  bend(c3bx,c3by,0)
+  bend(c1ax,c1ay,0)
+  curveto(x1,y1,z1) 
+  close 
+}
+
+ddd { TRIARC{} 
+  *{{w=.2}}
+  TRIARC{L 1 {x1=x1*(1-w)+(x2+x3)*w/2;}} 
+}

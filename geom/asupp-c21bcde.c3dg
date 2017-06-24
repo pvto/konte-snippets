@@ -1,0 +1,64 @@
+fov{}
+MACRO tano .6-rndf()*.2
+
+test {
+  *{{n=21; D=14; BULB = .8;} rx -25 x -.1 y .1 s 1.3}
+  *{{ROT = PI*2/n}}
+  (n)*{rz 360/n }
+  (9)*{}
+  subs{{
+    c1ax= 0;
+    c1ay= 0;
+    x1= .5*cos(0*ROT);
+    y1= .5*sin(0*ROT);
+    c1bx= .5*cos(0*ROT) + BULB*.5*sin(0*ROT);
+    c1by= .5*sin(0*ROT) + BULB*.5*cos(0*ROT);
+    c2ax= .5*cos(1*ROT) + BULB*.5*sin(1*ROT);
+    c2ay= .5*sin(1*ROT) - BULB*.5*cos(1*ROT);
+    x2= .5*cos(1*ROT);
+    y2= .5*sin(1*ROT);
+    c2bx= .5*cos(1*ROT) - BULB*.5*sin(1*ROT);
+    c2by= .5*sin(1*ROT) + BULB*.5*cos(1*ROT);
+    c3ax= .5*cos(2*ROT) + BULB*.5*sin(2*ROT);
+    c3ay= .5*sin(2*ROT) - BULB*.5*cos(2*ROT);
+    x3= 0;
+    y3= 0;
+    c3bx= 0;
+    c3by= 0;
+    split = 0.5;
+  }}
+}
+// (1-t)^3*P0 + 3(1-t)^2*t*P1 + 3(1-t)t^2*P2 + t^3*P3
+maybe { subs{{D=D-rndf()**17*5}} }
+
+subs {
+  if (D > 0) {
+      *{{split=split+(rndf()-.5)*.001}}
+      *{{len1=(x2-x1)**2+(y2-y1)**2;
+         len2=(x3-x1)**2+(y3-y1)**2;
+         len3=(x3-x2)**2+(y3-y2)**2;}}
+      *{{tx1=choice(len1>len2,
+               choice(len1>len3, 0, 2),
+               choice(len3>len2, 2, 1))+irndf(4);
+                  D=D-1;
+      }} {
+        if (tx1 <= 0) { _3Ba{PUSH maybe} }
+        if (tx1 > 0 and tx1 <= 1) { _3Bb{PUSH maybe} }
+        if (tx1 > 1) { _3Bc{PUSH maybe} }
+      }
+  }
+  if (D <= 0) {
+    ddd{}
+  }
+}
+include #geometry
+include #subdivs
+
+ddd {
+  TRIARC{L abs(sin(x1*11)) B .1 H sin(y1*15)*30 
+    S sin(x1*31)**3*.9
+    A -.5}
+}
+
+
+

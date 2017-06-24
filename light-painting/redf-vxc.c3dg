@@ -1,0 +1,62 @@
+DEF full 1
+model{order STREAM}
+grid {
+  *{{n=1200} x -.5 y -.5}
+  *{s 1/n}
+  (n*full)*{{v=v+1}} (n*full)*{{u=u+1}} 
+  *{x v y u}
+  *{
+      //z (abs(cos(x*PI)))*30
+      ry sin((u*v+u)*.00001+.1*rndf()) 
+      z -100
+      }
+  {
+    CIRCLE{ L 1 s 1.7}
+  }
+}
+fov {z -.9 }
+include 
+//"../line-drawing/marimekko/2017-03-24-21-20-parking-lot-ABE.png" noise
+//"../geom/2017-03-15-21-07-subdiv-rupt-8-ABH.png" noise
+"../2015-03-03-02-35-objective-C.png" noise
+include
+"../geom/2017-03-25-12-15-star-red-ADS.png" noise2
+
+DEF iw imgwidth(noise)
+DEF ih imgheight(noise)
+DEF iw2 imgwidth(noise2)
+DEF ih2 imgheight(noise2)
+DEF irat ih/iw
+DEF i2rat ih2/iw2
+
+bg{B 0}
+DEF CLUST .00085
+DEF BX 6
+MACRO TWIST (sin(u*.1))*.1
+MACRO TWISTx (1+cos(TWIST))
+MACRO TWISTy (1+sin(TWIST))
+MACRO SPx (BX+v*TWISTx) / n*irat*iw%iw
+MACRO SPy -(BX+u*TWISTy) / n*ih%ih
+MACRO S2x (BX+v*TWISTx) / n*i2rat*iw2%iw2
+MACRO S2y -(BX+u*TWISTy) / n*ih2%ih2
+
+MACRO lightR 1+sin(u**2*.009+v**2*.01)*.5
+MACRO lightG 1+sin(u**2*.01+v**2*.01)*.5
+MACRO ir  imgred(noise, SPx, SPy)
+MACRO ig  imggreen(noise, SPx, SPy)
+MACRO ib  imgblue(noise, SPx, SPy)
+MACRO ir2 imgred(noise2, S2x, S2y)
+MACRO ig2 imggreen(noise2, S2x, S2y)
+MACRO ib2 imgblue(noise2, S2x, S2y)
+
+
+light {AMBIENT s 0}
+light {PHONG specular 10 alpha 10 
+  s 3*(sin((ir+ib+ig)*3)+.5+rndf()) 
+  {RGB ir*ir2 ig*ig2 ib*ib2}
+  point(
+    x,
+    y, 
+    -.1
+  )
+}

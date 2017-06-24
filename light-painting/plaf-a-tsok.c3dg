@@ -1,0 +1,52 @@
+DEF full 1
+
+grid {
+  *{{n=1200} x -.5 y -.5 
+    {iw=imgwidth(noise);ih=imgheight(noise);}
+    {iw2=imgwidth(noise2);ih2=imgheight(noise2);}
+    }
+  *{s 1/n}
+  (n*full)*{{v=v+1}} (n*full)*{{u=u+1}} 
+  *{x v y u}
+  *{
+      //z (abs(cos(x*PI)))*30
+      ry sin((u*v+u)*.00001+.1*rndf()) 
+      z -100
+      }
+  {
+    CIRCLE{ L 1 s 1.7}
+  }
+}
+fov {z -.9 }
+include 
+"../line-drawing/marimekko/2017-03-24-21-20-parking-lot-ABE.png" noise
+include
+"../geom/2017-03-17-20-17-subdiv-rupt-8b-ABN.png" noise2
+
+bg{B 0}
+DEF CLUST .00085
+DEF BX 600
+MACRO TWIST sin(u*.03+v*.03)*.03
+MACRO SPx (BX+v+cos(TWIST)*BX) / n*iw%iw
+MACRO SPy -(BX+u+sin(TWIST)*BX) / n*ih%ih
+MACRO S2x (BX+v+cos(TWIST)*BX) / n*iw2%iw2
+MACRO S2y -(BX+u+sin(TWIST)*BX) / n*ih2%ih2
+
+MACRO lightR 1+sin(u**2*.009+v**2*.01)*.5
+MACRO lightG 1+sin(u**2*.01+v**2*.01)*.5
+MACRO ir  imgred(noise, SPx, SPy)
+MACRO ig  imggreen(noise, SPx, SPy)
+MACRO ib  imgblue(noise, SPx, SPy)
+MACRO ir2 imgred(noise2, S2x, S2y)
+MACRO ig2 imggreen(noise2, S2x, S2y)
+MACRO ib2 imgblue(noise2, S2x, S2y)
+
+
+light {AMBIENT s 0}
+light {PHONG specular 10 alpha 10 s 3*(sin((ir+ib+ig)*3)+.5+rndf()) {RGB ir*ir2 ig*ig2 ib*ib2}
+  point(
+    x+sin(ir)*.1,
+    y, 
+    -.1
+  )
+}

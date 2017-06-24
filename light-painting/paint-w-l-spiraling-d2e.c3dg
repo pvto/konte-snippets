@@ -1,0 +1,73 @@
+DEF full 1
+model{order STREAM}
+grid {
+  *{rz 15 {n=1200} x -.5 y -.5 
+    {iw=imgwidth(noise);ih=imgheight(noise);}
+    {iw2=imgwidth(noise2);ih2=imgheight(noise2);}
+    }
+  *{s 1/n}
+  (n*full)*{{v=v+1}} (n*full)*{{u=u+1}} 
+  *{x u y v}
+  *{
+      z (abs(cos(y*PI*4*sin(x*7))))*300
+      ry sin(v*.1+rndf()*.01)*3 
+      z -10
+      rx sin(u*.1+v*.1)*15
+      rz sin(x**2+y**2)*360
+      }
+  {
+    RIM{ L 1 s 2.5}
+  }
+}
+include #geometry
+
+fov {z -.9 }
+include 
+//"/home/paavo/konte/gram/monochrome-work/moondance-B-seq/b300.png" noise
+//"/home/paavo/konte/gram/monochrome-work/2017-01-11-00-40-symm-fuzz-vid-G-C-AGB.png" noise
+"/home/paavo/konte/gram/light-painting/2017-01-13-01-06-paint-w-light-j11-AFW.png" noise
+include
+//"/home/paavo/konte/gram/color-work/symm-fuzz-vid/2017-01-11-00-13-symm-fuzz-vid-G-AEY.png" noise2
+"/home/paavo/konte/gram/color-work/2016-10-22-18-09-blue-painting-M-ADL.png" noise2
+
+bg{B 0}
+DEF CLUST .00085
+DEF BX 300
+MACRO TWIST .0025*((v-ih/2)**2*.0001 + (u-iw/2)**2*.0001)
+MACRO SPx (n+saw(u*.005)*200+cos(TWIST)*BX) / n*iw%iw
+MACRO SPy (n+sin(v*.0025-u*.0025)*200+sin(TWIST)*BX) / n*ih%ih
+MACRO S2x (n+u+cos(TWIST)*BX) / n*iw2%iw2
+MACRO S2y (n+v+sin(TWIST)*BX) / n*ih2%ih2
+
+MACRO lightR 1+sin(u**2*.009+v**2*.01)*.5
+MACRO lightG 1+sin(u**2*.01+v**2*.01)*.5
+MACRO ir  imgred(noise, SPx, SPy)
+MACRO ig  imggreen(noise, SPx, SPy)
+MACRO ib  imgblue(noise, SPx, SPy)
+MACRO ir2 imgred(noise2, S2x, S2y)
+MACRO ig2 imggreen(noise2, S2x, S2y)
+MACRO ib2 imgblue(noise2, S2x, S2y)
+/*  (
+  imgred(noise2, u/n*iw2%iw2, ih2-1-v/n*ih2%ih2) + 0
+  + imgred(noise2, (u+1)/n*iw2%iw2, ih2-1-v/n*ih2%ih2)
+  + imgred(noise2, (u+2)/n*iw2%iw2, ih2-1-v/n*ih2%ih2)
+  + imgred(noise2, u/n*iw2%iw2, ih2-1-(v+1)/n*ih2%ih2)
+  + imgred(noise2, (u+1)/n*iw2%iw2, ih2-1-(v+1)/n*ih2%ih2)
+  + imgred(noise2, (u+2)/n*iw2%iw2, ih2-1-(v+1)/n*ih2%ih2)
+  + imgred(noise2, u/n*iw2%iw2, ih2-1-(v+2)/n*ih2%ih2)
+  + imgred(noise2, (u+1)/n*iw2%iw2, ih2-1-(v+2)/n*ih2%ih2)
+  + imgred(noise2, (u+2)/n*iw2%iw2, ih2-1-(v+2)/n*ih2%ih2)
+  )
+  / 9
+*/
+
+light {AMBIENT s 0}
+light {PHONG specular 10 alpha 10 
+  s 6*(y*x+.5)
+  {RGB ir ig ib}
+  point(
+    x,
+    y, 
+    -(1-ir2)*ig2*y
+  )
+}

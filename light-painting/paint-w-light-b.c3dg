@@ -1,0 +1,40 @@
+
+grid {
+  *{{n=1200} x -.5 y -.5 
+    {iw=imgwidth(noise);ih=imgheight(noise);}
+    {iw2=imgwidth(noise2);ih2=imgheight(noise2);}
+    }
+  *{s 1/n}
+  (n)*{{v=v+1}} (n)*{{u=u+1}} 
+  *{x v y u}
+  {
+    CIRCLE{ //ry irndf(90) s pareto(1,1.5,5)
+      z (abs(cos(x*PI)))*300
+      ry sin(u*.1)
+      //L imgred(noise, u%iw, ih-1-v%ih)
+      L 1
+      s 1.5
+    }
+  }
+}
+fov {z -.9 }
+include 
+"/home/paavo/konte/gram/monochrome-work/2016-09-24-14-36-sierp-textp-subtri-b-ACU.png" noise
+//"/home/paavo/konte/gram/color-work/symm-fuzz-vid/b079.png" noise
+include
+"/home/paavo/konte/gram/color-work/symm-fuzz-vid/2017-01-11-00-13-symm-fuzz-vid-G-AEY.png" noise2
+
+bg{B 0}
+DEF CLUST .00085
+MACRO lightR 1+sin(u**2*.009+v**2*.01)*.5
+MACRO lightG 1+sin(u**2*.01+v**2*.01)*.5
+MACRO ir  imgred(noise, u/n*iw%iw, ih-1-v/n*ih%ih)
+MACRO ir2 imgred(noise2, u/n*iw2%iw2, ih2-1-v/n*ih2%ih2)
+light {AMBIENT s 0}
+light {PHONG specular 1 alpha 10 s 5*ir {RGB 1 1 1}
+  point(
+    x,
+    y, 
+    -.5+ir2+ir
+  )
+}

@@ -1,0 +1,32 @@
+DEF GRID 3
+DEF GRID2 5.5
+DEF GRID3 4.5
+system Perlin2 Perlin init(GRID, GRID, SMOOTHSTEP)
+system Perlin2 Perlinb init(GRID2, GRID2, 2)
+system Perlin2 Perlinc init(GRID3, GRID3, 2)
+DEF N 500
+
+
+perlint{
+  (GRID2)*{{i=i+1}} (GRID2)*{{j=j+1}} 
+    void{z syswrite(Perlinb, i, j, rndf()*PI*2, (i-GRID2/2)**1, (j-GRID2/2)**1)}
+  (GRID3)*{{i=i+1}} (GRID3)*{{j=j+1}} 
+    void{z syswrite(Perlinc, i, j, rndf()*PI*2, (GRID3-i)**1, (GRID3-j)**1)}
+
+  *{s .9}
+  (N)*{{i=i+1}}
+  (N)*{{j=j+1}}
+  CIRCLE{x -.5 y -.5 s 1/N x i y j s 1.6
+    z -rndf()*3
+    rz rndf()*5
+    sy 1*(sysread(Perlin, sin((i-i/2)**2*.0002)*.5*(i+j)/N*GRID, (j+i*.3)/N*GRID)
+      + sysread(Perlinb, (i+j*.4)/N*GRID2, j/N*GRID2)
+      + sysread(Perlinc, (i+j*.1)/N*GRID3, (i+j)/N*GRID3)
+      +.25)
+    sx .1 sy 10
+    L (j/N)**2
+  }
+}
+
+
+void{}

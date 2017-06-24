@@ -1,0 +1,16 @@
+DEF G1 33  DEF  G2 7
+system Perlin2 p1 init(G1,G1)
+system Perlin2 p2 init(G2,G2)
+
+foo {
+  300*{{x1=rndf()-.5;}}*{{ y1=x1+rndf()*.5-.25; }}
+  *{{T=rndf()*PI; width=.025; x2=x1; y2=y1; }}
+  300*{{x2=x1; y2=y1;  x1=x1+cos(T)*.03; y1=y1+sin(T)*.03;
+       T=T+sin(0*rndf()+sin(x1**2*5+y1**2*5)*2)*.3; }}
+  *{} { 
+    LINE{ L (sysread(p1, x1*G1,y1*G1)
+             +sysread(p2, x1*G2,y1*G2))+.5 }
+  }
+}
+
+include #geometry

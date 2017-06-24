@@ -1,0 +1,69 @@
+DEF full 1
+
+grid {
+  *{{n=1200} x -.5 y .5 
+    {iw=imgwidth(noise);ih=imgheight(noise);}
+    {iw2=imgwidth(noise2);ih2=imgheight(noise2);}
+    }
+  *{s 1/n}
+  (n*full)*{{v=v+1}} (n*full)*{{u=u+1}} 
+  *{x v y -u}
+  *{
+      z -ir*10//(abs(cos(x*PI)))*300
+      //ry sin(u*.0001+rndf()) 
+      
+      }
+  {
+    CIRCLE{ L 1 s 1.75}
+  }
+}
+fov {z -.9 }
+include 
+//"/home/paavo/konte/gram/monochrome-work/moondance-B-seq/b300.png" noise
+//"/home/paavo/konte/gram/monochrome-work/2017-01-11-00-40-symm-fuzz-vid-G-C-AGB.png" noise
+"http://pvto.github.io/assets/img/art/2016-10-26-22-22-reeds-hmap-simple-D-AAL.png" noise2
+include
+//"/home/paavo/konte/gram/color-work/symm-fuzz-vid/2017-01-11-00-13-symm-fuzz-vid-G-AEY.png" noise2
+//"/home/paavo/Downloads/7599513182_8960603c88_z.jpg" noise
+"/home/paavo/Desktop/kuv/1510b.jpg" noise
+
+bg{B 0}
+DEF CLUST .00085
+DEF BX 0
+MACRO TWIST sin(v*.001+u*.001)+sin(v*.017+u*.013)
+MACRO SPx (BX+v+cos(TWIST)*BX) / n*iw%iw
+MACRO SPy (BX+u+sin(TWIST)*BX) / n*ih%ih
+MACRO S2x (BX+v+cos(TWIST)*BX) / n*iw2%iw2
+MACRO S2y (BX+u+sin(TWIST)*BX) / n*ih2%ih2
+
+MACRO lightR 1+sin(u**2*.009+v**2*.01)*.5
+MACRO lightG 1+sin(u**2*.01+v**2*.01)*.5
+MACRO ir  imgred(noise, SPx, SPy)
+MACRO ig  imggreen(noise, SPx, SPy)
+MACRO ib  imgblue(noise, SPx, SPy)
+MACRO ir2 imgred(noise2, S2x, S2y)
+MACRO ig2 imggreen(noise2, S2x, S2y)
+MACRO ib2 imgblue(noise2, S2x, S2y)
+/*  (
+  imgred(noise2, u/n*iw2%iw2, ih2-1-v/n*ih2%ih2) + 0
+  + imgred(noise2, (u+1)/n*iw2%iw2, ih2-1-v/n*ih2%ih2)
+  + imgred(noise2, (u+2)/n*iw2%iw2, ih2-1-v/n*ih2%ih2)
+  + imgred(noise2, u/n*iw2%iw2, ih2-1-(v+1)/n*ih2%ih2)
+  + imgred(noise2, (u+1)/n*iw2%iw2, ih2-1-(v+1)/n*ih2%ih2)
+  + imgred(noise2, (u+2)/n*iw2%iw2, ih2-1-(v+1)/n*ih2%ih2)
+  + imgred(noise2, u/n*iw2%iw2, ih2-1-(v+2)/n*ih2%ih2)
+  + imgred(noise2, (u+1)/n*iw2%iw2, ih2-1-(v+2)/n*ih2%ih2)
+  + imgred(noise2, (u+2)/n*iw2%iw2, ih2-1-(v+2)/n*ih2%ih2)
+  )
+  / 9
+*/
+
+light {AMBIENT s 0}
+light {PHONG specular 1 alpha 10 s 4*ir+0*(sin((ir+ib+ig)*3)) 
+    {RGB 1 1 1} //ir ig ib}
+  point(
+    x,
+    y, 
+    -.1
+  )
+}

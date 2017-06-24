@@ -1,0 +1,56 @@
+DEF full 1
+model{order STREAM}
+grid {
+  *{{n=1200} x -.5 y -.5 
+    {iw=imgwidth(noise);ih=imgheight(noise);}
+    {iw2=imgwidth(noise2);ih2=imgheight(noise2);}
+    }
+  *{s 1/n}
+  (n*full)*{{v=v+1}} (n*full)*{{u=u+1}} 
+  *{x v y u}
+  *{
+      z (abs(cos(x*PI)))*30
+      ry sin(u*.0001+rndf()) 
+      z -100
+      }
+  {
+    CIRCLE{ L 1 s 2.5 sy .15+rndf()*.8}
+  }
+}
+fov {z -.9 }
+include 
+//"../monochrome-work/moondance-B-seq/b300.png" noise
+//"../monochrome-work/2017-01-11-00-40-symm-fuzz-vid-G-C-AGB.png" noise
+//"../color-work/2016-10-13-21-50-vangogh-mixing-rndcol-hyp-det-AAQ.png" noise
+"../simulations/2017-04-01-20-32-part-sys-wides-3-AQK.png" noise
+include
+//"../color-work/symm-fuzz-vid/2017-01-11-00-13-symm-fuzz-vid-G-AEY.png" noise2
+//"../simulations/2017-04-01-20-32-part-sys-wides-3-AQC.png" noise2
+//"../color-work/2017-03-21-21-08-mandel-globe-AAK.png" noise2
+"../light-painting/2017-01-13-00-20-paint-w-light-j2-AEW.png" noise2
+
+bg{B 0}
+DEF CLUST .00085
+DEF BX 0
+MACRO TWIST sin(v*.01+u*.01)*.1+sin(v*.017+u*.013)*.02
+MACRO SPx (BX+v+cos(TWIST)*BX) / n*iw%iw
+MACRO SPy -(BX+u+sin(TWIST)*BX) / n*ih%ih
+MACRO S2x (BX+u+cos(TWIST)*BX) / n*iw2%iw2
+MACRO S2y -(BX+sin(v*.01+u*.001)*1100+sin(TWIST)*BX) / n*ih2%ih2
+
+MACRO lightR 1+sin(u**2*.009+v**2*.01)*.5
+MACRO lightG 1+sin(u**2*.01+v**2*.01)*.5
+MACRO ir  imgred(noise, SPx, SPy)
+MACRO ig  imggreen(noise, SPx, SPy)
+MACRO ib  imgblue(noise, SPx, SPy)
+MACRO ir2 imgred(noise2, S2x, S2y)
+MACRO ig2 imggreen(noise2, S2x, S2y)
+MACRO ib2 imgblue(noise2, S2x, S2y)
+
+
+light {AMBIENT s 0}
+light {PHONG specular 1 alpha 10 
+  s 5*(sin((ir+ib+ig)*.3)+rndf()**10)
+  {RGB ir*ir2 ig*ig2 1-ib}
+  point(x, y, -.1)
+}

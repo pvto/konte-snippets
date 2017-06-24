@@ -1,0 +1,68 @@
+DEF full 1
+
+grid {
+  *{{n=1200} x -.5 y -.5 
+    {iw=imgwidth(noise);ih=imgheight(noise);}
+    {iw2=imgwidth(noise2);ih2=imgheight(noise2);}
+    }
+  *{s 1/n}
+  (n*full)*{{v=v+1}} (n*full)*{{u=u+1}} 
+  *{x v y u}
+  *{
+      z (abs(cos(x*PI)))*300
+      ry sin(u*.0001+rndf()) 
+      z -100
+      }
+  {
+    CIRCLE{ L 1 s 2.5 sy .15}
+  }
+}
+fov {z -.9 }
+include 
+//"/home/paavo/konte/gram/monochrome-work/moondance-B-seq/b300.png" noise
+//"/home/paavo/konte/gram/monochrome-work/2017-01-11-00-40-symm-fuzz-vid-G-C-AGB.png" noise
+//"/home/paavo/konte/gram/color-work/2016-10-13-21-50-vangogh-mixing-rndcol-hyp-det-AAQ.png" noise
+"../color-work/2016-10-08-18-26-disk-E-z-B-ADX.png" noise
+include
+//"/home/paavo/konte/gram/color-work/symm-fuzz-vid/2017-01-11-00-13-symm-fuzz-vid-G-AEY.png" noise2
+"/home/paavo/konte/gram/color-work/2016-10-22-18-09-blue-painting-M-ADL.png" noise2
+
+bg{B 0}
+DEF CLUST .00085
+DEF BX 200
+MACRO TWIST sin(v*.01+u*.01)*.1+sin(v*.017+u*.013)*.2
+MACRO SPx (BX+u+cos(TWIST)*BX) / n*iw%iw
+MACRO SPy (BX+v+sin(TWIST)*BX) / n*ih%ih
+MACRO S2x (BX+u+cos(TWIST)*BX) / n*iw2%iw2
+MACRO S2y (BX+v+sin(TWIST)*BX) / n*ih2%ih2
+
+MACRO lightR 1+sin(u**2*.009+v**2*.01)*.5
+MACRO lightG 1+sin(u**2*.01+v**2*.01)*.5
+MACRO ir  imgred(noise, SPx, SPy)
+MACRO ig  imggreen(noise, SPx, SPy)
+MACRO ib  imgblue(noise, SPx, SPy)
+MACRO ir2 imgred(noise2, S2x, S2y)
+MACRO ig2 imggreen(noise2, S2x, S2y)
+MACRO ib2 imgblue(noise2, S2x, S2y)
+/*  (
+  imgred(noise2, u/n*iw2%iw2, ih2-1-v/n*ih2%ih2) + 0
+  + imgred(noise2, (u+1)/n*iw2%iw2, ih2-1-v/n*ih2%ih2)
+  + imgred(noise2, (u+2)/n*iw2%iw2, ih2-1-v/n*ih2%ih2)
+  + imgred(noise2, u/n*iw2%iw2, ih2-1-(v+1)/n*ih2%ih2)
+  + imgred(noise2, (u+1)/n*iw2%iw2, ih2-1-(v+1)/n*ih2%ih2)
+  + imgred(noise2, (u+2)/n*iw2%iw2, ih2-1-(v+1)/n*ih2%ih2)
+  + imgred(noise2, u/n*iw2%iw2, ih2-1-(v+2)/n*ih2%ih2)
+  + imgred(noise2, (u+1)/n*iw2%iw2, ih2-1-(v+2)/n*ih2%ih2)
+  + imgred(noise2, (u+2)/n*iw2%iw2, ih2-1-(v+2)/n*ih2%ih2)
+  )
+  / 9
+*/
+
+light {AMBIENT s 0}
+light {PHONG specular 1 alpha 10 s 6*(sin((ir+ib+ig)*3)+.5+rndf()) {RGB ir*ir2 ig*ig2 ib*ib2}
+  point(
+    x,
+    y, 
+    -.1
+  )
+}
