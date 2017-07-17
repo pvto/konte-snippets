@@ -1,0 +1,52 @@
+include "2016-09-03-14-41-phong-test.png" img0
+
+fov{BEZIER2 x .01 y .005 z -1
+  .5 (-.8) 0 (-.8) (-.5) (-.8)
+  (-.8) (-.5) (-.8) 0 (-.8) .5
+  (-.5) .8 0 .8 1.1 .8
+  .8 .9 .8 0 .8 (-.5)
+  3 1
+}
+fov{foov z -1}
+foo{
+  *{s 1 ry 0 rx -0}
+  0*{z .5}
+  *{{n=100}}*{s 1/n x -n/2+.5 y -n/2+.5}
+  (n*1)*{x 1 R 1/n} (n*1)*{y 1 B 1/n}
+    {
+    SQUARE{L 1 S -1}
+    SQUARE{s .9}
+    }
+  *{x -.038 y .1 s .01}
+  15*{x 2 y -.03 s 1.25}
+  40*{rz 10 y 1} {
+    CIRCLE{lr 1 s 1}
+    CIRCLE{lr 1 s .9 L 1}
+  }
+  draw_img
+  { lr .5 s .9
+    DEF
+    {
+       iw = imgwidth(img0);
+       ih = imgheight(img0);
+       pixsize = (1/imgwidth(img0));
+    }
+  }
+}
+
+
+
+rule draw_img {
+    (iw/2) * { DEF {u=u+2} }
+        (ih/2) * { DEF {v=v+2} }
+          {
+            i_pxl
+            {
+                x -.5 y (.5*ih/iw)
+                s pixsize x u y -v
+                s 2
+                RGB imgred(img0,u,v) imggreen(img0,u,v) imgblue(img0,u,v)
+            }
+          }
+}
+rule i_pxl { SQUARE { s 1.2 skewx 100} }
