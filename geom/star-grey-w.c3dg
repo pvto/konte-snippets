@@ -3,6 +3,20 @@ DEF phi (1 + sqrt(5)) / 2
 startshape bar
 include "../colors/earth_and_sky.c3dg"
 
+shading extended {
+    point(0.0) { A 1
+        RGB lirp(0,1,.5,.6,SAT) lirp(0,1,.5,1,SAT) lirp(0,1,.5,.6,SAT)}
+    point(0.25) { A 1
+        RGB lirp(0,1,.5,.9,SAT) lirp(0,1,.5,0,SAT) lirp(0,1,.5,.6,SAT) }
+    point(.5) { A 1
+        RGB lirp(0,1,.5,.2,SAT) lirp(0,1,.5,.8,SAT) lirp(0,1,.5,1,SAT) }
+    point(.75) { A 1
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,.7,SAT) lirp(0,1,.5,.7,SAT) }
+    point(1) { A 1
+        RGB lirp(0,1,.9,1,SAT) lirp(0,1,.9,.6,SAT) lirp(0,1,1,.6,SAT) }
+}
+
+
 bar {
   *{{ x1=-.5;y1=-.5; x2=.5;y2=-.5; x3=.5;y3=.5; x4=-.5;y4=.5; 
       r=.45; border=.1}} {
@@ -43,9 +57,11 @@ twoTRI {
       TRI{{
         x1=x1*nr+xc*border; x2=x2*nr+xc*border; x3=x3*nr+xc*border;
         y1=y1*nr+yc*border; y2=y2*nr+yc*border; y3=y3*nr+yc*border;
-      } shading eas 
+      } shading extended 
         col0 o%7%2-o*8%2-(o+1)*sin(x1*15) 
-        {SAT=.7+sin(y1*17)*.5}}
+        {SAT= .05 + hipas(sin(yc*17+xc*17)*2, .8)
+        } 
+      }
   }
 }
 oneRECT {
@@ -62,9 +78,9 @@ twoRECT {
         x1=x1*nr+xc*border; x2=x2*nr+xc*border; x3=x3*nr+xc*border; x4=x4*nr+xc*border;
         y1=y1*nr+yc*border; y2=y2*nr+yc*border; y3=y3*nr+yc*border; y4=y4*nr+yc*border; 
       }
-      shading eas 
+      shading extended 
         col0 o%7%2-o*8%2-(o+1)*sin(x1*15) 
-        {SAT=1+sin(y1*17)*.25}
+        {SAT=sin(y1*17)*.3}
       }
   }
 }

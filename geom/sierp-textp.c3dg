@@ -1,6 +1,6 @@
 //include "/home/paavo/konte/gram/test/2016-09-22-22-45-mindist-B-AHL.png" img0
 //include "/home/paavo/konte/gram/help/2016-09-01-22-26-dyncirc_fancy.png" img0
-include "/home/paavo/konte/gram/help/2016-09-04-22-12-recursion.png" img0
+include "marimekko-AEU-2018-08-17-10-17-.png" img0
 fov {z -1.5 x -1 y -.25 lookat(0,0,0)}
 
 MACRO IX (u + .5)*imgwidth(img0)

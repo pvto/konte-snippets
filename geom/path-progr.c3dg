@@ -2,11 +2,11 @@ fov{z -1.2}
 DEF feat .1
 DEF m .00001
 scene {
-  foo{s feat A -.9 B .3}
+  foo{s feat A -.5 B .3}
 }
 MACRO M (irndf(3)-1)*.1
 foo{
-  bent{} 
+  bent{s .5} 
   4*{rz 90}fooCont{{trials=0}}
 }
 fooCont {

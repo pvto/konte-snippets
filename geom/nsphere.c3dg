@@ -5,7 +5,7 @@ rule loop {
     (N+1) *  { roty 360/N }  
         (N+1) * { rotx 360/N {row=row+1}}
         {
-           popper{z -.5}
+           popper{z -.5 L 1}
          }
 }
 

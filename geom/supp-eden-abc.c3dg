@@ -1,4 +1,4 @@
-fov{y 0 z -1}
+fov{y 0 z -1 x -.2 ry 15}
 MACRO tano .6-rndf()*.2
 
 test {

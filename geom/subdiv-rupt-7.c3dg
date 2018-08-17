@@ -2,12 +2,12 @@ MACRO rf (.2+rndf()*.2)*(irndf(2)-.5)*2
 
 startshape test
 
-R1{sd6_3r{PUSH R2 sd4_4 sd4_4}}
+R1{sd6_3r{PUSH R2 }}
 R2{
   if (o=1) {sd4_4{PUSH R6 R3}}
   if (o=2) {sd4_r4t{PUSH R6 R3}}
   if (o=3) {sd4_r4t{PUSH R6 R3}}
-  if (o=4) {sd4_8t{PUSH R6 sd3_3 sd3_3 sd3_3 L -.5 A -.4}}
+  if (o=4) {sd4_8t{PUSH R6 }}
 }
 R3{
   if (o=1) {sd4_2h{PUSH R4}}

@@ -30,7 +30,7 @@ RIMa {
 
 delay {
     CIRCLE{s min(0.1, 2*nbdist(x,y,z,.3,2, T=1)) 
-      B rndf() 
+      B 1-nbdist(x,y,z,.3,2, T=1)*70 H 180*y
       {T=1}}
 }
 include #geometry

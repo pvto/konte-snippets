@@ -2,12 +2,12 @@ MACRO rf (.2+rndf()*.2)*(irndf(2)-.5)*2
 
 startshape test
 
-R1{sd6_3r{PUSH R2 sd4_4 sd4_4}}
+R1{sd6_3r{PUSH R2 sd4_4 }}
 R2{
-  if (o=1) {sd4_4{PUSH R6 R3}}
+  if (o=1) {R3{PUSH R6}}
   if (o=2) {sd4_r4t{PUSH R6 R3}}
   if (o=3) {sd4_r4t{PUSH R6 R3}}
-  if (o=4) {sd4_8t{PUSH R6 sd3_3 sd3_3 sd3_3 L -.5 A -.4}}
+  if (o=4) {sd4_8t{PUSH R6 sd3_3  }}
 }
 R3{
   if (o=1) {sd4_2h{PUSH R4}}
@@ -32,9 +32,9 @@ test {
     //{x1=rf;y1=rf;x2=rf;y2=rf;x3=rf;y3=rf;x4=rf;y4=rf}
     //{x1=-.2;y1=.2;x2=.2;y2=.2;x3=.2;y3=-.2;x4=-.2;y4=-.2}
     x1=.25; y1=H6YH*.5;
-    x2=cos(RAD*(90+60*1))*H6YH; y2=.5*sin(RAD*(90+60*1))*H6YH;
-    x3=cos(RAD*(90+60*2))*H6YH*.5; y3=sin(RAD*(90+60*2))*H6YH;
-    x4=cos(RAD*(90+60*3))*H6YH+.4; y4=sin(RAD*(90+60*3))*H6YH*.5;
+    x2=cos(RAD*(90+60*1))*H6YH; y2=sin(RAD*(90+60*1))*H6YH;
+    x3=cos(RAD*(90+60*2))*H6YH; y3=sin(RAD*(90+60*2))*H6YH;
+    x4=cos(RAD*(90+60*3))*H6YH; y4=sin(RAD*(90+60*3))*H6YH;
     x5=cos(RAD*(90+60*4))*H6YH; y5=sin(RAD*(90+60*4))*H6YH;
     x6=cos(RAD*(90+60*5))*H6YH; y6=sin(RAD*(90+60*5))*H6YH; }}
   R1 { A -.5 {border = .05} s .93}

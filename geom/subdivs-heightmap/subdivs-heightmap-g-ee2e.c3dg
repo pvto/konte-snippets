@@ -1,7 +1,8 @@
 DEF phi (1 + sqrt(5)) / 2
 bg{B 0}
 include 
-"https://s-media-cache-ak0.pinimg.com/236x/e8/94/d0/e894d072aa68f750e76c7acfde05f40d.jpg" Ia
+//"https://s-media-cache-ak0.pinimg.com/236x/e8/94/d0/e894d072aa68f750e76c7acfde05f40d.jpg" Ia
+"/home/paavo/Pictures/20160728_124049.jpg" la
 
 bar {
   *{{ x1=-.5;y1=-.5; x2=.5;y2=-.5; x3=.5;y3=.5; x4=-.5;y4=.5; 

@@ -45,7 +45,7 @@ twoTRI {
         y1=y1*nr+yc*border; y2=y2*nr+yc*border; y3=y3*nr+yc*border;
       } shading reds 
         col0 o%7%2-o*3%2-(o+1)*sin(x1*15) 
-        {SAT=.9+sin(y1*17*x1*3)*.5}}
+        {SAT=.9+sin(y1*17*x1*3)*.05}}
   }
 }
 oneRECT {
