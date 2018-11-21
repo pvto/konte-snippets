@@ -1,8 +1,8 @@
-fov{y 0 z -1}
+fov{y 0 z -1.5}
 MACRO tano .6-rndf()*.2
 
 test {
-  *{{ D=14; BULB = 1.1;} s 1.4}
+  *{{ D=14; BULB = 1.1;} s 1.4 ry 0}
   subs{{
     c1ax= .5*cos(0*PI/3*2) - BULB*.5*sin(0*PI/3*2);
     c1ay= .5*sin(0*PI/3*2) - BULB*.5*cos(0*PI/3*2);

@@ -6,7 +6,7 @@ system Perlin2 Perlinb init(GRID2, GRID2, 2)
 system Perlin2 Perlinc init(GRID3, GRID3, 2)
 DEF N 500
 
-include "../graphical-colors/2017-03-22-21-40-menger-to-waves-ACW.png" tex
+include "menger-to-waves-2-AAD-2018-08-18-17-02-.png" tex
 
 DEF Tx imgwidth(tex)/N
 DEF Ty imgheight(tex)/N

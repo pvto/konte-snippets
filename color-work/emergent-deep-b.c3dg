@@ -10,7 +10,7 @@ piece {
       //CIRCLE{s .01 G 1 x OX-x y OY-y sy 3 {ZAP=0}}
 	    *{{OX=x;OY=y;OZ=z}}
 	    *{x -.02 y -.02 {SAT=SAT -.01} col0 (col0-.05)}
-	    3*{x .02 {SAT=SAT+.01}} 3*{y .02 col0 (col0+.05)}
+	    3*{x .02 {SAT=SAT+.02*rndf()}} 3*{y .02 col0 (col0+.1*rndf())}
 	    2*{z .04 col0 (col0+.2)}
 	    *{{nbd=nbdist(x,y,z, .1, 1, ZAP=1)}} {
 	      if (nbd > .02 

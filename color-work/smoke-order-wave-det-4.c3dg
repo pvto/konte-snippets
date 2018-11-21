@@ -36,7 +36,7 @@ wchex {
         RADBLUR32{
           s 4
           z -.1
-          x rndf() y -rndf()*.200
+          x rndf()*2 y -rndf()*.500
           A -.5 R .6}
       }
       if (rndf() < 0.01) {

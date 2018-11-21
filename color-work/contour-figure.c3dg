@@ -42,4 +42,4 @@ element {
 }
 
 
-include "/home/paavo/konte/gram/colors/misty_city_by_sea.c3dg"
+include "../colors/misty_city_by_sea.c3dg"

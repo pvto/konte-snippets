@@ -7,13 +7,13 @@ DEF N 500
 
 
 curlt{
-  2*{{D=rndf()}}
+  4*{{D=rndf()}}
   *{s .9 shading myc}
   (N)*{{i=i+1}}
   (N)*{{j=j+1}}
   *{{cu=sysread(Curl, (i+D*GRID)/N*GRID, j/N*GRID)}}
   *{
-    rz round(D*4)*90
+    rz round(D*4)*85
     x -.5 y -.5 s 1/N x i y j s 1.6
   }
   CIRCLE {

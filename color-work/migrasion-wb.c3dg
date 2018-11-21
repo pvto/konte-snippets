@@ -1,13 +1,12 @@
 fov{z -1}
 include #recursions
 include #geometry
-include "../colors/marble-azure.c3dg"
 include "../colors/skies.c3dg"
 startshape wcs
 //fov{ ORTOGRAPHIC}
 model{maxshapes 30000000 order STREAM}
-include "../geom/2017-04-17-20-07-_43_L3c-AAG.png" im
-include "../geom/2016-12-11-16-28-bird-subdiv-ABT.png" im2
+include "../geom/_43_L3c-AAJ-2018-08-16-21-34-.png" im
+include "../geom/bird-subdiv-ADE-2018-08-17-09-08-.png" im2
 MACRO ix (x*2+.5+sin(x)*.1+y*.3)*imgwidth(im)
 MACRO iy -(y*2+.5+x*.3+sin(x*6)*.2)*imgwidth(im)
 MACRO ix2 (x+.5)*imgwidth(im2)

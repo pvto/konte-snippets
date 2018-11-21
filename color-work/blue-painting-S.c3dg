@@ -23,6 +23,7 @@ wcs{
     wc {
       col0 abs(sin(CC+x**5*2+x**2*CC+y**2*CC)**3) 
       {SAT=-1*abs(sin(SS+(x*10%.1+y*17%.3*SS)*30**(x+1/SS)))}
+      s .5+rndf()**2 rz irndf(90)
     }
 }
 wc {

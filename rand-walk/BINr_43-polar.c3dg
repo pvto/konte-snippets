@@ -1,0 +1,9 @@
+startshape SS
+
+SS { 10000*{} AAc{x -.0 s .01 {width=.01} }}
+AA { aline{} AAc{{x1=x2; y1=y2; x2=x2+cos(t); y2=y2+sin(t); u=t; t=t+PI/43; N=N+1;}}  }
+AA { aline{} AAc{{x1=x2; y1=y2; x2=x2+cos(t); y2=y2+sin(t); u=t; t=t-PI/43; N=N+1;}} }
+AAc { if (N < 100) { AA{} } }
+aline{ LINE{{x1=.5*N*cos(t);y1=.5*N*sin(t); x2=.5*(N-1)*cos(u);y2=.5*(N-1)*sin(u)}}}
+//aline{CIRCLE{ x .5*N*cos(t) y .5*N*sin(t) s .1}}
+include #geometry

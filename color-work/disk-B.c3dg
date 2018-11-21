@@ -1,8 +1,8 @@
-model{maxshapes 20000000 order STREAM}
+model{maxshapes 80000000 order STREAM}
 
 foo{
   *{shading kq_rainbow} {
-    Rn{ {n=18;D=5} PUSH trip}
+    Rn{ {n=18;D=6} PUSH trip} // D=5
   }
 }
 

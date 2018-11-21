@@ -19,9 +19,9 @@ curlt{
     ry 180/PI*cu
     z -cu*5
     col0 (cu+PI*2)/PI/6*2
-    {SAT=(sin(cu*3))**.7+y*4}
+    {SAT=abs(sin(-cu*3))**.7+y**3*4}
     rz rndf()*10
-    sx .2 sy 10
+    sx .4 sy 20
   }
 }
 

@@ -23,11 +23,11 @@ wchex_{wchex{}}
 wchex {wchex{A .03}}
 wchex {
   //3*{y .03}
-  5*{z rndf() x .1 {SAT=SAT+.2}} {
+  5*{z rndf()*4 x .1 {SAT=SAT+.2}} {
     HEXAGON{
       //z -(x**2+y**2)*100
       y rndf()*25
-      s 1 5 1
+      s 1.2 5 1
       //z -.01/(.5+s*100) 
       col0 (col0+.4*rndf())
     }

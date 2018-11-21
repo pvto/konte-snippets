@@ -1,4 +1,4 @@
-include "/home/paavo/konte/gram/test/2016-09-22-22-45-mindist-B-AHL.png" img0
+include "mindist-B-AAB-2018-08-18-17-22-.png" img0
 fov { z -1.2 }
 MACRO RNDNEG (-1+2*irndf(2))
 MACRO SIGRND rndf()*RNDNEG
@@ -38,7 +38,8 @@ rule draw_img {
             {
                 x -.5 y (.5*ih/iw)
                 z sin(u/30+v/30)*.2
-                s pixsize x u y -v s 1.5
+                s pixsize x u y -v
+ s 1.5
                 RGB imgred(img0,u,v) imggreen(img0,u,v) imgblue(img0,u,v)
             }
 }

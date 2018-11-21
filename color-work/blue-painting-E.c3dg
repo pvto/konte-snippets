@@ -27,6 +27,7 @@ wchex {
     HEXAGON{
       //z -(x**2+y**2)*100
       y rndf()*25
+      
       skewx rndf()*100
       s .2 5 1
       //z -.01/(.5+s*100) 
@@ -35,8 +36,8 @@ wchex {
       if (rndf() < 0.1) {
         RADBLUR32{
           s 4
-          z -.1
-          x rndf() y -rndf()*.200
+          z -.4 -SAT*3
+          x rndf() y -rndf()*5.200
           A -.5 R .6}
       }
       if (rndf() < 0.001) {

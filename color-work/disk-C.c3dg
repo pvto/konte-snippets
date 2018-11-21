@@ -14,7 +14,7 @@ foo{
 
 trip{
   if (abs(y/x)%.1 < .03+cos(atan(y/x))*.03) {
-    *{s .1 {SAT=abs(sin(saw(y*y*10)*5+x))}} {
+    *{s .1 {SAT=abs(sin(saw(y*y*10)*15+x))}} {
       //TRIANGLE{}
       10*{y .2 s .9 {SAT=SAT-.05}}
       TRIANGLE{s .98 col0 abs(sin(saw(x*x*3+y*y*3))) 

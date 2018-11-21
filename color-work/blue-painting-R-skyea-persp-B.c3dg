@@ -48,7 +48,7 @@ wchex {
           x rndf() y -rndf()*.200
           A -.5 R .6}
       }
-      if (rndf() < 0.01) {
+      if (rndf() < 0.001) {
         *{rz sin(x**2*1.5+y**2*15)*90
           s .2
           x rndf()

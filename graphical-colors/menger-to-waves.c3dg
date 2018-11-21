@@ -9,7 +9,7 @@ MACRO PERL
   + sysread(Perlinb, x*GRIDb, y*GRIDb)
   + sysread(Perlinc, x*GRIDc, y*GRIDc))
 
-DEF niter 6
+DEF niter 5
 
 rule req {  
     1* {z 1 y .5 x .5 } 

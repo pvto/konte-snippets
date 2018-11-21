@@ -13,7 +13,7 @@ wcs{
     11*{x .85}
     wc {
       col0 abs(sin(CC+x**5*2+x**2*CC)**3) 
-      {SAT=-1*abs(sin(SS+(x*10%.1+y*17%.3)*30**(x+1/SS)))}
+      {SAT=-1*abs(sin(SS+(x*10%.1+y*17%.3)*30**(x+1/SS))) + .5}
     }
 }
 wc {
@@ -36,7 +36,7 @@ wchex {
         RADBLUR32{
           s 4
           z -.1
-          x rndf() y -rndf()*.200
+          x rndf() y -rndf()*5.600
           A -.5 R .6}
       }
 /*      if (rndf() < 0.1) {

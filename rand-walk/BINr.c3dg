@@ -1,0 +1,8 @@
+startshape SS
+
+SS { 1000*{} AAc{x -.0 s .01 {width=.01} }}
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x2+cos(t); y2=y2+sin(t); t=t+PI/4; N=N+1;}}  }
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x2+cos(t); y2=y2+sin(t); t=t+0; N=N+1;}} }
+AAc { if (N < 100) { AA{} } }
+
+include #geometry

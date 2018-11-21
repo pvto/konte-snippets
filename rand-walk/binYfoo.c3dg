@@ -1,0 +1,8 @@
+startshape SS
+
+SS { 10000*{} AAc{x -.45 s .01 {width=.08} } }
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x2+1; y2=y2+1; YY=YY+1; N=N+1; ZZ=ZZ+(1+ym)/2; ym=1}}  }
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x2+1; y2=y2-1; YY=YY-1; N=N+1; ZZ=ZZ-(ym-1)/2;  ym=-1}} }
+AAc { if (N < 200 and ZZ>N**.95-1) { AA{} } }
+
+include #geometry

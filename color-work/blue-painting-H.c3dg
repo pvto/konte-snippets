@@ -8,10 +8,11 @@ model{maxshapes 30000000 } // order STREAM}
 wcs{
   *{s .12 x -4.5 y -4.5 A -.3 shading kq_rainbow
   {SS=rndf()*3; CC=rndf()*30}}
-    7*{y 1.5}
-    2*{x .85/2 y .75}
-    11*{x .85}
+    7*{y 1.5 {RR=RR+1}}
+    2*{x .85/2 y .75 }
+    11*{x .85  {CC=CC+1}}
     wc {
+      x sin((RR*3)+CC/5)*.3
       col0 abs(sin(CC+x**5*2+x**2*CC)**3) 
       {SAT=-1*abs(sin(SS+(x*10%.1+y*17%.3*SS)*30**(x+1/SS)))}
     }

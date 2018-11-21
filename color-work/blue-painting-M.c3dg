@@ -38,7 +38,7 @@ wchex {
           x rndf() y -rndf()*.200
           A -.5 R .6}
       }
-      if (rndf() < 0.01) {
+      if (rndf() < 0.002) {
         *{rz sin(x**2*1.5+y**2*15)*90
           s .2
           x rndf()
@@ -46,7 +46,7 @@ wchex {
         }
         20*{y 1.1 rz FRZ}
         RADTR{sx 100*sin(y*5) 
-          sy sin(x*3)*.5
+          sy sin(x*3)*.5*irndf(51)
           B 1 R .6}
       }
   }

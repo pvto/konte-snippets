@@ -18,7 +18,7 @@ wcs{
    BLURN=irndf(5);
    BLURRZ=rndf()*180;
    MIXING=rndf()*2;
-   }}
+   } ry 20}
     14*{y 1.5/2}
     2*{x .85/2/2 y .75/2}
     22*{x .85/2}

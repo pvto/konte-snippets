@@ -1,4 +1,5 @@
 DEF phi (1 + sqrt(5)) / 2
+bg { RGB 0 0 0 }
 
 bar {
   *{{ x1=-.5;y1=-.5; x2=.5;y2=-.5; x3=.5;y3=.5; x4=-.5;y4=.5; 
@@ -13,7 +14,7 @@ foo{
   }
 }
 b1 { 
-  _4_4t { {r=-.5} PUSH 
+  _4_4t { {r=-.5} R irndf(5)/5 PUSH 
 //    twoTRI oneHEX _3_h3t
 //    twoTRI oneHEX _3_h3t
     twoTRI oneHEX _3_h3t HEXANGLE _3_h3t  }

@@ -1,0 +1,8 @@
+startshape SS
+
+SS { 100*{} AAc{x -.45 s .01 {width=.08}} }
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x1+1; y2=y2+1; YY=YY+1; N=N+1;}}  }
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x1+1; y2=y2-1; YY=YY-1; N=N+1;}} }
+AAc { if (abs(YY) < 100 && N < 200) { AA{} } }
+
+include #geometry

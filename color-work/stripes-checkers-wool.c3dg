@@ -23,7 +23,7 @@ wchex{wchex{{SAT=SAT+.1}}}
 wchex 2 {wchex{{SAT=SAT-.01}}}
 wchex {
   //3*{y .03}
-  20*{rz 360*(x*100%.1+y*100%.1) y .2 sx .98 {SAT=SAT+.04}} {
+  20*{rz 360*(x*100%.1+y*100%.1+.2*sin(3*(x*x+y*y))) y .2 sx .98 {SAT=SAT+.04}} {
     HEXAGON{
       z (x**2+y**2)
       s .1 2 1

@@ -1,5 +1,5 @@
-include "/home/paavo/konte/gram/colors/misty_city_by_sea.c3dg"
-include "../color-work/2016-10-15-00-56-contour-figure-recolored-bevel-ADR.png" ima
+include "../colors/misty_city_by_sea.c3dg"
+include "../color-work/contour-figure-recolored-bevel-AAA-2018-08-19-20-49.png" ima
 include #geometry
 include #monospace
 include #recursions

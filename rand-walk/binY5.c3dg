@@ -1,0 +1,12 @@
+startshape SS
+MACRO RF rndf()*0
+
+SS { 3000*{} AAc{x -.45 s .01 {width=.01}} }
+AA { LL{} AAc{{x1=x2; y1=y2; x2=x1+1; y2=y2+2; YY=YY+2; N=N+1;}}  }
+AA { LL{} AAc{{x1=x2; y1=y2; x2=x1+1; y2=y2+1; YY=YY+1; N=N+1;}}  }
+AA { LL{} AAc{{x1=x2; y1=y2; x2=x1+1; y2=y2-1; YY=YY-1; N=N+1;}} }
+AA { LL{} AAc{{x1=x2; y1=y2; x2=x1+1; y2=y2-2; YY=YY-2; N=N+1;}}  }
+AA { LL{} AAc{{x1=x2; y1=y2; x2=x1+1; y2=y2-0; YY=YY-0; N=N+1;}} }
+AAc { if (N < 200) { AA{} } }
+LL{LINE{{x1=x1+RF; x2=x2+RF; y1=y1+ RF; y2=y2+ RF}}}
+include #geometry
