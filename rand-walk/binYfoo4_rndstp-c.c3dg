@@ -1,0 +1,16 @@
+startshape SS
+
+fov { z -.6}
+MACRO step (1 - rndf()**40)
+
+SS { *{rz 45} 4*{x .1 y -.1} 3000*{} AAc{x -.25 y -.1 s .01 {width=.02} } }
+AA { dr{} AAc{{x1=x2; y1=y2; x2=x2+step; y2=y2+step; YY=YY+1; N=N+1; ZZ=ZZ+(1+ym)/2; ym=1}}  }
+AA { dr{} AAc{{x1=x2; y1=y2; x2=x2+step; y2=y2-step; YY=YY-1; N=N+1; ZZ=ZZ-(ym-1)/2;  ym=-1}} }
+AA { dr{} AAc{{x1=x2; y1=y2; x2=x2-step; y2=y2+step; YY=YY+1; N=N+1; ZZ=ZZ+(1+ym)/2;  ym=1}} }
+AAc { if (N < 200 and ZZ**.9 > N**.8-1) { AA{} } }
+
+dr {
+  if ( (x + x1*s)**2+(y+y1*s)**2 < .05) { LINE{} }
+}
+
+include #geometry

@@ -1,0 +1,13 @@
+startshape SS
+fov{FA z -1 FISHEYE .4 0 1 .5 }
+//fov { z -.6 }
+MACRO step (1 - 0* rndf()**10 * .6)
+
+SS { *{rz 0} 1*{rz 90} 3000*{} AAc{x -.0 y -.0 s .01 {width=.08} L floor(irndf(100)/80) } }
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x2-step; y2=y2-step; YY=YY-1; N=N+1; ZZ=ZZ+(ym-1)/2; ym=-1} }  }
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x2+step; y2=y2+step; YY=YY+1; N=N+1; ZZ=ZZ+(1+ym)/2; ym=1} rz -rndf()*0}  }
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x2+step; y2=y2-step; YY=YY-1; N=N+1; ZZ=ZZ-(ym-1)/2;  ym=-1}} }
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x2-step; y2=y2+step; YY=YY+1; N=N+1; ZZ=ZZ+(1+ym)/2;  ym=1}} }
+AAc { if (N < 200 and ZZ>N**.6-1) { AA{} } }
+
+include #geometry

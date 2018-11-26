@@ -1,0 +1,11 @@
+startshape SS
+
+MACRO step (1 - rndf()**6 * .4)
+
+SS { *{rz 45} 1*{rz 90} 3000*{} AAc{x -.2 y -.3 s .01 {width=.08} } }
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x2+step; y2=y2+step; YY=YY+1; N=N+1; ZZ=ZZ+(1+ym)/2; ym=1}}  }
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x2+step; y2=y2-step; YY=YY-1; N=N+1; ZZ=ZZ-(ym-1)/2;  ym=-1}} }
+AA { LINE{} AAc{{x1=x2; y1=y2; x2=x2-step; y2=y2+step; YY=YY+1; N=N+1; ZZ=ZZ+(1+ym)/2;  ym=1}} }
+AAc { if (N < 200 and ZZ>N**.9-1) { AA{} } }
+
+include #geometry

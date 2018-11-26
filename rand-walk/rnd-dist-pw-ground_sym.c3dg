@@ -1,0 +1,15 @@
+MACRO rndsig irndf(2) *2 - 1
+MACRO MSLICE (.5/M + irndf(M) / M ) ** PW  * rndsig / 2
+MACRO p10rnd (MSLICE + .5)  / (N)  +  irndf(N) / N
+
+foo {
+  demo { {N=3; M = 75; PW = 1;}  x -.45 y 0 s .45 }
+  demo { {N=3; M = 75; PW = .2;}  x -.45 y -.45 s .45 }
+  demo { {N=3; M = 75; PW = 2;}  x 0 y 0 s .45 }
+  demo { {N=7; M = 125; PW = .5; YPW=5;}  x 0 y -.45 s .45 }
+}
+demo {
+    100000* {} 
+  *{{X=p10rnd; Y=p10rnd**coalesce(YPW, 1)}} 
+    CIRCLE{x X y Y s .0015}
+}

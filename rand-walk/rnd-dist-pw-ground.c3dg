@@ -1,0 +1,10 @@
+MACRO rndsig irndf(2) *2 - 1
+MACRO p10rndx (((irndf(M) / (M)) ** 1) * rndsig + 1) / 2 / (N)  +  irndf(N) / N
+MACRO p10rnd (irndf(M) / (M)) / (N)  +  irndf(N) / N
+
+foo {
+  *{x -.45 y -.45 s .9 } 
+  100000* {{N=10; M = 20}} 
+  *{{X=p10rnd; Y=p10rnd**1}} 
+    CIRCLE{x X y Y s .0025}
+}
