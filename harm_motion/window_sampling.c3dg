@@ -1,0 +1,21 @@
+DEF UT 925.5
+MACRO UUT (200+irndf(U*92550)/100)
+MACRO SPRINGrndx sqrt(c1**2+c2**2) * cos(sqrt((1+sin(UUT*.00001))*k/m) * UUT - tan(c2/c1)) * cos(UUT)*.01
+MACRO SPRINGrndy sqrt(c1**2+c2**2) * cos(sqrt((1+sin(UUT*.00001))*k/m) * UUT - tan(c2/c1)) * sin(UUT)*.01
+
+bar {
+*{{ c1= .5; c2 = 24; m=1; k = .0000125;}}
+1000000*{{U=rndf()}}
+CIRCLE{x SPRINGrndx y SPRINGrndy s .001}
+}
+
+foo {*{y -.0 }
+*{s .1} *{{ c1= .5; c2 = 24; m=1; k = .0000125; t=200}}
+92550*{{t=t+.01}} 
+*{{DF= sqrt(c1**2+c2**2) * cos(sqrt((1+sin(t*.00001))*k/m) * t - tan(c2/c1)) }}
+CIRCLE{ 
+     s .01
+    x DF*cos(t)*17
+    y DF*sin(t)*17
+}
+}
