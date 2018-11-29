@@ -1,0 +1,12 @@
+
+MACRO UUT (t0+floor(U*SSp)*Sfr)
+MACRO SPRINGrndx .5 * cos(sqrt((1+sin(UUT*SK)*.5+sin(wob2f*UUT*SK)*.5)*k/m) * UUT - tan(c2/c1)) * cos(UUT)
+MACRO SPRINGrndy .5 * cos(sqrt((1+sin(UUT*SK)*.5+sin(wob2f*UUT*SK)*.5)*k/m) * UUT - tan(c2/c1)) * sin(UUT)
+
+bar {
+*{{ c1= .5; c2 = 2.62; m=1; k = 3;SK=.000001;t0=200;SSp=403550;Sfr=.00135;wob2f=18.111}}
+1600000*{{U=rndf()}}
+CIRCLE{ x SPRINGrndx y SPRINGrndy s .001}
+}
+
+
