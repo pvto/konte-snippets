@@ -1,0 +1,35 @@
+foo {
+//  2*{{Z0=Z0+.2}}
+    *{y 0 s .5} { nSPHERE{{n=48;mesh=2} PUSH SOME Xframe RBOX_ }
+  }
+
+}
+include #geometry
+include #monospace
+
+nSPHERE {
+  
+  (n)*  { {row=row+1}}  *{ry (row*360/n+rndf()*3)}
+    (n/2+1)* { {col=col+1}} *{rx -90+col*360/n}
+      popper{z -.5-Z0-rndf()*.1}
+}
+
+RBOX_ { RBOX { s .02+rndf()*.02 } }
+RBOX {
+    2* { ry 90 }
+    2* { z 1 } popper { z -.5 }
+    2* { y -1 } popper { rx 90 z .5 }
+}
+
+
+popper{POP{}}
+
+TRIANGLEs01 { TRIANGLE { s .1 } }
+Xframe {
+  2*{L 1 S -1 s .95} SQUARE { }
+  POP { }
+}
+SOME { mC{} }
+SOME { mG{} }
+SOME { mU{} }
+

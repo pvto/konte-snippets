@@ -1,0 +1,32 @@
+
+DEF ROW 32
+
+do {
+  10*{s .8 L choice(L-.5, -1, 1)} CIRCLE{layer -1 s .75 R .3 G .3}
+  3*{s 1.01 layer 1}
+    (ROW/2)*{x 1/ROW}
+      (ROW/2)*{y 1/ROW}
+        *{x -.5 + .5/ROW y -.5 + .5/ROW s 1/ROW} {
+          draw{}
+          *{y ROW/2} {
+           TRIANGLE{s rndf()}
+           MIX{A -rndf() z -.1}
+          }
+          *{y ROW/2 x ROW/2} {
+           TRIANGLE{}
+           RADBLUR32{s 3*rndf() R .5 A -.5 y (y*.2) z -.1}
+          }   
+        }       
+          //
+
+}
+draw {
+  *{{SQUZ=1.5*rndf()**5+.1}} {
+  SQUARE{s .9*SQUZ}
+  RUBBERHEX{z -.2 s SQUZ*rndf() rz rndf()*90}   // RUBBER  RUBBERHEX  RUBBER32
+  GBLUR{s 5*rndf()}                 // GBLUR  GBLURTRI  GBLURHEX  GBLUR32
+  }
+}
+
+//fov{x -.25 y -.25}
+//fov{z -.5 x -.25 y -.25}

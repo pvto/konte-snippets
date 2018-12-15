@@ -1,0 +1,32 @@
+
+MACRO UUT (t0+floor(U*SSp)*Sfr)
+MACRO SPRINGp .5 * cos(sqrt((1+.5*(sin(UUT*SK)+sin(wob2f*UUT*SK)) )*k/m) * UUT - tan(c2/c1))
+MACRO SPRINGrndx SPRINGp**D*F * cos(UUT)
+MACRO SPRINGrndy SPRINGp**D*F * sin(UUT)
+
+MACRO SPRINGq .5 * cos(sqrt((1+.5*(sin(UUT*SKb)+sin(wob2f*UUT*SKb)) )*kb/m_b) * UUT - tan(c2b/c1b))
+MACRO SPRINGrndxb SPRINGq**D*F * cos(UUT)
+MACRO SPRINGrndyb SPRINGq**D*F * sin(UUT)
+MACRO bf .1
+
+MACRO GROOT floor((Y+1)*10)%2+floor((X+1)*10)%2
+model{order STREAM}
+bar {
+
+*{{ c1= .5; c2 = 22.62; m=1; k = 1;SK=.000001;t0=100;SSp=803550;Sfr=.006;wob2f=18.111;
+    c1b=.5;c2b=2.88; m_b=1;kb=3.5;SKb=.00000005;
+    D=.85;F=.85}}
+1600000*{{U=rndf()}} *{{
+  X=((SPRINGrndx*(1-bf) + bf*SPRINGrndxb)); 
+  Y=((SPRINGrndy*(1-bf) + bf*SPRINGrndyb))
+  }}
+  CIRCLE{ x X y Y s .001 }
+//  if (GROOT = 1) { CIRCLE{ x X y Y s .001} }
+
+/**{{ c1= .5; c2 = 22.62; m=1; k = 1;SK=.000001;t0=200;SSp=403550;Sfr=.00135;wob2f=18.111}}
+400000*{{U=rndf()}} *{{X=SPRINGrndx; Y=SPRINGrndy}}
+  if (GROOT != 1) { CIRCLE{ x X y Y s .001} }
+*/
+}
+
+

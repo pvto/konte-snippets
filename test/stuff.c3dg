@@ -1,0 +1,32 @@
+
+fov{STEREOGRAPHIC .65 y .1 rz 20 }
+
+DEF siz .02
+DEF cols (1/siz)
+
+MACRO TY sin(x*5*y*5)
+MACRO TT (TY%saw(z*2)*2)
+
+rule scene { box { rx 25 ry 35 sy .7} }
+
+rule box {
+  (cols)* {z siz}
+    (cols)* {x siz}
+      (cols)* {y siz}
+      {
+        * {
+            s siz
+            x -(cols/2)
+            y -(cols/2)
+            z -(cols/2)
+        } { //SPHERE{ red TT}
+            CIRCLE{layer -1 B TT/2 L rndf()**6 A -.95 s 10}
+            RIM{layer -1 z 10*irndf(10) s 10 {rim=.01} L 1 S -1}
+        }
+      }
+}
+
+camera { z -2 }
+bg{L .7}
+
+include #geometry

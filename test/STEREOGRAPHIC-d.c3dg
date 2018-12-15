@@ -1,0 +1,19 @@
+fov{STEREOGRAPHIC 1}
+//fov{z -2.4}
+foo{
+*{s 1} {
+  *{{n=180}}
+  (n)* {{r=r+2*PI/n; q=q+PI/n/6} R .01}
+  (n/2)*{{q=q+360/n}}
+  *{ry q x cos(r) y sin(r) s .01*rndf()**4*2+.004} 2*{rx 90}2*{ry 90}
+  { if ( z < 1) {
+    2*{L 1 S -1 s .8}CIRCLE{ry 90 }
+    } }
+  //{CIRCLE{ }  CIRCLE{L 1 S -1 s .9}}
+
+  *{{n=100} y -1} (n)*{y 2/100} SQUARE{s 1/n sx .25}
+}
+
+
+//SQUARE{x .25 s .1}
+}

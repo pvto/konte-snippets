@@ -1,0 +1,33 @@
+fov{z -4}
+DEF HYP .125
+MACRO lat atan(Y, X)
+MACRO lon atan(-(Z - 1), X)
+MACRO roo (PI / 2 - lat)
+MACRO theta lon
+MACRO azx roo * sin(theta) * HYP
+MACRO azy roo * -cos(theta) * HYP
+
+//fov{AZIMUTHAL .5}
+//fov{z -2.4}
+foo{
+*{s 1} {
+	  *{{n=180}}
+	  (n*.95)* {{r=r+2*PI/n; q=q+PI/n/6} R .01}
+	  (n/3)*{{q=q+PI/n}}
+	  *{{
+	      X=cos(r);
+	      Y=sin(r);
+	  }}
+	  *{{
+	      X=cos(q)*X;
+	      Z=sin(q)*X;
+	  }}
+	  { 
+	    if (Z > -1) {
+	      *{x X y Y z Z s .01*rndf()**4*2+.004} 2*{rx 90}2*{ry 90}
+	      2*{L 1 S -1 s .9}CIRCLE{ry 90 }
+	    } 
+	  }
+}
+
+}

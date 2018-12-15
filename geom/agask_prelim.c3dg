@@ -1,0 +1,13 @@
+foo {
+RIM{x -.25 s .25 {rim=.5}}
+RIM{x .0 y .15 s .335 {rim=.5}}
+RIM{x -.038 y -.15 s .271 {rim=.5}}
+RIM{x -.066 y .023 s .625 {rim=.01}}
+CIRCLE{x -.066 y .023 s .01 R 1}
+*{{width=.003} G .4} {
+LINE{{x1=-.25;y2=.15;}}
+LINE{{x1=-.25;x2=-.038;y2=-.15;}}
+LINE{{y1=.15;x2=-.038;y2=-.15;}}
+}
+}
+include #geometry
