@@ -1,0 +1,24 @@
+startshape SS
+fov{FA z -.2 ZPOW 8 (-.075) (-.15) }
+//fov { z -.6 }
+DEF ROT 24
+MACRO step 1 // +rndnme(1,1,30)
+//(1 - 0*rndf()**10 * 1)
+
+SS { *{rz 45} 1*{rz 90} 20000*{{RZ_=irndf(ROT*2)}}
+  AAc { x -.0 y -.0 s .01 {width=.001;RZ=RZ_;RZ0=RZ_}
+    L floor(irndf(100)/100) } }
+AA { LINE{} AAc{{
+    x1=x2; y1=y2; 
+    x2=x2+step*cos(PI*2/ROT*RZ); 
+    y2=y2+step*sin(PI*2/ROT*RZ); 
+    YY=YY+1; 
+    N=N+1; 
+    ZZ=(ZZ+abs(RZ0-RZ))*.9; 
+    RZ0=RZ} }  }
+AAc { if (N < 60 and ZZ < N**.6  +1) { AAb {} } }
+AAb  { AA {{ RZ = min(RZ+1, ROT+RZ_) }} }
+AAb  { AA {{ RZ = max(RZ-1, -ROT+RZ_) }} }
+AAb 2 { AA { {width=width+.0002}} }
+
+include #geometry

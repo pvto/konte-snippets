@@ -1,0 +1,38 @@
+
+MACRO UUT (t0+floor(U*SSp)*Sfr)
+MACRO SPRINGrndx .5 * cos(sqrt((1+sin(UUT*SK)*.5+sin(wob2f*UUT*SK)*.5)*k/m) * UUT - tan(c2/c1)) * cos(UUT)
+MACRO SPRINGrndy .5 * cos(sqrt((1+sin(UUT*SK)*.5+sin(wob2f*UUT*SK)*.5)*k/m) * UUT - tan(c2/c1)) * sin(UUT)
+
+MACRO GROOT floor(sqrt((X+X0)**2+Y**2)*12*(1+S0))%3
+
+bar {
+
+*{{ c1= .5; c2 = 2.62; m=1; k = 1;SK=.000001;t0=200;SSp=403550;Sfr=.00235;wob2f=18.111}}
+600000*{{U=rndf()}} *{{X=SPRINGrndx; Y=SPRINGrndy; X0=.075}}
+  if (GROOT >= 1) { CIRCLE{ x X y Y s .002 R .7 S -marble} }
+
+*{{ c1= .5; c2 = 22.62; m=1; k = 1;SK=.000005;t0=200;SSp=403550;Sfr=.003;wob2f=0}}
+400000*{{U=rndf()}} *{{X=SPRINGrndx; Y=SPRINGrndy; S0=-.3}}
+  if (GROOT < 2) { CIRCLE{ x X y Y s .00125 B .2 L marble} }
+
+*{{ c1= .5; c2 = 22.62; m=1; k = 1;SK=.000001;t0=20;SSp=403550;Sfr=.00135;wob2f=18.111}}
+400000*{{U=rndf()}} *{{X=SPRINGrndx; Y=SPRINGrndy}}
+  if (GROOT >= 1) { CIRCLE{ x X y Y s .0015 R 1 G 1 S -marble} }
+
+}
+
+
+
+
+
+DEF GRID 3
+DEF G2 14
+system Perlin2 perlin init(GRID, GRID)
+system Perlin2 perl2 init(G2, G2)
+MACRO noise sysread(perlin, X*GRID, Y*GRID)*.1
+  + sysread(perl2, X*G2, Y*G2)*1 // + sysread(perl2, x*3, y*3)*.5
+MACRO marble (1 + sin( (X*3 + noise**.1 / 2 * 5) * 50) ) / 2
+
+
+
+

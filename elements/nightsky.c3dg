@@ -1,0 +1,9 @@
+bg{L -1}
+fov{z -1}
+nightsky {
+  *{s 1}
+  *{ x -.5 y -.5}
+  15000*{} CIRCLE{x rndf() y rndf()  //x rndnme(1,150, 1) y rndnme(1, 150, 1)
+      s .006*rndf()**14
+    R .1 H irndf(360) L 1 S -.8}
+}

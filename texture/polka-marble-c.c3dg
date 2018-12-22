@@ -1,0 +1,11 @@
+DEF GRID 3
+system Perlin2 perlin init(GRID, GRID)
+MACRO noise sysread(perlin, x*5, y*5)**3
+MACRO marble (1 + sin( (x*y + noise / 2 ) * 50) ) / 2
+MACRO marb2  (1 + sin( (y + noise / 2 ) * 50) ) / 2
+
+foo{
+*{x -.5 y -.5 {n=400}}  *{s 1/n}  (n)*{x 1} (n)*{y 1}
+  SQUARE{ s 1.3
+     L marble**.4*1.4 S sin(marb2*7) H (marble*marb2) *-200}
+}
