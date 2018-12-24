@@ -1,0 +1,17 @@
+DEF GRID 10
+DEF G2 1000
+DEF G3 25
+system Perlin2 worlin init(24, 24, SIN)
+system Perlin2 perl2 init(G2, G2)
+MACRO noise abs(sysread(worlin, (x+.5)*GRID, (y+.5)*GRID, 2))**(y+.5)*1.5
+  + sysread(perl2, x*G2, y*G2)*.1  
+  + abs(sysread(perl2, x*G3, y*G3))**(y+.5)*.6
+MACRO marble (-.25 + 2.25*abs(sin( (y*.3 + abs(noise)**.5 / 2 * 1) * 10) ) ) / 2
+
+foo{
+*{x -.5 y -.5 {n=500}}  *{s 1/n}  (n)*{x 1} (n)*{y 1}
+  CIRCLE{ s 1.9
+     L marble
+      //S sin(marb2*7)*.4 H (marb2) *-300
+     }
+}

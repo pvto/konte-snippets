@@ -16,16 +16,30 @@ perlint{
   *{s .9}
   (N)*{{i=i+1}}
   (N)*{{j=j+1}}
-  CIRCLE{x -.5 y -.5 s 1/N x i y j s 1.6
+  *{x -.5 y -.5 s 1/N x i y j}
+  CIRCLE{ s 1.6
     z -rndf()*3
+    rz irndf(5)
     sy 1+ (sysread(Perlin, sin((i-i/2)**2*.0002)*.5*(i+j)/N*GRID, (j+(i+100)*.3)/N*GRID)
       + sysread(Perlinb, (i+j*.4)/N*GRID2, j/N*GRID2)
       + sysread(Perlinc, (i+j*.1)/N*GRID3, (i+j)/N*GRID3)
       +.25)
-    sx .1+rndf()*.4 sy 10
-    L (j/N)**2
+    sx .1 sy 10
+    L marble
   }
 }
 
 
 void{}
+
+DEF G0 1
+DEF G2 .9
+DEF G3 8
+DEF g3m 8
+system Perlin2 worlin init(12, 12, 2)
+system Worley2 worley init(48850, 2)
+system Perlin2 perl2 init(G3, G3)
+MACRO noise abs(sysread(worley, (x+.5)*G0, (y+.5)*G0, 2))*3
+  + abs(sysread(worley, (x+.5)*G2, (y+.5)*G2, 3))*3
+  * sysread(perl2, x*G3*g3m, (x**1+y**1)*G3*g3m)*3
+MACRO marble (-.25 + 5*abs(sin( (y*.1 + 1.4*abs(noise)**.5 / 2 * 1) * 3) ) ) / 2

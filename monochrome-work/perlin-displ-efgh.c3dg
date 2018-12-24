@@ -22,10 +22,10 @@ perlint{
       + sysread(Perlinb, (i+j*.4)/N*GRID2, j/N*GRID2)
       + sysread(Perlinc, (i+j*.1)/N*GRID3, (i+j)/N*GRID3)
       +.25)
-    sx .1 sy 10
+    sx .15 sy 10
     L (j/N)**2
   }
 }
-
+//fov{z -.5}
 
 void{}

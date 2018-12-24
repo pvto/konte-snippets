@@ -1,0 +1,35 @@
+DEF TH (PI/6)
+DEF WOB .05
+DEF WPH 34
+MACRO UUT (t0+floor(U*SSp)*Sfr)
+MACRO SPRINGrndx .5 * cos(sqrt((1+sin(UUT*SK)*.5+sin(wob2f*UUT*SK)*.5)*k/m) * UUT - tan(c2/c1)) * cos(UUT)
+MACRO SPRINGrndy .5 * cos(sqrt((1+sin(UUT*SK)*.5+sin(wob2f*UUT*SK)*.5)*k/m) * UUT - tan(c2/c1)) * sin(UUT)
+
+MACRO GROOT floor((cos(TH)*(Y+1+sin(X*WPH)*WOB) - sin(TH)*(X+1+cos(X*WPH)*WOB))*3) %2 +
+  floor((cos(TH)*(X+1+cos(X*WPH)*WOB)+sin(TH)*(Y+1+sin(X*WPH)*WOB))*3)%2
+
+
+bar {
+
+*{{ c1= .5; c2 = 2.62; m=1; k = 1;SK=.000001;t0=100;SSp=403550;Sfr=.00135;wob2f=18.111}}
+400000*{{U=rndf()}} *{{X=SPRINGrndx; Y=SPRINGrndy}}
+  if (GROOT >= .9999) { dd{} }
+
+*{{ c1= .5; c2 = 22.62; m=1; k = 1;SK=.000001;t0=200;SSp=403550;Sfr=.002;wob2f=18.111}}
+400000*{{U=rndf()}} *{{X=SPRINGrndx; Y=SPRINGrndy}}
+  if (GROOT != 1 ) { dd{} }
+
+*{{ c1= .5; c2 = 1.5; m=1; k = 1.001;SK=.000001;t0=100;SSp=403550;Sfr=.00135;wob2f=10}}
+400000*{{U=rndf()}} *{{X=SPRINGrndx; Y=SPRINGrndy}}
+  if (GROOT >= .9999) { dd{} }
+}
+dd { CIRCLE{ x X y Y s .001 L marble S -(Y-.1)*2 H 100 + marble*200} }
+
+DEF GRID 12
+DEF G2 15
+DEF G3 1
+system Perlin2 worlin init(12)
+system Perlin2 perl2 init(G2, G2)
+MACRO noise abs(sysread(worlin, (X+.5)*GRID, (Y+.5)*GRID, 2))**(Y+.5)*1.5
+  + sysread(perl2, X*G2, Y*G2)*.1  + sysread(perl2, X*G3, Y*G3)*3
+MACRO marble (-.25 + 2.25*abs(sin( (X*3*.01 + abs(noise)**.5 / 2 * 1) * 10) ) ) / 2

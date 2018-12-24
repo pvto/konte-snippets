@@ -21,10 +21,10 @@ fov {z -.9 }
 include 
 //"/home/paavo/konte/gram/monochrome-work/moondance-B-seq/b300.png" noise
 //"/home/paavo/konte/gram/monochrome-work/2017-01-11-00-40-symm-fuzz-vid-G-C-AGB.png" noise
-"/home/paavo/konte/gram/color-work/2016-10-13-21-50-vangogh-mixing-rndcol-hyp-det-AAQ.png" noise
+"../color-work/2016-10-13-21-50-vangogh-mixing-rndcol-hyp-det-AAQ.png" noise
 include
 //"/home/paavo/konte/gram/color-work/symm-fuzz-vid/2017-01-11-00-13-symm-fuzz-vid-G-AEY.png" noise2
-"/home/paavo/konte/gram/color-work/2016-10-22-18-09-blue-painting-M-ADL.png" noise2
+"../color-work/2016-10-22-18-09-blue-painting-M-ADL.png" noise2
 
 bg{B 0}
 DEF CLUST .00085
