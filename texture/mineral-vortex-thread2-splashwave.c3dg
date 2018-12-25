@@ -1,0 +1,22 @@
+DEF T (PI/8)
+MACRO X x*16
+MACRO Y y*16
+system Worley2 worlin init(400, 1)
+system Perlin2 perlin init(16, 16)
+MACRO noise 2*sysread(worlin, 
+  cos(T+atan(y,x)+2*(x*x+y*y))*sqrt(x*x+y*y), 
+  sin(T+atan(y,x)-400*(x*x+y*y)**.01)*sqrt(x*x+y*y), 2)
+  + sysread(worlin, x*3, y*3, 2)
+  + abs(sysread(perlin, 
+    1*cos(T+atan(y,x)+32*(x*x+y*y))*sqrt(x*x+y*y), 
+    1*sin(T+atan(y,x)-32*(x*x+y*y))*sqrt(x*x+y*y)
+  ))**.5
+MACRO marble (1 + sin( (x*.01 + noise**1.7 / 2 * .25) * 250) ) / 2
+
+
+foo{
+*{x -.5 y -.5 {n=500}}  *{s 1/n}  (n)*{x 1} (n)*{y 1}
+  SQUARE{ s 1.6
+     L marble 
+     }
+}
