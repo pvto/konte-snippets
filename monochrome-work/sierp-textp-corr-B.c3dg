@@ -3,7 +3,7 @@
 //include "/home/paavo/konte/gram/help/2016-09-04-22-12-recursion.png" img0
 //include "/home/paavo/konte/gram/subtri4/2016-08-29-00-49-cross3.png" img0
 //include "/home/paavo/konte/gram/subtri4/2016-08-29-01-21-cross-d3.png" img0
-include "/home/paavo/konte/gram/graphical-colors/2016-09-24-14-36-sierp-textp-subtri-b-ACU.png" img0
+include "../graphical-colors/2016-09-24-14-36-sierp-textp-subtri-b-ACU.png" img0
 
 fov {z -1.25 x -.25 y .25 lookat(0,0,0)}
 model {maxshapes 20000000}

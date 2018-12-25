@@ -1,10 +1,14 @@
 DEF GRID 4
 DEF G2 14
+DEF T (PI/8)
 system Perlin2 perlin init(GRID, GRID)
 system Perlin2 perl2 init(G2, G2)
-system Worley2 worlin init(40, 10)
+system Worley2 worlin init(4000, 2)
 MACRO pnoi sysread(perlin, x*GRID, y*GRID)
-MACRO noise sysread(worlin, x+.5, y*2+.5, 1)
+MACRO noise 2*sysread(worlin, 
+  cos(T+atan(y,x)+(x*x*8+y*y*8))*sqrt(x*x+y*y), 
+  sin(T+atan(y,x)+(x*x*8+y*y*8))*sqrt(x*x+y*y), 2)
+  + sysread(worlin, x*3, y*3, 2)
 MACRO noise2 sysread(worlin, x+.5, y+.5, 2)
 //  + sysread(perl2, x*G2, y*G2)*1 // + sysread(perl2, x*3, y*3)*.5
 MACRO marble (1 + sin( (x*3 + noise**.1 / 2 * 5) * 50) ) / 2
@@ -13,7 +17,7 @@ MACRO marb2  (1 + sin( (x*.02 + noise *.1 ) * 50) ) / 2
 foo{
 *{x -.5 y -.5 {n=500}}  *{s 1/n}  (n)*{x 1} (n)*{y 1}
   SQUARE{ s 1.6
-     L noise * 6 //  * noise2 * 9  //+ pnoi
+     L noise * 12 //  * noise2 * 9  //+ pnoi
       //S sin(marb2*7)*.4 H (marb2) *-300
      }
 }
