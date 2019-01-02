@@ -3,7 +3,7 @@ system Particle2 Parts init(N, .1, .02, .04,
     1, 3, 0)
 model{order STREAM}
 
-MACRO DO it/10000/2*-180
+MACRO DO it/10000/2*-180+sin(it/10000/PI/11)*10
 partt{
   void{col0 syswrite(Parts, 0, 0, 0.00005)} // set time increment to 0.01
   
@@ -13,9 +13,9 @@ partt{
   if (floor(it/1000)%2<=1) {
   *{   rz DO+sysread(Parts, p, 1)**3*20
        y .2 }
-  10*{y .025}
+  12*{y .0125}
   CIRCLE{ A -.5
-     y sysread(Parts, p, 2)*.2
+     y sysread(Parts, p, 2)*.1
     s .001 //s (sysread(Parts, p, 3) * 5)**2.5
     L -1
   }

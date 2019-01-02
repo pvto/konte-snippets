@@ -1,0 +1,18 @@
+
+DEF ROW 13
+
+do {
+  (ROW)*{x 1/ROW}
+    (ROW)*{y 1/ROW}
+      draw{x -.5 + .5/ROW y -.5 + .5/ROW s 1/ROW}
+
+  //*{{n=12}} (n)*{rz 180/n}EDGE{x .5 s 2 .0125 .5 z -.3 A -.4}
+  8*{rz 45} RADTR32{x .2 z -.5 s .15 R .65 B .5}
+}
+
+draw {
+  HEX{s .9}
+  HEX{s .8 L 1}
+
+  HEX{s .5 R .4}
+}

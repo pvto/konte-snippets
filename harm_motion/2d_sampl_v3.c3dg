@@ -1,6 +1,6 @@
-DEF UT 92550
+DEF UT 383000
 MACRO UUT (200+floor(U*UT)*.01)
-MACRO SGF cos(sqrt((1+sin(UUT*SK))*k/m) * UUT - tan(c2/c1))
+MACRO SGF cos(sqrt((1+sin(UUT**2*SK))**2*.015+k/m) * UUT - tan(c2/c1))
 MACRO SGx .5 * SGF * cos(UUT)
 MACRO SGy .5 * SGF * sin(UUT)
 

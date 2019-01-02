@@ -1,11 +1,11 @@
-DEF UT 92550
+DEF UT 383000
 MACRO UUT (200+floor(U*UT)*.01)
-MACRO SGF cos(sqrt((1+sin(UUT*SK))*k/m) * UUT - tan(c2/c1))
+MACRO SGF cos(sqrt((1+sin(UUT**.25*SK))*255.005+k/m) * UUT - tan(c2/c1))
 MACRO SGx .5 * SGF * cos(UUT)
 MACRO SGy .5 * SGF * sin(UUT)
 
 bar {
-  *{{ c1= .5; c2 = 22.62; m=1; k = 1;SK=.000005}}
+  *{{ c1= .5; c2 = 4; m=1; k = 1;SK=.000005}}
   200000*{{U=rndf()}}
   CIRCLE{x SGx y SGy s .001}
 }
