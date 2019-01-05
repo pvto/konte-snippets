@@ -1,0 +1,67 @@
+fov{z -4}
+
+fx -1*8 { 
+770000000
+077000000
+007700000
+000777000
+770077700
+770007777
+}
+
+
+bao {
+  *{s .1 y -16}
+  baochunk{}
+}
+
+baochunk {
+  *{{Snext=coalesce(Snext, 1)}} {
+    5*{y rndf()*.2 x rndf()*.25 ry 90}
+    //bnCONE{s 4 .6 4 {bent=.01+rndf()*.1;F=.03;n=16
+    *{s 4 .6 4 {bent=.01+rndf()*.1;F=.03;n=16
+      q=Snext; NBEXCL=floor(i/100)} 
+      col0 (i/100+rndf()*.5)%1  shading SHD 
+        {SAT=.5+rndf()**6*.5- rndf()**13}
+    } {
+      nPIPE{}
+      SQUARE{sy 6 s 5 x rndf()  y rndf() *10 layer -1 A -.95 col0 (1-col0) }
+    }
+    if (rndf() < .0) {
+      2*{z 10*3} MIX{s 3 z -5}
+    }
+    if (i < 220) { // and nbdist(x,y+.07,z, .2, 1, 1) > .01) {
+      baochunk{{i=i+1} y .39 s Snext {Snext=.98+rndf()*.02} 
+        ry (2+rndf())*3 rz pareto(1,5,5)}
+    }
+    if (i > 10 and rndf() < .08 and BAO < 3 and i < 80
+      and j < i - 4) {
+      *{{SY=.6+rndf()*.4;i=i+(1-SY)*20}}
+        baochunk{y -.5 ry rndf()*180 rz 60 y .5 s SY 
+          {BAO=BAO+1; j=i;}}
+    }
+  }
+}
+
+include #geometry
+
+/*light {AMBIENT s .5}
+light {PHONG specular 10 alpha 30 s 2.5 {RGB 1 1 1}
+  point(
+    0,30,-2
+  )
+}*/
+
+shading SHD {
+    point(0.0) { A (A)
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,.9,SAT) lirp(0,1,.5,.1,SAT)}
+    point(0.4) { A (A)
+        RGB lirp(0,1,.5,.7,SAT) lirp(0,1,.5,.7,SAT) lirp(0,1,.5,1,SAT) }
+    point(.5) { A (A)
+        RGB lirp(0,1,.5,0,SAT) lirp(0,1,.5,.9,SAT) lirp(0,1,.5,.7,SAT) }
+    point(.8) { A (A)
+        RGB lirp(0,1,.5,.1,SAT) lirp(0,1,.5,.8,SAT) lirp(0,1,.5,.8,SAT) }
+    point(1) { A (A)
+        RGB lirp(0,1,.5,.0,SAT) lirp(0,1,.5,.05,SAT) lirp(0,1,.5,.2,SAT) }
+}
+
