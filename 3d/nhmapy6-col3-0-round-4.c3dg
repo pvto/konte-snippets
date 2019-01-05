@@ -1,0 +1,38 @@
+bg{B -1}
+//model{order STREAM}
+include "../texture/mineral-vortex-bacteria-AIK-2018-12-25-23-40.png" img0
+include "../texture/mineral-vortex-black-ALV-2018-12-26-00-04.png" text
+fov { z -1.2 }
+rule wrap {
+    draw_img
+    {
+        //ry -0
+        DEF
+        {
+            iw = imgwidth(img0);
+            ih = imgheight(img0);
+            pixsize = (1/imgwidth(img0));
+        }
+    }
+}
+rule draw_img {
+    (iw) * { DEF {u=u+1} }
+        (ih) * { DEF {v=v+1} }
+            *{{Z=imgred(img0,u,v)*.1}}
+            *{
+                x -.5 y (.5*ih/iw)  z Z/2
+                s pixsize x u y -v {N=(10*Z)**2*30+1}
+            }
+            {
+            if ( sqrt(((u-iw/2)/iw)**2 + ((v-ih/2)/ih)**2) < .5) {
+            (N)*{z -Z/N/pixsize}  i_pxl {
+                RGB imgred(text,u,v)*.8+imgred(img0,u,v)*.2
+                  imggreen(text,u,v)+imggreen(img0,u,v) *.2
+                  imgblue(text,u,v)*.8+imgblue(img0,u,v)*.2
+            }
+            }
+            }
+}
+//rule i_pxl { i_pxl { x 1 } }
+//rule i_pxl { i_pxl { rz 77 } }
+rule i_pxl { CIRCLE { s 1.5 L -.2 } SQUARE { s .9 z -.1} }
