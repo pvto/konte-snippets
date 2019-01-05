@@ -1,18 +1,18 @@
 fov{z -4}
 
 bao {
-  *{s .1 y -12}
+  *{s .1 y -14}
   baochunk{}
 }
 
 baochunk {
   *{{Snext=coalesce(Snext, 1)}} {
     5*{y rndf()*.2 x rndf()*.5 ry 90}
-    bnCONE{s 4 .6 4 {bent=.01+rndf()*.1;F=.03;n=30
+    bnCONE{s 4 .6 4 {bent=.01+rndf()*.1;F=.03;n=16
       q=Snext; NBEXCL=floor(i/100)} 
-      L 1 S 1 H i*60 
+      col0 (i/100+rndf()*.5)%1  shading SHD {SAT=.5+rndf()**6*.5}
     }
-    if (rndf() < .5) {
+    if (rndf() < .0) {
       2*{z 10*3} MIX{s 3 z -5}
     }
     if (i < 220) { // and nbdist(x,y+.07,z, .2, 1, 1) > .01) {
@@ -30,9 +30,23 @@ baochunk {
 
 include #geometry
 
-light {AMBIENT s .5}
+/*light {AMBIENT s .5}
 light {PHONG specular 10 alpha 30 s 2.5 {RGB 1 1 1}
   point(
     0,30,-2
   )
+}*/
+
+shading SHD {
+    point(0.0) { A 1
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,.1,SAT) lirp(0,1,.5,0,SAT)}
+    point(0.25) { A 1
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,.5,SAT) lirp(0,1,.5,.6,SAT) }
+    point(.5) { A 1
+        RGB lirp(0,1,.5,.3,SAT) lirp(0,1,.5,1,SAT) lirp(0,1,.5,.8,SAT) }
+    point(.75) { A 1
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,1,SAT) lirp(0,1,.5,.4,SAT) }
+    point(1) { A 1
+        RGB lirp(0,1,.5,0,SAT) lirp(0,1,.5,.05,SAT) lirp(0,1,.5,.2,SAT) }
 }
+
