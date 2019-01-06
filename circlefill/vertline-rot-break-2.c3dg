@@ -4,14 +4,16 @@ foo {
   *{s 1/N {Rn=Rn0}}
   *{x -(N-1)/2 y -(Ny-1)/2}
   (Ny)*{y 1 {rim=rim-1/(Ny)}}
-  (N)*{x 1 {Rn=Rn+1;}}
+  (N)*{x 1 {Rn=Rn+4;}}
   LCIRC{s .75 {n=Rn} rz 90}
 }
 
 LCIRC {
+
   (n)*{{k=k+1}}
   *{{Y= (k-(n-1)/2)/(n)}}
   SQUARE{y Y 
+    rz (.5-abs(Y))*45*rndf()
     sx cos(Y*PI)**.5
     sy rim/n }  
   

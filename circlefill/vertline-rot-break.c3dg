@@ -12,6 +12,7 @@ LCIRC {
   (n)*{{k=k+1}}
   *{{Y= (k-(n-1)/2)/(n)}}
   SQUARE{y Y 
+    rz rndf()*5
     sx cos(Y*PI)**.5
     sy rim/n }  
   

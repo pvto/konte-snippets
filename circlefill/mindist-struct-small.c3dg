@@ -1,0 +1,21 @@
+
+foo {
+  *{{N=6; Ny=4; Rn0=50; struct=20}}
+  *{s 1/N {n=Rn0}}
+  *{x -(N-1)/2 y -(Ny-1)/2}
+  (Ny)*{y 1 {struct=struct+8}}
+  (N)*{x 1 {n=n+150;}}
+  WORPACKCIRC{s .75}
+}
+
+WORPACKCIRC {
+  //CIRCLE{G 1}
+  (n)*{}
+  *{{ T=irndf(struct)/struct*PI*2; c=irndf(struct)/struct*.45}} 
+  *{{X=cos(T)*c; Y=sin(T)*c; }}
+  *{ x X y Y}
+  CIRCLE { s min(.05, min(.5-sqrt(X*X+Y*Y), mindist(x,y,z, .2)/s*2)) }
+  
+}
+
+include #geometry

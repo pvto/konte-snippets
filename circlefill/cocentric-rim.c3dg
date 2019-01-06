@@ -1,0 +1,21 @@
+
+foo {
+  *{{N=10; Ny=3; Rn0=3; rim=.15}}
+  *{s 1/N {n=Rn0}}
+  *{x -(N-1)/2 y -(Ny-1)/2}
+  (Ny)*{y 1 {rim=rim-.15/(Ny)}}
+  (N)*{x 1 {n=n+1;}}
+  COCIRC{s .75}
+}
+MACRO rsig irndf(2)*2 - 1
+MACRO DPL (1-k/n)/2*rsig/1
+
+COCIRC {
+  *{{k=n}}
+  (n)*{{k=k-1} } 
+  {
+    RIM{ s k/n  x DPL y DPL}
+  }
+}
+
+include #geometry

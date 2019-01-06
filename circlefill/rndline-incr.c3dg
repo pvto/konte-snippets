@@ -1,0 +1,22 @@
+
+foo {
+  *{{N=12; Ny=3; Rn0=10; rim=1}}
+  *{s 1/N {n=Rn0}}
+  *{x -(N-1)/2 y -(Ny-1)/2}
+  (Ny)*{y 1 {rim=rim-1/(Ny+1)}}
+  (N)*{x 1 {n=n+10;}}
+  RNDLICIRC{s .75 }
+}
+
+MACRO altsg k%2*2-1
+RNDLICIRC {
+  *{{y1=-.5; y2= -.5+rndf()/n*2;}}
+  *{{x1 = sqrt(.5**2 - y1**2); width=coalesce(width,rim/100)}}
+  (n)*{{y2 = y2+rndf()/n*2; y1= y2; 
+      x1= sqrt(.5**2 - (y2+add)**2) * altsg;
+     k = k+1}}
+    LINE{{ x2= sqrt(.5**2 - (y2+add)**2) * altsg; }}
+}
+
+
+include #geometry
