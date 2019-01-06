@@ -1,0 +1,44 @@
+
+foo {
+  *{{N=3; Ny=2; Rn0=5; rim=1}}
+  *{s 1/N {Rn=Rn0}}
+  *{x -(N-1)/2 y -(Ny-1)/2}
+  (Ny)*{y 1 {rim=rim-1/(Ny+2)}}
+  (N)*{x 1 {Rn=Rn+7;}}
+  SUBFCIRC{s .75 {n=Rn} rz 0*Rn/N*90 PUSH butterfly}
+}
+
+SUBFCIRC {
+  //CIRCLE{lr -1 G 1}
+  *{{N=n/2+n%2}}
+  (N)*{{k=k+1 } }
+  *{{Y= ((n+1)%2/2 +  k) / (N-n%2)/2}}
+  *{{Rn=max(1, floor(Y**(2-max(rim, .75-Y*2))*2*PI/(rim/n)))}}
+  *{rz k%2*360/Rn/4}
+  (Rn)*{rz (360/Rn) {ii=ii+1}}
+  PEEK{y Y - (ii%2)*(1-rim) / (N - n%2) *.25
+    s rim/n }  
+  
+}
+
+butterfly{ 
+  CIRCLE{G .7 lr -1}
+  dyncirc{{BEND=.3;BEND2=.3}} }
+path dyncirc {
+    moveto(0.000, 0.500-BEND2, 0.000)
+    bend(0.283, 0.500, 0.000)
+    bend(0.500, 0.283, 0.000)
+    curveto(0.500-BEND, 0.000, 0.000)
+    bend(0.500, -0.283, 0.000)
+    bend(0.283, -0.500, 0.000)
+    curveto(0.000, -0.500+BEND, 0.000)
+    bend(-0.283, -0.500, 0.000)
+    bend(-0.500, -0.283, 0.000)
+    curveto(-0.500+BEND, 0.000, 0.000)
+    bend(-0.500, 0.283, 0.000)
+    bend(-0.283, 0.500, 0.000)
+    close
+}
+
+
+include #geometry

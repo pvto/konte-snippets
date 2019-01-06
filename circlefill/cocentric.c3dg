@@ -1,0 +1,19 @@
+
+foo {
+  *{{N=10; Ny=7; Rn0=3; rim=1}}
+  *{s 1/N {n=Rn0}}
+  *{x -(N-1)/2 y -(Ny-1)/2}
+  (Ny)*{y 1 {rim=rim-1/(Ny+1)}}
+  (N)*{x 1 {n=n+1;}}
+  COCIRC{s .75}
+}
+
+COCIRC {
+  *{{k=n}}
+  (n)*{{k=k-1}} {
+    CIRCLE{ s k/n }
+    CIRCLE{ s (k-rim)/n L 1}
+  }
+}
+
+include #geometry

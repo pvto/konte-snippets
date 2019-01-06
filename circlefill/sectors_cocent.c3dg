@@ -1,0 +1,30 @@
+
+foo {
+  *{{N=12; Ny=7; Rn0=3; rim=.8}}
+  *{s 1/N {n=Rn0}}
+  *{x -(N-1)/2 y -(Ny-1)/2}
+  (Ny)*{y 1 {rim=rim-1/(Ny)}}
+  (N)*{x 1 {n=n+1;}} {
+    COCIRC{s .75}
+    SCCIRC{s .75 rz 0*Rn/N*90 {rim=rim*.75}}
+  }
+}
+
+SCCIRC {
+  (n)*{rz 360/n}
+  *{{ANG=360/n*rim}}
+  SECTOR{}  
+}
+
+
+COCIRC {
+  *{{k=n}}
+  (n)*{{k=k-1}} {
+    CIRCLE{ s k/n }
+    CIRCLE{ s (k-rim)/n L 1}
+  }
+}
+
+
+
+include #geometry

@@ -1,0 +1,21 @@
+
+foo {
+  *{{N=10; Ny=9; Rn0=9; rim=.7}}
+  *{s 1/N {Rn=Rn0}}
+  *{x -(N-1)/2 y -(Ny-1)/2}
+  (Ny)*{y 1 {rim=rim-1/(Ny+2)}}
+  (N)*{x 1 {Rn=Rn+1;}}
+  HATCH4CIRC{s .75 {n=Rn} rz Rn/N*90}
+}
+
+HATCH4CIRC {
+  4*{rz 30} 
+  (n)*{{k=k+1}}
+  *{{Y= (k-(n-1)/2)/(n)}}
+  SQUARE{y Y 
+    sx cos(Y*PI)**.5
+    sy rim/n }  
+  
+}
+
+include #geometry

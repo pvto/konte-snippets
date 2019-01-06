@@ -1,0 +1,25 @@
+
+foo {
+  *{{N=5; Ny=5; Rn0=5; rim=.8}}
+  *{s 1/N {Rn=Rn0}}
+  *{x -(N-1)/2 y -(Ny-1)/2}
+  (Ny)*{y 1 {rim=rim-1/(Ny+2)}}
+  (N)*{x 1 {Rn=Rn+3;}}
+  SUBFCIRC{s .75 {n=Rn} rz 0*Rn/N*90 PUSH RIM}
+}
+
+SUBFCIRC {
+  *{{N=n/2+n%2}}
+  (N)*{{k=k+1 } }
+  *{{Y= ((n+1)%2/2 +  k) / (N-n%2)/2}}
+  *{{Rn=max(1, floor(Y**(2-max(rim, .75-Y*2))*2*PI/(rim/n)))}}
+  *{rz k%2*360/Rn/4}
+  (Rn)*{rz (360/Rn) {ii=ii+1}}
+  PEEK{y Y - (ii%2)*(1-rim) / (N - n%2) *.25
+    s rim/n }  
+  
+}
+
+
+
+include #geometry

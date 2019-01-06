@@ -1,0 +1,18 @@
+
+foo {
+  *{{N=12; Ny=7; Rn0=10; rim=1}}
+  *{s 1/N {n=Rn0}}
+  *{x -(N-1)/2 y -(Ny-1)/2}
+  (Ny)*{y 1 {rim=rim-1/(Ny+1)}}
+  (N)*{x 1 {n=n+10;}}
+  RNDLCIRC{s .75}
+}
+
+RNDLCIRC {
+  *{{k=n;width=coalesce(width,rim/100)}}
+  (n)*{{T=rndf()*PI*2; U=rndf()*PI*2}}
+    LINE{{x1=cos(T)*.5; y1=sin(T)*.5; 
+      x2=cos(U)*.5; y2=sin(U)*.5; }}
+}
+
+include #geometry

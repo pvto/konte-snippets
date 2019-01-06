@@ -1,0 +1,20 @@
+
+foo {
+  *{{N=12; Ny=7; Rn0=5; rim=1}}
+  *{s 1/N {Rn=Rn0}}
+  *{x -(N-1)/2 y -(Ny-1)/2}
+  (Ny)*{y 1 {rim=rim-1/(Ny)}}
+  (N)*{x 1 {Rn=Rn+1;}}
+  SCCIRC{s .75 {n=Rn} rz 0*Rn/N*90}
+}
+
+SCCIRC {
+  (n)*{rz 360/n}
+  *{{ANG=360/n*rim}}
+  SECTOR{}  
+}
+
+
+
+
+include #geometry
