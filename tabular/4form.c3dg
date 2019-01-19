@@ -1,0 +1,23 @@
+
+include empty TAB1
+
+MACRO FS 1/len(TAB1)
+
+foo {
+  10*{} void { x trow(TAB1, rndf()) } 
+  *{s .5 d 10}
+  bar{}
+}
+
+
+bar {
+  *{y -.5 {i=1}}
+  len(TAB1)* { y FS {i=i+1}}
+  {
+    
+    CIRCLE{s FS/2 x 10*tget(TAB1, i, 1)  B .2 }
+    bar{rz 90}
+  }
+}
+
+void{}

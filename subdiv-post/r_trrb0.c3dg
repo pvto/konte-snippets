@@ -1,0 +1,42 @@
+include #subdivs
+include forms.c3dg  // get rules rr and tt - filled quadrilateral & triangle
+startshape start
+
+start {
+  *{PUSH rr _4_4r _3_3r_ _4_8t } row {}
+}
+
+
+
+
+row {
+    *{s .25 x -1.5} four {}
+    *{s .25 x -.5 {xd = .025}} four {}
+    *{s .25 x .5 {xd = .1; yd = -.1}} four {}
+    *{s .25 x 1.5 {xd = -.1; yd = -.1}} four {}
+}
+
+four {
+  	foo { s .5 x -.4 y .4 }
+  	foo { s .5 x .4 y .4 {r=.6}}
+  	foo { s .5 x -.4 y -.4 {r=.75}}
+  	foo { s .5 x .4 y -.4 {r=.85}}
+}
+
+foo {
+  *{{border=.15} s .75
+    {x1=-.5;y1=-.5; x2=.5;y2=-.5; x3=.5;y3=.5; x4=-.5;y4=.5; }}
+  POP{}
+}
+
+
+
+_3_3r_ {
+  *{{ xc=(x1+x2+x3)/3+xd; yc=(y1+y2+y3)/3+yd;  xd=0; yd=0;
+      x12=(x1+x2)/2;y12=(y1+y2)/2;
+      x23=(x2+x3)/2;y23=(y2+y3)/2;
+      x31=(x3+x1)/2;y31=(y3+y1)/2; }} {
+    pop{{x2=x12;y2=y12; x3=xc;y3=yc; x4=x31;y4=y31; o=1; }}
+    pop{{x1=x2;y1=y2; x2=x23;y2=y23; x3=xc;y3=yc; x4=x12;y4=y12; o=2; }}
+    pop{{x1=x3;y1=y3; x2=x31;y2=y31; x3=xc;y3=yc; x4=x23;y4=y23; o=3; }}
+}}

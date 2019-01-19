@@ -1,0 +1,32 @@
+include #subdivs
+include forms.c3dg  // get rules rr and tt - filled quadrilateral & triangle
+startshape start
+
+start {
+  *{PUSH rr _4_4r _4_4r _4_4r _4_3r.a } row {}
+}
+
+
+
+row {
+    *{s .25 x -1.5} four {}
+    *{s .25 x -.5 {xd = .025}} four {}
+    *{s .25 x .5 {xd = .025; yd = -.05}} four {}
+    *{s .25 x 1.5 {xd = .05; yd = -.3}} four {}
+}
+
+four {
+  	foo { s .5 x -.4 y .4 }
+  	foo { s .5 x .4 y .4 {r=.6}}
+  	foo { s .5 x -.4 y -.4 {r=.75}}
+  	foo { s .5 x .4 y -.4 {r=.85}}
+}
+
+foo {
+  *{{border=.15} s .75
+    {x1=-.5;y1=-.5; x2=.5;y2=-.5; x3=.5;y3=.5; x4=-.5;y4=.5; }}
+  POP{}
+}
+
+
+

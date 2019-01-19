@@ -1,0 +1,61 @@
+
+include forms.c3dg
+include #subdivs
+include #geometry
+startshape dd
+
+include empty TAB
+
+void{}
+MACRO ang_ i/n*PI*2
+
+dd {
+  *{{n=5}} (n)*{{i=i+1}} void{x trow(TAB, cos(ang_)*.5, sin(ang_)*.5)}
+  _5_5r{ PUSH BRECT  _4_4r
+    { border=.2;
+    x1=tget(TAB, 1, 1); y1=tget(TAB, 1, 2);
+    x2=tget(TAB, 2, 1); y2=tget(TAB, 2, 2);
+    x3=tget(TAB, 3, 1); y3=tget(TAB, 3, 2);
+    x4=tget(TAB, 4, 1); y4=tget(TAB, 4, 2);
+    x5=tget(TAB, 5, 1); y5=tget(TAB, 5, 2);
+  }}
+
+
+}
+
+_5_5r {
+  *{{ xc=(x1+x2+x3+x4+x5)/5+xd; yc=(y1+y2+y3+y4+y5)/5+yd;
+      x12=(x1+x2)/2; y12=(y1+y2)/2;
+      x23=(x2+x3)/2; y23=(y2+y3)/2;
+      x34=(x3+x4)/2; y34=(y3+y4)/2;
+      x45=(x4+x5)/2; y45=(y4+y5)/2;
+      x51=(x5+x1)/2; y51=(y5+y1)/2;
+    }} {
+    pop{{ x1=xc;y1=yc; x2=x12;y2=y12; x3=x2;y3=y2; x4=x23;y4=y23; o=1; }}
+    pop{{ x1=xc;y1=yc; x2=x23;y2=y23; x3=x3;y3=y3; x4=x34;y4=y34; o=2; }}
+    pop{{ x1=xc;y1=yc; x2=x34;y2=y34; x3=x4;y3=y4; x4=x45;y4=y45; o=3; }}
+    pop{{ x1=xc;y1=yc; x2=x45;y2=y45; x3=x5;y3=y5; x4=x51;y4=y51; o=4; }}
+    pop{{ x1=xc;y1=yc; x2=x51;y2=y51; x3=x1;y3=y1; x4=x12;y4=y12; o=5; }}
+  }
+}
+
+tto{
+TRI{L .5/o} TRI{rz 20{borde=1} }
+}
+
+BTRI {
+  *{{width=border/100}} {
+    LINE2{{}}
+    LINE2{{x2=x3;y2=y3;}}
+    LINE2{{x1=x3;y1=y3}}
+  }
+}
+
+BRECT {
+  *{{width=border/100}} {
+    LINE2{{}}
+    LINE2{{x1=x3;y1=y3;}}
+    LINE2{{x1=x3;y1=y3;x2=x4;y2=y4;}}
+    LINE2{{x2=x4;y2=y4}}
+  }
+}

@@ -1,0 +1,32 @@
+include #subdivs
+include #monospace
+include forms.c3dg  // get rules rr and rt - filled quadrilateral & triangle
+startshape star
+
+star {
+  *{PUSH rr _4_4r} row {}
+}
+
+row {
+    *{s .25 x -1.5} four { PUSH "^m^a" }
+    *{s .25 x -.5 {xd = .1}} four { PUSH "^m^b" }
+    *{s .25 x .5 {xd = .1; yd = -.1}} four { PUSH "^m^c" }
+    *{s .25 x 1.5 {xd = .3; yd = -.3}} four { PUSH "^m^d" }
+}
+
+four {
+  	foo { s .5 x -.4 y .4 }
+  	foo { s .5 x .4 y .4 {r=.65}}
+  	foo { s .5 x -.4 y -.4 {r=.85}}
+  	foo { s .5 x .4 y -.4 {r=1}}
+  	POP { s .5 y -1.2 s .25  }
+}
+
+foo {
+  POP{A -1}
+  *{{border=.03} s .75
+    {x1=-.5;y1=-.5; x2=.5;y2=-.5; x3=.5;y3=.5; x4=-.5;y4=.5; }}
+  POP{}
+}
+
+

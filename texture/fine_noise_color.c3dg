@@ -1,0 +1,6 @@
+//model{order disk}
+foo{
+  10000000*{} SQUARE{x rndf()-.5 y rndf()-.5 s .0003 
+    L 1-rndf()**5 S rndf() H irndf(360)}
+  
+}
