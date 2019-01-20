@@ -4,6 +4,21 @@ include #subdivs
 include #geometry
 startshape dd
 
+
+shading blues {
+    point(0.0) { A (A)
+        RGB lirp(0,1,.5,.1,SAT) lirp(0,1,.5,.2,SAT) lirp(0,1,.5,.3,SAT)}
+    point(0.25) { A (A)
+        RGB lirp(0,1,.5,.9,SAT) lirp(0,1,.5,.9,SAT) lirp(0,1,.5,.8,SAT**.7) }
+    point(.5) { A (A)
+        RGB lirp(0,1,.5,.1,SAT) lirp(0,1,.25,.1,SAT) lirp(0,1,.5,.4,SAT**.5) }
+    point(.75) { A (A)
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,.9,SAT) lirp(0,1,.5,.9,SAT**.7) }
+    point(1) { A (A)
+        RGB lirp(0,1,.5,.1,SAT) lirp(0,1,.5,.15,SAT) lirp(0,1,.5,.4,SAT**.7) }
+}
+
+
 include empty TAB
 
 void{}
@@ -12,6 +27,7 @@ MACRO ang_ i/n*PI*2
 dd {
   *{{n=7}} (n)*{{i=i+1}} void{x trow(TAB, cos(ang_)*.5, sin(ang_)*.5)}
   _7_s7p { PUSH BRECTo _5_5r _5_6p zsup
+    shading blues
     { border=.15;
     x1=tget(TAB, 1, 1); y1=tget(TAB, 1, 2);
     x2=tget(TAB, 2, 1); y2=tget(TAB, 2, 2);
@@ -29,9 +45,9 @@ zsup { _7_s7p { PUSH BRECTo _5_5r zsup0 } }
 zsup0{ _7_s7p{ PUSH BRECTo BRECTo } }
 
 BRECTo {
-*{x (x1+x2+x3)/3 y (y1+y2+y3)/3 s (x2-x1)*2 
-    L 1 S 1 H irndf(360) }
-20*{s .97 S -.04 lr .01}
+*{x (x1+x2+x3+x4)/4 y (y1+y2+y3+y4)/4 s (x2-x1)*2 
+    {SAT=rndf()} col0 rndf() }
+20*{s .97 {SAT=max(0,SAT-.03*rndf()) } lr .01}
   CIRCLE{}
 }
 

@@ -1,0 +1,34 @@
+include #geometry
+include forms.c3dg
+startshape dd 
+include empty TAB
+
+void{}
+MACRO ang_ i/n*PI*2
+
+dd {
+  *{{n=8}} (n)*{{i=i+1}} void{x trow(TAB, cos(ang_)*.5, sin(ang_)*.5)}
+  _8_4r { PUSH BRECT s .6
+    { border=.15;
+    x1=tget(TAB, 1, 1); y1=tget(TAB, 1, 2);
+    x2=tget(TAB, 2, 1); y2=tget(TAB, 2, 2);
+    x3=tget(TAB, 3, 1); y3=tget(TAB, 3, 2);
+    x4=tget(TAB, 4, 1); y4=tget(TAB, 4, 2);
+    x5=tget(TAB, 5, 1); y5=tget(TAB, 5, 2);
+    x6=tget(TAB, 6, 1); y6=tget(TAB, 6, 2);
+    x7=tget(TAB, 7, 1); y7=tget(TAB, 7, 2);
+    x8=tget(TAB, 8, 1); y8=tget(TAB, 8, 2);
+  }}  
+}
+
+_8_4r {
+  *{{ xc=(x1+x2+x3+x4+x5+x6+x7+x8)/8+xd; yc=(y1+y2+y3+y4+y5+y6+y7+y8)/8+yd; }}
+  {
+    pop{{ x1=xc;y1=yc }}
+    pop{{ x1=xc;y1=yc; x2=x4;y2=y4; x3=x5;y3=y5; x4=x6;y4=y6; }}
+    pop{{ x1=xc;y1=yc; x2=x6;y2=y6; x3=x7;y3=y7; x4=x8;y4=y8; }}
+    pop{{ x1=xc;y1=yc; x2=x8;y2=y8; x3=x1;y3=y1; x4=x2;y4=y2; }}
+  }
+}
+
+pop{POP{}}

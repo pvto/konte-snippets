@@ -1,0 +1,80 @@
+
+include forms.c3dg
+include #subdivs
+include #geometry
+startshape dd
+
+fx .03*1 {
+770000000
+077000000
+007700000
+000777000
+770077700
+770007777
+}
+
+
+shading blues {
+    point(0.0) { A (A)
+        RGB lirp(0,1,.5,.1,SAT) lirp(0,1,.5,.2,SAT) lirp(0,1,.5,.3,SAT)}
+    point(0.25) { A (A)
+        RGB lirp(0,1,.5,.9,SAT) lirp(0,1,.5,.9,SAT) lirp(0,1,.5,.8,SAT**.7) }
+    point(.5) { A (A)
+        RGB lirp(0,1,.5,.1,SAT) lirp(0,1,.25,.1,SAT) lirp(0,1,.5,.4,SAT**.5) }
+    point(.75) { A (A)
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,.9,SAT) lirp(0,1,.5,.9,SAT**.7) }
+    point(1) { A (A)
+        RGB lirp(0,1,.5,.1,SAT) lirp(0,1,.5,.15,SAT) lirp(0,1,.5,.4,SAT**.7) }
+}
+
+
+include empty TAB
+
+void{}
+MACRO ang_ i/n*PI*2
+
+dd {
+  *{{n=7}} (n)*{{i=i+1}} void{x trow(TAB, cos(ang_)*.5, sin(ang_)*.5)}
+  _7_s7p { 
+    s 1.3
+    PUSH BRECTo _5_5r _5_6p zsup
+    shading blues
+    { border=.15;
+    x1=tget(TAB, 1, 1); y1=tget(TAB, 1, 2);
+    x2=tget(TAB, 2, 1); y2=tget(TAB, 2, 2);
+    x3=tget(TAB, 3, 1); y3=tget(TAB, 3, 2);
+    x4=tget(TAB, 4, 1); y4=tget(TAB, 4, 2);
+    x5=tget(TAB, 5, 1); y5=tget(TAB, 5, 2);
+    x6=tget(TAB, 6, 1); y6=tget(TAB, 6, 2);
+    x7=tget(TAB, 7, 1); y7=tget(TAB, 7, 2);
+  }}
+}
+
+zup { _4_4r { PUSH BRECT _4_4r } } 
+zpup { _5_5r { PUSH BRECT BSEPT } } 
+zsup { _7_s7p { PUSH BRECTo _5_5r zsup0 } } 
+zsup0{ _7_s7p{ PUSH BRECTo BRECTo } }
+
+BRECTo {
+*{x (x1+x2+x3+x4)/4 y (y1+y2+y3+y4)/4 
+   s (x2-x1)*2 
+    {SAT=rndf()} col0 rndf() } {
+   
+   2*{A -.7 s 3 lr -.02 sx .1 skewy 10}
+  20*{s .97 {SAT=max(0,SAT-.03*rndf()) } lr .01}
+    CIRCLE{}
+   COCIRC{ {SAT=.1;  n=6; rim=.1} lr 1 s .5}
+  }
+}
+
+bg { B .2 }
+
+
+COCIRC {
+  *{{k=n; rim=coalesce(rim, .1) }}
+  (n)*{{k=k-1} } 
+  {
+    RIM{ s k/n  {rim=rim*(1-k/n) }}
+  }
+}
+

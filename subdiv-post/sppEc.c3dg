@@ -29,8 +29,8 @@ zsup { _7_s7p { PUSH BRECTo _5_5r zsup0 } }
 zsup0{ _7_s7p{ PUSH BRECTo BRECTo } }
 
 BRECTo {
-*{x (x1+x2+x3)/3 y (y1+y2+y3)/3 s (x2-x1)*2 
-    L 1 S 1 H irndf(360) }
+*{x (x1+x2+x3+x4)/4 y (y1+y2+y3+y4)/4 s (x2-x1)*2 
+    L rndf() S 1 H irndf(360) }
 20*{s .97 S -.04 lr .01}
   CIRCLE{}
 }

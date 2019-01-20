@@ -1,0 +1,58 @@
+include #geometry
+include #subdivs
+include forms.c3dg
+startshape dd 
+include empty TAB
+
+void{}
+MACRO ang_ i/n*PI*2
+
+dd {
+  *{{n=8}} (n)*{{i=i+1}} void{x trow(TAB, cos(ang_)*.5, sin(ang_)*.5)}
+  *{{ border=.15;
+    x1=tget(TAB, 1, 1); y1=tget(TAB, 1, 2);
+    x2=tget(TAB, 2, 1); y2=tget(TAB, 2, 2);
+    x3=tget(TAB, 3, 1); y3=tget(TAB, 3, 2);
+    x4=tget(TAB, 4, 1); y4=tget(TAB, 4, 2);
+    x5=tget(TAB, 5, 1); y5=tget(TAB, 5, 2);
+    x6=tget(TAB, 6, 1); y6=tget(TAB, 6, 2);
+    x7=tget(TAB, 7, 1); y7=tget(TAB, 7, 2);
+    x8=tget(TAB, 8, 1); y8=tget(TAB, 8, 2);
+  }}  
+  {  row{  PUSH BRECT  } }
+}
+
+row{ *{s .25 x -1.5} {
+  _8_12r { }
+  _8_12r {x 1 PUSH _4_4r  }
+  _8_12r {x 2 PUSH _4_4r _4_4r }
+  _8_12r {x 3 PUSH _4_4r _4_4r _4_4r}
+  //_8_12r {x 4 PUSH _4_4r _4_4r _4_4r _4_4r}
+  }
+}
+
+_8_12r {
+  *{{ xc=(x1+x2+x3+x4+x5+x6+x7+x8)/8+xd; yc=(y1+y2+y3+y4+y5+y6+y7+y8)/8+yd; }}
+  *{{ x1c=x1*.58+xc*.42;y1c=y1*.58+xc*.42; x2c=x2*.58+xc*.42;y2c=y2*.58+yc*.42;
+      x3c=x3*.58+xc*.42;y3c=y3*.58+xc*.42; x4c=x4*.58+xc*.42;y4c=y4*.58+yc*.42;
+      x5c=x5*.58+xc*.42;y5c=y5*.58+xc*.42; x6c=x6*.58+xc*.42;y6c=y6*.58+yc*.42;
+      x7c=x7*.58+xc*.42;y7c=y7*.58+xc*.42; x8c=x8*.58+xc*.42;y8c=y8*.58+yc*.42;
+    }}
+  {
+    pop{{ x1=xc;y1=yc; x2=x1c;y2=y1c; x3=x2c;y3=y2c; x4=x3c;y4=y3c }}
+    pop{{ x1=xc;y1=yc; x2=x3c;y2=y3c; x3=x4c;y3=y4c; x4=x5c;y4=y5c }}
+    pop{{ x1=xc;y1=yc; x2=x5c;y2=y5c; x3=x6c;y3=y6c; x4=x7c;y4=y7c }}
+    pop{{ x1=xc;y1=yc; x2=x7c;y2=y7c; x3=x8c;y3=y8c; x4=x1c;y4=y1c }}
+
+    pop{{ x1=x1c;y1=y1c; x2=x1;y2=y1; x3=x2;y3=y2; x4=x2c;y4=y2c; }}
+    pop{{ x1=x2c;y1=y2c;                           x4=x3c;y4=y3c; }}
+    pop{{ x1=x3c;y1=y3c; x2=x3;y2=y3; x3=x4;y3=y4; x4=x4c;y4=y4c; }}
+    pop{{ x1=x4c;y1=y4c; x2=x4;y2=y4; x3=x5;y3=y5; x4=x5c;y4=y5c; }}
+    pop{{ x1=x5c;y1=y5c; x2=x5;y2=y5; x3=x6;y3=y6; x4=x6c;y4=y6c; }}
+    pop{{ x1=x6c;y1=y6c; x2=x6;y2=y6; x3=x7;y3=y7; x4=x7c;y4=y7c; }}
+    pop{{ x1=x7c;y1=y7c; x2=x7;y2=y7; x3=x8;y3=y8; x4=x8c;y4=y8c; }}
+    pop{{ x1=x8c;y1=y8c; x2=x8;y2=y8; x3=x1;y3=y1; x4=x1c;y4=y1c; }} 
+  }
+}
+
+pop{POP{}}
