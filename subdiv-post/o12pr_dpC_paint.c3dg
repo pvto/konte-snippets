@@ -1,0 +1,68 @@
+include #geometry
+include #subdivs
+include forms.c3dg
+startshape dd 
+include empty TAB
+
+MACRO ang_ i/n*PI*2
+
+shading rbgg {
+    point (0.0) { RGB 1 .2 .6   A 1  }
+    point (1.0) { RGB 1 1 0     A .25 }
+    point (2.0) { RGB .6 .6 .6  A 1  }
+    point (3.0) { RGB 0 .3 0    A 1  }
+}
+
+
+
+
+dd {
+SQUARE{lr -1 s 2 shading rgbb col0 1.0}	
+
+  *{{n=8}} (n)*{{i=i+1}} void{x trow(TAB, cos(ang_)*.5, sin(ang_)*.5)}
+  *{{ border=.05;
+    x1=tget(TAB, 1, 1); y1=tget(TAB, 1, 2);
+    x2=tget(TAB, 2, 1); y2=tget(TAB, 2, 2);
+    x3=tget(TAB, 3, 1); y3=tget(TAB, 3, 2);
+    x4=tget(TAB, 4, 1); y4=tget(TAB, 4, 2);
+    x5=tget(TAB, 5, 1); y5=tget(TAB, 5, 2);
+    x6=tget(TAB, 6, 1); y6=tget(TAB, 6, 2);
+    x7=tget(TAB, 7, 1); y7=tget(TAB, 7, 2);
+    x8=tget(TAB, 8, 1); y8=tget(TAB, 8, 2);
+  }}  
+  _8_12r {s .85 PUSH fill _4_4r _5_5r dup2 _4_r5p_ }
+}
+
+_4_r5p_ { _4_r5p{{xd=0;yd=0}} }
+dup2 { _4_4r { PUSH fill _4_4r } }
+
+
+//void{}
+//pop{POP{}}
+
+MACRO nnn max(abs(x2-x1), abs(y2-y1))*0
+
+fill{ 
+  2*{lr -1 shading rgbb col0 0  x .01 skewy 100*rndf() sx 10 sy 3} 
+  RTv{{n=irndf(nnn)+3; width=.3}} }
+fill{ RTh{{n=irndf(nnn)+3; width=.3}} }
+
+RTv {  *{{x1=x4;y1=y4;x2=x1;y2=y1; x3=x2;y3=y2; x4=x3;y4=y3;}}
+  RTh{}
+}
+
+MACRO Xd xas/2*width
+MACRO Xe xbs/2*width
+MACRO Yd yas/2*width
+MACRO Ye ybs/2*width
+RTh { 
+   *{{xa=x1; xb=x4; xas=(x2-x1)/n; xbs=(x3-x4)/n;
+      ya=y1; yb=y4; yas=(y2-y1)/n; ybs=(y3-y4)/n;}}
+   *{{ya=ya+yas/2; yb=yb+ybs/2;
+     xa=xa+xas/2; xb=xb+xbs/2;
+   }}
+   (n)*{{ ya=ya + yas; yb= yb+ybs; xa= xa+xas; xb= xb+xbs}}
+   RECT{{
+     x1=xa-Xd; y1=ya-Yd; x2=xa+Xd; y2=ya+Yd;
+     x3=xb+Xe; y3=yb+Ye; x4=xb-Xe; y4=yb-Ye }}
+}

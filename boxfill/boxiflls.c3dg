@@ -1,0 +1,80 @@
+rectfills {
+  *{s .25 x -1.5 y -1.5 {width=.5}}
+  * {{x1=-.5;y1=-.5; x2=-.3;y2=.55; x3=.5;y3=.5; x4=.5;y4=-.6}}
+  {
+    RTh{s .8 { n=30}}
+    RTv{x 1 s .8 { n=16}}
+    RThv{x 2 s .8 { n=30; width=.2}}
+    RTx{y 1 s .8 { n=2000; width=.001}}
+    RTx{y 1 x 1 s .8 { n=200; width=.01}}
+    RTv{y 1 x 2 s .8 { n=50; width=.2}}
+      RTx{y 1 x 2 s .8 { n=500; width=.001}}
+  }
+}
+MACRO Xd xas/2*width
+MACRO Xe xbs/2*width
+MACRO Yd yas/2*width
+MACRO Ye ybs/2*width
+MACRO WOFF width/2+rf*4*(1-width)
+MACRO WOFG width/2+rg*4*(1-width)
+
+RTx {
+  (n)*{} *{{rf=rndf(); rg=rndf()}} {
+    if (rf<.25){ RTx__{{ x1_=x1; y1_=y1; x2_=x2; y2_=y2; }} }
+    if (rf<.5 && rf >= .25){ *{{rf=rf-.25}} RTx__{{ x1_=x2;y1_=y2; x2_=x3;y2_=y3; }} }
+    if (rf<.75 && rf >= .5){ *{{rf=rf-.5}} RTx__{{ x1_=x3;y1_=y3; x2_=x4;y2_=y4; }} }
+    if (rf>=.75){ *{{rf=rf-.75}} RTx__{{ x1_=x4;y1_=y4; x2_=x1;y2_=y1; }} }    
+  }
+}
+RTx__{ // x1=x1+(x2-x1)*WOFF; y1=y1+(y2-y1)*WOFF; }}
+    if (rg<.25){ RTx___{{ x3=x1;y3=y1; x4=x2;y4=y2; }} }
+    if (rg<.5 && rg >= .25){ *{{rg=rg-.25}} RTx___{{ x3=x2;y3=y2; x4=x3;y4=y3; }} }
+    if (rg<.75 && rg >= .5){ *{{rg=rg-.5}} RTx___{{ }} }
+    if (rg>=.75){ *{{rg=rg-.75}} RTx___{{ x3=x4;y3=y4; x4=x1;y4=y1; }} }    
+}
+RTx___{
+  *{{x1=x1_;y1=y1_;x2=x2_;y2=y2_}}
+  *{{x1_= x1+WOFF*(x2-x1); y1_= y1+WOFF*(y2-y1);
+    x3_= x3+WOFG*(x4-x3); y3_= y3+WOFG*(y4-y3);
+    }}
+    *{{x1= x1_-width/2*(x2-x1); y1= y1_-width/2*(y2-y1);
+      x2= x1_+width/2*(x2-x1); y2= y1_+width/2*(y2-y1);
+      x3= x3_-width/2*(x4-x3); y3= y3_-width/2*(y4-y3);
+      x4= x3_+width/2*(x4-x3); y4= y3_+width/2*(y4-y3);
+      }}
+      RECT{}
+}
+
+RThvX {
+  *{[dx1=(x2-x1)/n; dy1=(y2-y1)/n;
+    dx3=(x3-x4)/n; dy3=(y3-y4)/n;
+  (m)*{} {{x2=x1;y2=y1;x4=x3;y4=y3;
+      x1=x1+dx1; x3=x3+dx3 }}
+    {
+    RThv
+  }
+}
+
+RThv{ RTv{} RTh{} }
+
+RTv {  *{{x1=x4;y1=y4;x2=x1;y2=y1; x3=x2;y3=y2; x4=x3;y4=y3;}}
+  RTh{}
+}
+
+RTh { 
+   *{{xa=x1; xb=x4; xas=(x2-x1)/n; xbs=(x3-x4)/n;
+      ya=y1; yb=y4; yas=(y2-y1)/n; ybs=(y3-y4)/n;}}
+   *{{ya=ya+yas/2; yb=yb+ybs/2;
+     xa=xa+xas/2; xb=xb+xbs/2;
+   }}
+   (n)*{{ ya=ya + yas; yb= yb+ybs; xa= xa+xas; xb= xb+xbs}}
+   RECT{{
+     x1=xa-Xd; y1=ya-Yd; x2=xa+Xd; y2=ya+Yd;
+     x3=xb+Xe; y3=yb+Ye; x4=xb-Xe; y4=yb-Ye }}
+}
+   
+ R_lines2{ RECT{L .5} }
+ R_lines3{ RECT{L .8} }
+
+ include #geometry
+ 
