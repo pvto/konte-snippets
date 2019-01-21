@@ -46,12 +46,12 @@ RTx___{
 }
 
 RThvX {
-  *{[dx1=(x2-x1)/n; dy1=(y2-y1)/n;
-    dx3=(x3-x4)/n; dy3=(y3-y4)/n;
-  (m)*{} {{x2=x1;y2=y1;x4=x3;y4=y3;
+  *{{dx1=(x2-x1)/n; dy1=(y2-y1)/n;
+    dx3=(x3-x4)/n; dy3=(y3-y4)/n;}}
+  (m)*{} *{{x2=x1;y2=y1;x4=x3;y4=y3;
       x1=x1+dx1; x3=x3+dx3 }}
     {
-    RThv
+    RThv {}
   }
 }
 

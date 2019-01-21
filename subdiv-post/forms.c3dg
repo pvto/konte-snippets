@@ -3,6 +3,20 @@ rr { twoRect { L 1 }}
 
 include #geometry
 
+rule nGON {
+  *{{
+    x1=cos(0/n*PI*2)*.5; y1=sin(0/n*PI*2)*.5;
+    x2=cos(1/n*PI*2)*.5; y2=sin(1/n*PI*2)*.5;
+    x3=cos(2/n*PI*2)*.5; y3=sin(2/n*PI*2)*.5;
+    x4=cos(3/n*PI*2)*.5; y4=sin(3/n*PI*2)*.5;
+    x5=cos(4/n*PI*2)*.5; y5=sin(4/n*PI*2)*.5;
+    x6=cos(5/n*PI*2)*.5; y6=sin(5/n*PI*2)*.5;
+    x7=cos(6/n*PI*2)*.5; y7=sin(6/n*PI*2)*.5;
+    x8=cos(7/n*PI*2)*.5; y8=sin(7/n*PI*2)*.5;
+  }} POP{}
+}
+
+
 twoRect{
   RECT{L -1}
   *{{b1=1-border; 

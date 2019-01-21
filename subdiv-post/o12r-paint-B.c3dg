@@ -1,0 +1,24 @@
+include #geometry
+include #subdivs
+include forms.c3dg
+include "../boxfill/boxiflls.c3dg"
+startshape dd 
+
+dd {
+  *{{n=8; border=.15}} nGON{PUSH fill shape}
+}
+
+shape {  
+  _8_12r { PUSH _4_4r _4_4r _4_4r}
+}
+
+bg{B 0}
+
+fill .1 {
+  RECT{L 1 s 1.1}
+  *{{X=rndf()}} {
+    if (o % 2 < 1) { RTv{{n=irndf(nnn)+3; width=.3}} }
+    if (o %2 >= 1) { RTh{{n=irndf(nnn)+3; width=.3}} }
+  }
+}
+//fill .1 { RTh{{n=irndf(nnn)+3; width=.3} } }
