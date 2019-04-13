@@ -1,0 +1,26 @@
+/*
+   select "Edit" > "Path editor" [Ctrl+P]
+   or     "File" > "Inkscape/SVG path import"
+ */
+//fov{z -2 x .1 lookat(0,0,0)}
+rule three_hearts {
+    *{{n=7}} *{s 1/n y -(n-1)/2 x -(n-1)/2} (n) * { x 1 } (n)*{y 1}
+      4*{rz 90 } *{s .5 y .6} { heart {  blue .8 } heart { s .7 y -.1 red .8 lr 1} }
+
+}
+
+path heart {
+    moveto(0.000, 0.000, 0.000)
+    bend(0.000, 0.300, 0.000)
+    bend(0.400, 0.400, 0.000)
+    curveto(0.400, 0.100, 0.000)
+    bend(0.400, -0.200, 0.000)
+    bend(0.000, -0.500, 0.000)
+    curveto(0.000, -0.500, 0.000)
+    bend(0.000, -0.500, 0.000)
+    bend(-0.400, -0.200, 0.000)
+    curveto(-0.398, 0.093, 0.000)
+    bend(-0.400, 0.400, 0.000)
+    bend(0.000, 0.300, 0.000)
+    close
+}

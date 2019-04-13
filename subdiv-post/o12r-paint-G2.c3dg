@@ -1,0 +1,40 @@
+include #geometry
+include #subdivs
+include forms.c3dg
+include "../boxfill/boxiflls.c3dg"
+startshape dd 
+
+dd {
+  *{{n=8}} nGON{PUSH fill shape}
+}
+
+shape {  
+  _8_12r { PUSH _4_4r _4_4r _4_4r s .9}
+    
+}
+
+bg{RGB 0.831 0.718 0.447}
+
+fill{fill_{rx -30-5*rndf()**.5 x rndf()*.3} }
+fill_ {
+  *{{X=rndf()}} {
+    if (X < .5) { RECT{L 1 s 1.01 shading rgbb col0 o/2.3 lr -1} }
+    if (X >= .5) { RECT{L 1 s 1.01 L 1 lr -1 A -rndf()**3 s 12*rndf() rz 45} }
+  }
+  *{{X=rndf();n=irndf(nnn)+3; width=.3}} {
+    if (o % 2 < 1) { RTv{} }
+    //if (o %2 >= 1 || X < .05) { RTh{} }
+    if (o %3 >= 1 && X > .75) { RTx{{ n=100; width=.01} L 1} }
+  }
+  2*{} CIRCLE{ x x1+0*(rndf()-.5) y y1+0*(rndf()-.5) s rndf()*.03 L rndf()**3 lr 1} 
+}
+
+
+
+shading rbgg {
+    point (0.0) { RGB 1.000 0.761 0.420  A .5  }
+    point (0.5) { RGB 0.349 0.204 0.110  A 1  }
+    point (1.0) { RGB 0.098 0.047 0.431    A .5 }
+    point (2.0) { RGB .2 .6 .9  A 1  }
+    point (3.0) { RGB 0.498 0.894 0.573    A 1  }
+}

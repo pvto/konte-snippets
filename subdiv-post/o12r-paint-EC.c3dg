@@ -1,0 +1,65 @@
+include #geometry
+include #subdivs
+include forms.c3dg
+include "../boxfill/boxiflls.c3dg"
+startshape dd 
+
+dd {
+  *{{n=8}} nGON{PUSH fill shape {SAT=.1}}
+
+   *{rz -50}
+   *{x -.5} 25*{x .04} 
+   *{y -.5} 400*{y .0025}
+     CIRCLE{s .002 -(abs(y**2))*.02 x sin(y*20+x*5)*5 
+       shading rgbb col0 3+(x+y*1.6)*3%1+rndf()*.5 {SAT=.5}
+       layer 3 
+       A -.1//-(y+.2+x*.5)*2-.125/((x*2)**2+(y*1.5)**2+.01)
+       }
+}
+
+shape {  
+  _8_12r { PUSH _4_4r _4_4r _4_4r s 1.4}
+    
+}
+
+bg{B 0}
+
+fill {
+  RECT{L 1 s 1.01 shading rgbb col0 o/2.3 lr -1
+    z -min(0, y1) }
+  *{{X=rndf();n=irndf(nnn)+3; width=.3}} {
+    if (o % 2 < 1) { RTv{} }
+    //if (o %2 >= 1 || X < .05) { RTh{} }
+    if (o %3 >= 1 && X > .75) { RTx{{ n=100; width=.01} L 1 z -max(y1,-.17)*10 } }
+  }
+  2*{} CIRCLE{ x x1+0*(rndf()-.5) y y1+0*(rndf()-.5) s rndf()*.03 
+    L rndf()**3 lr 1} 
+
+}
+
+
+shading rbgg {
+    point(0.0) { A (A)
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,.761,SAT) lirp(0,1,.5,.42,SAT)}
+    point(0.5) { A (A)
+        RGB lirp(0,1,.5,.349,SAT) lirp(0,1,.5,.204,SAT) lirp(0,1,.5,.11,SAT) }
+    point(1.0) { A (A)
+        RGB lirp(0,1,.5,.098,SAT) lirp(0,1,.5,.047,SAT) lirp(0,1,.5,.431,SAT) }
+    point(2.0) { A (A)
+        RGB lirp(0,1,.5,.2,SAT) lirp(0,1,.5,.6,SAT) lirp(0,1,.5,.9,SAT) }
+    point(3.0) { A (A)
+        RGB lirp(0,1,.5,.498,SAT) lirp(0,1,.5,.894,SAT) lirp(0,1,.5,.573,SAT) }
+    point(4.0) { A (A)
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,.725,SAT) lirp(0,1,.5,0,SAT) }
+        
+}
+
+
+shading rbggx {
+    point (0.0) { RGB 1.000 0.761 0.420  A .5  }
+    point (0.5) { RGB 0.349 0.204 0.110  A 1  }
+    point (1.0) { RGB 0.098 0.047 0.431    A .5 }
+    point (2.0) { RGB .2 .6 .9  A (A)  }
+    point (3.0) { RGB 0.498 0.894 0.573    A (A)  }
+    point (4.0) { RGB 1.000 0.725 0.000    A (A)  }
+}
