@@ -1,0 +1,20 @@
+MACRO Xt
+   A1 * sin(t * f1 + p1 ) * E **(-d1 * t) + 
+   A2 * sin( t * f2 + p2 ) * E **(-d2 * t)
+
+MACRO Yt
+   A3 * sin(t * f3 + p3 ) * E **(-d3 * t) + 
+   A4 * sin( t * f4 + p4 ) * E **(-d4 * t)
+
+DEF SC .7
+foo {
+  CIRCLE{layer -1}
+  *{{
+     A1 = .5; f1 = .1; p1=PI/2; d1 = .004;
+     A2 = .1; f2 = 3; d2 = .004;
+     A3 = .5; f3 = .1; d3 = .001;
+     A4 = .05; f4 = 4; d4 = .001;
+   }}
+  100000*{{t=t+.005}}
+  CIRCLE{ x Xt*SC y Yt*SC s .00125 L 1}
+}
