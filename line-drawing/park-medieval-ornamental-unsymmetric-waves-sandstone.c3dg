@@ -37,7 +37,7 @@ foo {
          L 0
        }
        (RETRY)*{}*{{dim=20}}
-	  (dim)*{{DIR=DIR*(nx**2+ny**2)%90+cos(ny*.1)*(30+irndf(3))}}
+	  (dim)*{{DIR=DIR*(nx**2+0*ny**2)%30+cos(ny*.1)*(10+irndf(3))}}
 	  *{{
 	      ox=nx; oy=ny; oz=nz;
 	      ny = ny+sin(DIR)*STEP+SIGRND*SCALE*.1;

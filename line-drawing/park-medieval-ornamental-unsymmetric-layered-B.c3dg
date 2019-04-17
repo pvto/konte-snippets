@@ -7,7 +7,7 @@ DEF RETRY 3
 MACRO STEP SCALE*1.1
 bg { L 1 }
 
-fov {z -.17 lookat(0, 0, 0)}
+fov {z -.6 lookat(0, 0, 0)}
 
 all {
 
@@ -54,8 +54,8 @@ foo {
 	  *{{nb=nearby(nx, ny, nz, SCALE/2 + VOID)}}
 	  {
 	    if (nb = 0 and D > 0
-	      and nx > -.2 and ny > -.2
-	      and nx < .2 and ny < .2
+	      and nx > -.4 and ny > -.4
+	      and nx < .4 and ny < .4
 	    ) {
 	      foo { {D=D-1}}
 	     }

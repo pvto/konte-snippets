@@ -61,7 +61,7 @@ foo {foo{{DIR=DIR+PI/4*SIGRND}}}
 //foo .05 { foo{} foo{x 1 rz -80 {mesh=irnd(10000000)} } }
 //foo { foo{flipy 0} }
 
-DEF WD 4
+DEF WD 6
 MACRO ANX SCALE/WD*cos(DIR-PI/2)
 MACRO ANY SCALE/WD*sin(DIR-PI/2)
 MACRO ANZ SCALE/WD

@@ -1,0 +1,37 @@
+MACRO Xt
+   A1 * sin(t * f1 + p1 ) * E **(-d1 * t) + 
+   A2 * sin( t * f2 + p2 ) * E **(-d2 * t)
+
+MACRO Yt
+   A3 * sin(t * f3 + p3 ) * E **(-d3 * t) + 
+   A4 * sin( t * f4 + p4 ) * E **(-d4 * t)
+
+MACRO Zt
+   A5 * sin(t * f5 + p5 ) * E **(-d5 * t) + 
+   A6 * sin( t * f6 + p6 ) * E **(-d6 * t)
+
+DEF SC .9
+fov{z -1.1}
+//bar{foo{ry 50}}
+foo {
+  //CIRCLE{layer -1 s .3}
+  //RIM{s 1.1 {rim=.025}}
+  *{{
+     A1 = .5; f1 = .1; p1=PI/2; d1 = .004;
+     A2 = .075; f2 = 3; d2 = .04;
+     A3 = .5; f3 = .075; p3=-PI/3*irndf(30); d3 = .004;
+     A4 = .05; f4 = 4; d4 = .02;
+     A5 = .5; f5 = .1; d5 = .004;
+     A6 = .05; f6 = 2; d6 = .04;
+   }
+     L 1
+   }
+  400000*{{t=t+.005}}
+  10*{ { d3=d3*1.1**irndf(2)}}
+  2*{x .01 y -.01 L -1}
+  CIRCLE{ x Xt*SC y Yt*SC z Zt*SC //z (-E**(-(Xt)))
+      s .0025 * (.01 + .4 / E**(-((Xt*3)**2+(Yt*3)**2)+sin(t*2)))
+      }
+}
+
+include #geometry 

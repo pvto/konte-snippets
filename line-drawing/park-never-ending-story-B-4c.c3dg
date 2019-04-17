@@ -8,7 +8,7 @@ DEF RETRY 1
 DEF STEP SCALE*1.1
 bg { L 1 }
 
-fov {FISHEYE .4 2 z -.2 lookat(0, 0, 0)}
+fov {FISHEYE 1 2 z -.2 lookat(0, 0, 0)}
 
 bar{ //3*{rz 120 {mesh=mesh+1}}
   *{R .3}
