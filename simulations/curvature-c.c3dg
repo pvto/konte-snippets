@@ -1,0 +1,42 @@
+DEF ROWS 150
+DEF FL 1/ROWS*.9
+DEF N 10
+system Particle2 Parts init(N, .3, .01, .01,
+    -.000001, 1, 2, -.3, 0)
+
+include #geometry
+startshape foo
+
+
+foo {
+  void{col0 syswrite(Parts, 0, 0, 0.00005)+syseval(Parts)}
+  
+  *{{X=-.5; Y=-.5}}
+  1*{col0 syseval(Parts) R .3}
+  (ROWS)*{{X=X+1/ROWS}}
+  (ROWS)*{{Y=Y+1/ROWS}}
+  *{{x1=X+rndf()/ROWS; y1=Y+rndf()/ROWS}}
+  *{{xa=sysread(Parts, -1, .01, x1, y1, 0);
+     ya=sysread(Parts, -1, .01, x1, y1, 1);}}
+  *{{ang=atan(ya,xa); r=sqrt(xa**2+ya**2)}}
+    LINE3{{
+      x2=x1+min(r, 1)*cos(ang)*FL; // 0*min(vl, .01)*cos(ang)*.0075;
+      y2=y1+min(r, 1)*sin(ang)*FL;
+      width = .0005;
+    }}
+}
+
+
+LINE3 {
+  *{{k=atan((y2-y1)/(x2-x1)); }}
+  RECTANGLE{{
+     x1=x1 - width*cos(k-PI/2);
+     y1=y1 - width*sin(k-PI/2);
+     x2=x1 + width*cos(k-PI/2);
+     y2=y1 + width*sin(k-PI/2);
+     x3=x2 + width*cos(k-PI/2);
+     y3=y2 + width*sin(k-PI/2);
+     x4=x2 - width*cos(k-PI/2);
+     y4=y2 - width*sin(k-PI/2);
+  }}
+}
