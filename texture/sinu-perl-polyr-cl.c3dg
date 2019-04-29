@@ -1,0 +1,17 @@
+DEF GRID 7
+system Perlin2 Perlin init(GRID, GRID)
+DEF N 800
+bg{L -1}
+foo {
+  2*{}
+  *{{Z=3+irndf(12); a = 1+rndf()} A 1}
+  (N)*{{x1=x1+1/N}}
+  (N)*{{y1=y1+1/N}}
+  *{{clr=saw(sysread(Perlin, x1*GRID*a, y1*GRID*a)*Z)**6}}
+  if (clr > .6) {
+	  SQUARE{x -.5 + x1 y -.5+y1 s 2/N
+	     A -clr*.5
+	     R clr S -1+rndf()**10
+	   }
+   }
+}

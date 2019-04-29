@@ -1,0 +1,11 @@
+DEF GRID 7
+system Perlin2 Perlin init(GRID, GRID)
+DEF N 800
+
+foo {
+  (N)*{{x1=x1+1/N}}
+  (N)*{{y1=y1+1/N}}
+  SQUARE{x -.5 + x1 y -.5+y1 s 2/N
+     L saw(sysread(Perlin, x1*GRID, y1*GRID)*15)**6
+   }
+}
