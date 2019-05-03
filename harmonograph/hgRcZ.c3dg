@@ -1,0 +1,34 @@
+MACRO Xt
+   A1 * sin(t * f1 + p1 ) * E **(-d1 * t) + 
+   A2 * sin(t * f2 + p2 ) * E **(-d2 * t) +
+   A3 * sin(t * f3 + p3 ) * E **(-d3 * t)
+
+MACRO Yt
+   Ay1 * sin(t * fy1 + py1 ) * E **(-dy1 * t) + 
+   Ay2 * sin(t * fy2 + py2 ) * E **(-dy2 * t) +
+   Ay3 * sin(t * fy3 + py3 ) * E **(-dy3 * t)
+
+MACRO Zt
+   Az1 * sin(t * fz1 + pz1 ) * E **(-dz1 * t) + 
+   Az2 * sin(t * fz2 + pz2 ) * E **(-dz2 * t) +
+   Az3 * sin(t * fz3 + pz3 ) * E **(-dz3 * t)
+
+bg{L -1}
+DEF SC .7
+foo {
+  
+  *{{
+     A1 = .5; f1 = .3; p1=PI/2; d1 = .001;
+     A2 = .5; f2 = .297; p2=PI/2+PI/12; d2 = .001;
+     A3 = .25; f3 = 1.5; d3 = .004;
+     Ay1 = .5; fy1 = .3; dy1 = .001;
+     Ay2 = .5; fy2 = .302; py2=PI/3-PI/12; dy2 = .001;
+     Ay3 = .0025; fy3 = 4; dy3 = .004;
+     Az1 = .5; fz1 = .3; dz1 = .001;
+     Az2 = .5; fz2 = .302; dz2 = .001;
+     Az3 = .0025; fz3 = 4; dz3 = .004;     
+   }}
+  1*{{A3=A3*3}}
+  230000*{{t=t+.005}}
+  CIRCLE{ x Xt*SC y Yt*SC z Zt*SC s .00125 L 1}
+}
