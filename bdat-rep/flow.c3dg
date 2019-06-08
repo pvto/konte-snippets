@@ -1,0 +1,33 @@
+include #monospace
+startshape funcHelp
+model { pushstack 32 }
+DEF W .05
+DEF LW 1/5  DEF DW 1/7
+DEF F 1
+fov{y -.05 z 1.3}
+funcHelp {
+
+
+
+
+
+  *{s W s .275 {BOLD=-1.5;WIDE=-2;FLAT=2}}
+  {
+    //*{layer -1 x -.5 y 2.5} 22*{x 1} 50*{y -1} { SQUARE{s 1 L .5} SQUARE {s .95 lightness 1 } }
+
+    *{y -4}{  TEXTR{ s F x -2 PUSH "^m\^brndf(n,p)" }
+      200*{{X=X+.1}} CIRCLE { x X y rndf()*5 s DW*1.75 A -.3 B 1 }
+      
+    }
+
+  }
+
+}
+
+
+
+box{cbox{L 1}}
+cbox {
+ 4*{ry 90}{SQUARE{z -.5 RGB #000000}SQUARE{z -.5 s .9+BW}}
+ 2*{rx 180}{SQUARE{rx 90 z -.5 RGB #000000}SQUARE{rx 90 z -.5 s .9+BW}}
+}

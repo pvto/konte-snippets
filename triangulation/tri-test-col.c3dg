@@ -1,0 +1,45 @@
+system Triangulation tri init(12)
+
+//DEF n 10
+MACRO F rndf()*.1 -.05//rndnme(10,2,1)*.1-.05
+
+trix{
+/*  void{col0 syswrite(tri, 0+F, -.1+F, 0)+ 
+syswrite(tri, 0+F, 0+F, 0)+
+syswrite(tri, 0+F, .1+F, 0)+
+syswrite(tri, -.25+F, -.1+F, 0)+
+syswrite(tri, -.25+F, 0+F, 0)+
+syswrite(tri, -.25+F, .1+F, 0)+
+syswrite(tri, .25+F, 0+F, 0)+
+syswrite(tri, .25+F, .1+F, 0)+
+syswrite(tri, .25+F, -.1+F, 0)+
+syswrite(tri, 0+F, .2+F, 0)+
+0
+}*/
+
+  *{{n=10000}} (n)*{col0 syswrite(tri, F*8, F*8) {i=i+1}} {
+    if (i=n-1) { draw{{i=0}} }
+  }
+}
+
+draw {
+  *{ col0 syseval(tri) {n=sysread(tri, -1,0,0)}} {
+    (n)*{{i=i+1}} {
+       NTRI{{x1=sysread(tri, i, 0,0); y1=sysread(tri, i, 0,1);
+          x2=sysread(tri, i, 1,0); y2=sysread(tri, i, 1,1);
+          x3=sysread(tri, i, 2,0); y3=sysread(tri, i, 2,1);
+       } L rndf()}
+    }
+  }
+}
+
+path NTRI {
+    moveto(x1,y1,0)
+    lineto(x2,y2,0)
+    lineto(x3,y3,0)
+    close
+}
+
+
+include #geometry
+void{}

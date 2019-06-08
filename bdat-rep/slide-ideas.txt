@@ -1,0 +1,13 @@
+- dashboard picture
+- pipelines & streams vs batch jobs
+- bus/hub vs database
+- thinking in streams
+- calculation slides: this big data, this processing speed, ...
+- resources needed in a pipeline: bandwidth, cpu, memory, disk space, funds for resource costs
+- what can go wrong
+-
+
+- storage options: file systems, dbs, nosql-dbs
+
++ data per day size
++ data per year size

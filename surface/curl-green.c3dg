@@ -1,0 +1,19 @@
+DEF GRID 5
+
+system Perlin2 Perlin init(GRID, GRID)
+system Curl2 Curl init(Perlin)
+
+DEF N 500
+
+
+curlt{
+  *{s .9}
+  (N)*{{i=i+1}}
+  (N)*{{j=j+1}}
+  *{{cu=sysread(Curl, i/N*GRID*5, j/N*GRID*5)}}
+  CIRCLE{x -.5 y -.5 s 1/N x i y j s 1.6
+    rz 180/PI*cu
+    z -cu*1 G (cu+PI*2)/PI/6-.1 L j/N S -j/N*((rndf()+1)/2)**.5*1.5
+    sx .2 sy 10
+  }
+}

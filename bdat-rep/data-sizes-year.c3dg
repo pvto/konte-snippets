@@ -1,0 +1,25 @@
+
+pic {
+ *{{BOLD=BOLD+1;ITALIC=1} s .06 x -3} {
+   *{A -.9} 3*{x 2 A .06} {
+   TEXTR { PUSH  "^m\^ 100" y 3.15 }
+   TEXTR { PUSH  "^m\^  1K" y 1.15 }
+   TEXTR { PUSH  "^m\^  1M" y -1.15 }
+   TEXTR { PUSH  "^m\^100M" y -3.15 }
+  }
+   //TEXT { PUSH  "^m^  x 365 " s .7 x 1.5 }
+
+  *{x 5} {
+   TEXT { PUSH  "^m^50K" y 3.15 }
+   TEXT { PUSH  "^m^1M" y 1.15 }
+   TEXT { PUSH  "^m^500M" y -1.15 }
+   TEXT { PUSH  "^m^50 Bn" y -3.15 }
+   }
+ }
+
+  //*{s .06 x -7} 3*{x 1.5 s 1.2 {i=i+1}} RIM { s .5+i*.1 L .65 {rim=.25}}
+
+}
+
+include #geometry
+include #monospace
