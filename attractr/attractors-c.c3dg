@@ -1,0 +1,8 @@
+
+attr {
+  *{{X=0.1; r=3.8285}} 400*{{X=X+.001}}
+  *{ s .7 {n=1000;}} (n)*{{i=i+1; X=r*X*(1-X)}}
+    CIRCLE{x -.5+i/n y -.5 + X s .003}
+}
+
+include #geometry
