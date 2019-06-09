@@ -1,0 +1,15 @@
+
+tt {
+  trirndf{{x1 = -.3; y2=.2; x3=.4; y3=-.3; n=1000; width =.005} PUSH CIRCLE}
+}
+
+trirndf{
+ (n)*{{a=rndf();b=rndf();)}}
+   pop{x (x1*(1-a) +x2*a)*(1-b) + x3*b
+                y (y1*(1-a) + y2*a)*(1-b) + y3*b s width}
+
+  TRI{{width=.005} lr -1 B .5}
+}
+
+pop{POP{}}
+include #geometry
