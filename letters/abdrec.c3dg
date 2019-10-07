@@ -1,0 +1,65 @@
+/*
+
+xxxx
+x___
+_xx_
+____
+
+_xxx
+___x
+_xx_
+___x
+
+xxx_
+x___
+_xx_
+x___
+
+*/
+
+DEF SX 1
+
+start {
+  *{s 2/5 x 1/8} {
+    *{x -.85} ac{PUSH RSQU ac cc ypop bc cpop}
+    *{x  0} bc{PUSH RSQU bc ac bpop cc cpop}
+    *{x  .85} cc{PUSH RSQU cc bc rpop ac cpop}
+  }
+}
+
+ac {
+ *{s 1/4 sx SX x -1.5 y -1.5} {
+   pop{} 
+   2*{x 2}pop{y 1}
+   2*{x 1}{pop{x 1}pop{x 1 y 2}}
+ }
+}
+
+bc {
+ *{s 1/4 sx SX x -1.5 y -1.5} {
+   4*{y 1}pop{} 
+   *{x 1} 2*{x 1}pop{}
+   2*{x 1 y -1}pop{x 1 y 2}
+ }
+}
+
+cc {
+ *{s 1/4 sx SX x -1.5 y -1.5} {
+   2*{y 2}3*{x 1}pop{} 
+   pop{y 1}
+ }
+}
+
+dc {
+ *{s 1/4 sx SX x -1.5 y -1.5} {
+   4*{y 1}pop{x 3} 
+   *{x 1} 2*{y 2}2*{x 1}pop{}
+   2*{y 1} pop{}
+ }
+}
+
+bpop{ RSQU{L -1 B 1} pop{L 1 lr .1 s .9} }
+cpop{ RSQU{} pop{L 1 lr .1 s .9} }
+rpop{ RSQU{L -1 R 1} pop{L -1 lr .1 s .9} }
+ypop{ RSQU{L -1 R 1 G 1} pop{L -1 lr .1 s .9} }
+pop{POP{}}

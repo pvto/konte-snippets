@@ -1,0 +1,21 @@
+DEF G1 1200
+DEF G2 3
+DEF G3 2
+system Perlin2 P init(G1)
+system Perlin2 Q init(G2)
+system Perlin2 T init(G3)
+
+DEF n 1000
+
+foo {
+  *{x -.5 y -.5 s 1/n}
+  (n)*{x 1}  (n)*{y 1}
+  *{{alfa=sysread(P,x*G1, y*G1)*PI*2;
+     r=sysread(Q,x*G2, y*G2);}}
+  SQUARE{s 1.5 
+    L sysread(T,
+                    cos(alfa) *r*G3, 
+                    sin(alfa)*r*G3)**.5
+  }
+    
+}

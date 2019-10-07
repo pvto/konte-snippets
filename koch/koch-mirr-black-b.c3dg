@@ -1,0 +1,22 @@
+fov{z -1.3}
+bg{L -1}
+start { koch3mir { PUSH unitmir koch  koch kochmir koch  L 1} }
+koch3 {
+  3*{rz 120 }
+  koch{y .29 {n=0; n2=n2+1}}
+}
+koch3mir {
+  3*{rz 120 }
+    kochmir{y .29 {n=0; n2=n2+1}}
+}
+unit { SQUARE { sy .02*(1+n*(n2+1)) } } 
+unitmir{ unit{} unit{flipx 0 y .1} unit{flipx 0 y .2}}
+
+koch {
+   pop{s 1/3 x -1}
+   pop{s 1/3 x 1}
+   pop{s 1/3 x -1/4 y 1/7*3 rz 60 }
+   pop{s 1/3 x 1/4 y 1/7*3 rz -60 }
+}
+kochmir{ koch{} koch{flipx 0} }
+pop{POP{{n=n+1}}}

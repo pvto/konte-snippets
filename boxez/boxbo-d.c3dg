@@ -1,0 +1,51 @@
+fov{z -1.75}
+foo {
+
+ 
+  *{{RR=7}}
+  *{x -.5+1/RR/2 z -.5+1/RR/2 y -.5}
+  (RR)*{x 1/RR}
+  (RR)*{z 1/RR}
+  20*{ y 1/RR*.85/(ii/4+1) {ii=ii+1}}
+  boxo{s (1/RR) s .95 {frame=.01; SY=.25/(ii+1); width= .006+.001*(ii)**.9} rx ii*5*0}
+}
+
+include #geometry
+
+LINE3 {
+  *{{k=atan((y2-y1) / (x2-x1+.00001)); }}
+  RECTANGLE{{
+     x1=x1 - width*cos(k-PI/2);
+     y1=y1 - width*sin(k-PI/2);
+     x2=x1 + width*cos(k-PI/2);
+     y2=y1 + width*sin(k-PI/2);
+     x3=x2 + width*cos(k-PI/2);
+     y3=y2 + width*sin(k-PI/2);
+     x4=x2 - width*cos(k-PI/2);
+     y4=y2 - width*sin(k-PI/2);
+     z3=z2;
+     z4=z2;
+     z2=z1;
+  }}
+}
+
+boxo .5 {}
+boxo{tobox{L 1 {SY=coalesce(SY,1); width=coalesce(width, .002); }}}
+tobox {
+ 4*{ry 90}{SQUARE{z -.5 sy SY L -.05 lr 1}}
+ 2*{rx 180}{SQUARE{rx 90 z -.5*SY L -.05 lr 1}}
+ LINE3{{x1=-.5;y1=-.5*SY;z1=-.5; x2=.5;y2=-.5*SY;z2=-.5;} L -1}
+ LINE3{{x1=-.5;y1=.5*SY;z1=-.5; x2=.5;y2=.5*SY;z2=-.5;} L -1}
+ LINE3{{x1=-.5;y1=-.5*SY;z1=.5; x2=.5;y2=-.5*SY;z2=.5;} L -1}
+ LINE3{{x1=-.5;y1=.5*SY;z1=.5; x2=.5;y2=.5*SY;z2=.5;} L -1}
+ 
+ LINE3{{x1=-.5;y1=-.5*SY;z1=-.5; x2=-.5;y2=.5*SY;z2=-.5;} L -1}
+ LINE3{{x1=.5;y1=-.5*SY;z1=-.5; x2=.5;y2=.5*SY;z2=-.5;} L -1}
+ LINE3{{x1=-.5;y1=-.5*SY;z1=.5; x2=-.5;y2=.5*SY;z2=.5;} L -1}
+ LINE3{{x1=.5;y1=-.5*SY;z1=.5; x2=.5;y2=.5*SY;z2=.5;} L -1} 
+
+ LINE3{{x1=-.5;y1=-.5*SY;z1=-.5; x2=-.5;y2=-.5*SY;z2=.5;} L -1}
+ LINE3{{x1=.5;y1=-.5*SY;z1=-.5; x2=.5;y2=-.5*SY;z2=.5;} L -1}
+ LINE3{{x1=-.5;y1=.5*SY;z1=-.5; x2=-.5;y2=.5*SY;z2=.5;} L -1}
+ LINE3{{x1=.5;y1=.5*SY;z1=-.5; x2=.5;y2=.5*SY;z2=.5;} L -1} 
+}

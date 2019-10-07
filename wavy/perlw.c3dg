@@ -1,0 +1,16 @@
+DEF GRID 3
+system Perlin2 Perlin init(GRID, GRID)
+system Perlin2 P2 init(1 ,1)
+DEF N 1000
+MACRO inner ((x1+XD)**2+(y1+YD)**2)*1.8
+
+foo {
+  *{{YD=(-.5); XD=rndf()}}
+  (N)*{{x1=x1+1/N}}
+  (N)*{{y1=y1+1/N}}
+  CIRCLE{x -.5 + x1 y -.5+y1 s 2.25/N
+     L saw(sysread(Perlin, 
+          sin(inner+sysread(P2, x1, y1*9)*.5)*GRID, 
+          cos(inner+sysread(P2, x1, y1*9)*.3)*GRID)*25)**6
+   }
+}
