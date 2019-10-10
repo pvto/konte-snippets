@@ -1,0 +1,22 @@
+fov { z -1.15 ZPOW .25 metric 5 }
+//bg{L -1}
+
+foo {
+  2*{rz 90 lr -1}
+  *{{n=120}}
+  (n)*{{i=i+1}}
+  (n)*{{j=j+1}}
+  *{s .5 x cos(i/n*PI) z sin(i/n*PI) y sin(j/n*PI-PI/2) s .05}
+  {
+    SQUARE{ L 1}
+    SQUARE{s .9+max(0,y+.2)*.3}
+    SQUARE{s .9 R 1 shading SH col0 sin(i*j/n**2*.8)}
+  }
+}
+MACRO AA rndf()**9*(5.5-y*15)-.7
+shading SH {
+    point(0.0) { RGB 0.949 0.827 0.827 A AA}
+    point(.5) { RGB 0.792 0.592 0.882 A AA}
+    point(1.0) { RGB 0.557 0.722 0.059 A AA}
+    point(0.735) { RGB 0.427 0.749 0.439 A AA}
+}
