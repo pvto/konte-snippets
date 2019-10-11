@@ -1,0 +1,20 @@
+DEF G1 3
+DEF G2 3
+DEF G3 3
+system Perlin2 P init(G1)
+system Perlin2 Q init(G2)
+//system Perlin2 T init(G3)
+include "../subtri4/cross-d3-AAA-2019-10-11-08-25.png" img0
+
+DEF n 1000
+
+foo {
+  *{x -.5 y -.5 s 1/n}
+  (n)*{x 1}  (n)*{y 1}
+  SQUARE{s 1.4 
+    L imgred(img0,
+                    (sysread(P,x*G1, y*G1))*imgwidth(img0)*G3, 
+                    (sysread(Q,x*G2, y*G2))*imgheight(img0)*G3)
+  }
+    
+}

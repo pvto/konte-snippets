@@ -1,0 +1,22 @@
+DEF G1 1.5
+DEF G2 3
+DEF G3 2
+system Perlin2 P init(G1)
+system Perlin2 Q init(G2)
+//system Perlin2 T init(G3)
+include "../color-work/disk-E-z-B-AAR-2018-08-19-22-15.png" T
+
+DEF n 1000
+
+foo {
+  *{x -.5 y -.5 s 1/n}
+  (n)*{x 1}  (n)*{y 1}
+  *{{alfa=sysread(P,x*G1, y*G1)*PI*2;
+     r=sysread(Q,x*G2, y*G2);}}
+  *{{X=abs(cos(alfa) *r*imgwidth(T)*G3);
+      Y=abs(sin(alfa)*r*imgheight(T)*G3)}}
+  SQUARE{s 1.5 
+    R imgred(T,X,Y) G imggreen(T,X,Y) B imgblue(T,X,Y)
+  }
+    
+}
