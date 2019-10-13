@@ -1,0 +1,23 @@
+DEF G1 4
+DEF G2 2
+DEF G3 1
+system Worley2 P init(G1, G1)
+system Worley2 Q init(G2, G2)
+//system Perlin2 T init(G3)
+include "../color-work/disk-E-z-B-AAR-2018-08-19-22-15.png" T
+
+DEF n 1600
+MACRO inner (sin(y*50)*3+sin(x*45)*3)
+
+foo {
+  *{x -.5 y -.5 s 1/n}
+  (n)*{x 1}  (n)*{y 1}
+  *{{alfa=sysread(P,atan(INNER*40)*G1*.5, atan(INNER*20)*G1*.5, 1)*PI*2;
+     r=sysread(Q,x*2, y*2, 1);}}
+  *{{X=abs(cos(alfa) *r*imgwidth(T)*G3);
+      Y=abs(sin(alfa)*r*imgheight(T)*G3)}}
+  SQUARE{s 1.7 x rndf()*.3 
+    R imgred(T,X,Y)*.9**3 G imggreen(T,X,Y) B imgblue(T,X,Y)
+  }
+    
+}

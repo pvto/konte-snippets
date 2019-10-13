@@ -1,0 +1,26 @@
+DEF G1 4
+DEF G2 2
+DEF G3 1
+system Worley2 P init(G1, G1)
+system Worley2 Q init(G2, G2)
+//system Perlin2 T init(G3)
+//include "../color-work/disk-E-z-B-AAR-2018-08-19-22-15.png" T
+include "../color-work/stripes-checkers-small-ABX-2018-08-25-10-44.png" T
+
+//fov {z -1 FISHEYE .01 1 .75 .5}
+DEF n 1600
+MACRO innerx x+rndf()*.05
+MACRO innery y
+
+foo {
+  *{x -.5 y -.5 s 1/n}
+  (n)*{x 1}  (n)*{y 1}
+  *{{alfa=sysread(P,innerx*G1*.5, innery*G1*.5, 1)*PI*2;
+     r=sysread(Q,sin(x*1.5), sin(y*2), 1);}}
+  *{{X=abs(cos(alfa) *r*imgwidth(T)*G3);
+      Y=abs(sin(alfa)*r*imgheight(T)*G3)}}
+  SQUARE{s 1.7 x rndf()*.3 
+    R imgred(T,X,Y)*.9**3 G imggreen(T,X,Y) B imgblue(T,X,Y)
+  }
+    
+}
