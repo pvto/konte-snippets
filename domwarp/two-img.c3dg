@@ -1,0 +1,27 @@
+DEF G1 4
+DEF G2 2
+DEF G3 1
+system Worley2 P init(G1, G1)
+system Worley2 Q init(G2, G2)
+//system Perlin2 T init(G3)
+include //"../color-work/disk-E-z-B-AAR-2018-08-19-22-15.png" T
+  "../geom/subdiv-rupt-8e-AFI-2018-08-17-13-05-.png" U
+include //"../letters/abdrec3-ABU-2019-06-12-21-50.png" U
+  "../geom/cospher-Hc-AET-2018-08-17-10-08-.png" T
+
+DEF Uf 1
+DEF n 1600
+MACRO alph imgblue(U, x*imgwidth(U)*Uf, y*imgheight(U)*Uf)*PI*2
+MACRO alp2 sysread(P,x*G1*.5, sin(sin(y*.5)*3+sin(x*.5)*3)*G1*.5, 1)*PI*2
+foo {
+  *{x -.5 y -.5 s 1/n}
+  (n)*{x 1}  (n)*{y 1}
+  *{{alfa=alph+alp2**3;
+     r=sysread(Q,x*.5, y*.5, 1);}}
+  *{{X=abs(cos(alfa) *r*imgwidth(T)*G3);
+      Y=abs(sin(alfa)*r*imgheight(T)*G3)}}
+  SQUARE{s 1.7 x rndf()*.3 
+    R imgred(T,X,Y) G imggreen(T,X,Y) B imgblue(T,X,Y)
+  }
+    
+}
