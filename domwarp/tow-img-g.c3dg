@@ -1,29 +1,31 @@
 DEF G1 4
-DEF G2 20
+DEF G2 10  DEF G2d .125
 DEF G3 1
-system Perlin2 P init(G1, 2)
-system Perlin2 Q init(G2, 2)
+system Perlin2 P init(G1, G1, 7)
+system Perlin2 Q init(G2, G2, 7)
 //system Perlin2 T init(G3)
-include "../color-work/disk-E-z-B-AAR-2018-08-19-22-15.png" V
-  //"../geom/subdiv-rupt-8e-AFI-2018-08-17-13-05-.png" T
+include //"../color-work/disk-E-z-B-AAR-2018-08-19-22-15.png" V
+  "../geom/subdiv-rupt-8e-AFI-2018-08-17-13-05-.png" V
 include "../letters/abdrec3-ABU-2019-06-12-21-50.png" T
   //"../geom/cospher-Hc-AET-2018-08-17-10-08-.png" T
   //"../color-work/contour-figure-colossus-placed-C-AAA-2018-08-19-20-43.png" T
 include "../color-work/stripes-checkers-wool-large-2-ABX-2018-08-25-10-50.png" 
  U
 
-DEF Uf .005
-DEF Vf .01
-DEF n 600
+DEF n 1500
 MACRO alph imgred(U, x*imgwidth(U)*Uf, y*imgheight(U)*Uf)*1
 MACRO alp2 sysread(P,x*G1*.5, sin(sin(y*.5)*3+sin(x*.5)*3)*G1*.5, 1)*PI*2
 foo {
-  *{s 1/n {Vcx=irndf(imgwidth(V)); Vcy=irndf(imgheight(V))} }
+  *{s 1/n {
+    Vf=rndf()*.1;
+    Uf=rndf()*.02;
+    Vcx=irndf(imgwidth(V)); 
+    Vcy=irndf(imgheight(V))} }
   (n)*{x 1}  (n)*{y 1}
-  *{{X=imgred(U, x*imgwidth(U)*Uf, -y*imgwidth(U)*Uf)*imgwidth(T);  //
-        //sysread(P, x*G1, y*G1)*imgwidth(T);
-      Y=imggreen(V, (x+Vcx)*imgwidth(V)*Vf, -(y+Vcy)*imgwidth(V)*Vf)*imgwidth(T); //
-        //sysread(Q, x*G2, y*G2)*imgwidth(T);
+  *{{Y=//imgred(U, x*imgwidth(U)*Uf, -y*imgwidth(U)*Uf)*imgwidth(T);  //
+        sysread(P, x*G1, y*G1)*imgwidth(T);
+      X=//imgred(V, (x+Vcx)*imgwidth(V)*Vf, -(y+Vcy)*imgwidth(V)*Vf)*imgwidth(T); //
+        sysread(Q, x*G2*G2d, y*G2*G2d)*imgwidth(T);
     }}
   SQUARE{x -n/2 y -n/2 s 1.7 x rndf()*.3 
     R imgred(T,X,Y) G imggreen(T,X,Y) B imgblue(T,X,Y)
