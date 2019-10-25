@@ -1,0 +1,15 @@
+fov{z -2.5}
+model{order WIDTH}
+a0 {
+  a4{PUSH aa as a4 as as}
+}
+
+aa {
+  SQUARE{L 1 A -.5}
+  RIM{RGB 0.757 0.059 0.235 {rim=.3}}
+}
+a4{ 2*{x 1}2*{y 1} pop{x -.5 y -.5} }
+as { pop{} pop{s .5} }
+
+include #geometry
+pop{POP{}}

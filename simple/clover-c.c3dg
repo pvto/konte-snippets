@@ -1,0 +1,18 @@
+fov{z -1.7}
+model{order WIDTH}
+a0 {
+  a4{PUSH aa arnd as a4 ar45 as as}
+}
+
+aa {
+  CIRCLE{L -1 s .65}
+  SQUARE{L 1 A -.5}
+  RIM{RGB 0.051 0.141 0.404 {rim=.225}}
+}
+a4{ 2*{x 1}2*{y 1} pop{x -.5 y -.5} }
+as { pop{} pop{s .5} }
+ar45{pop{rz -45}}
+arnd{pop{rz irndf(360) y rndf()*.05}}
+
+include #geometry
+pop{POP{}}

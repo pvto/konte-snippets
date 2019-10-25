@@ -1,0 +1,24 @@
+fov { CABINET 130 0.5 }
+startshape do //CUBEx
+background { sat .5 L .1 }
+model{feature .005 order WIDTH}
+rule do {
+    *{ s .25}
+    3* { rz 120 } tower_top { y .75 R .5 hue 200 sat -.5 }
+}
+
+CUBEx{CUBE{s .25}}
+rule CUBE {
+    2*{s -1 1 1 L .6 hue 40}SIDE{ L -.3 hue -40}
+    TOP{ L .5}
+}
+rule SIDE {FACE{skew 0 35 0}}
+rule TOP {FACE{s 1.413 .86 1 rz 135 }}
+rule FACE {SQUARE{x .5 y -.5 }}
+
+
+rule tower_top {
+    CUBE { s 1 1 1}
+    tower_top { s .5 x 1.68 y 6  sat .1 L .1}
+    tower_top { s .75 x 1.24 y -.4  rz 180 L -.1*choice(L>.2,1,0) hue -1}
+}

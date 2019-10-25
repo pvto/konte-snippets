@@ -1,0 +1,38 @@
+fov { CABINET 130 0.5 }
+startshape do //CUBEx
+background { sat .5 L .1 }
+model{feature .005 order WIDTH pushstack 32}
+rule do {
+    *{ s .2 y -.5 x -.5}
+    3*{{i=i+1}}*{rz 120*i y 1 rz -120*i}
+     tower_top { R .5 hue 200 sat -.5 
+       PUSH  Arl Arl Au Arl Au Al Arl Au Au Al Aru Aru }
+}
+
+CUBEx{CUBE{s .25}}
+rule CUBE {
+    //POP{}POP{}POP{}POP{}POP{}POP{}POP{}POP{}POP{}POP{}POP{}
+    SIDE{ L -.3 hue -40}
+    SIDE{ sx -1 L .3 hue 10 PUSH xit} 
+    TOP{ L .5}
+}
+rule SIDE {FACE{skew 0 35 0}}
+rule TOP {FACE{s 1.413 .86 1 rz 135 }}
+rule FACE {SQUARE{x .5 y -.5 } } // POP{} // todo CLEAR to lang  
+
+xit {
+100*{}*{x rndf()-.5 y rndf()-.5 s .01} SQUARE{ L -.5}
+}
+
+rule tower_top {
+    CUBE { s 1 1 1}
+    pop{}
+}
+Ar { tower_top { s .75 x 1.175 y -.5  } }
+Al { tower_top { s .75 x -1.175 y -.5  } }
+Au { tower_top { s .75 y 1  } }
+Arl{Ar{}Al{}}
+Aru{Ar{}Au{}}
+Alu{Al{}Au{}}
+All{Al{}Al{x .75*-1.175}}
+pop{POP{}}

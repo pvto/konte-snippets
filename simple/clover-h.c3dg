@@ -1,0 +1,22 @@
+fov{z -2.15}
+model{order WIDTH}
+a0 {
+  a4{PUSH aa al as a4 ar45d al as as a4}
+}
+
+aa {
+  RSQU{s .01 rz 45 R 1 S -.5 H irndf(360)}
+  RIM{L -1 s .05 {rim=.25}}
+  SQUARE{L 1 A -.5}
+  RIM{RGB 0.051 0.141 0.404 {rim=.225} s 1.0001}
+  RIM{RGB 1.000 0.467 0.686 {rim=.025}}
+}
+a4{ 2*{x 1}2*{y 1} pop{x -.5 y -.5} }
+as { pop{} pop{s .5} }
+al { pop{s 1.75} }
+ar45{pop{rz -45}}
+ar45d{pop{rz -45} pop{}}
+arnd{pop{rz irndf(360) y rndf()*.05}}
+
+include #geometry
+pop{POP{}}
