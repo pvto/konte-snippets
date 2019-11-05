@@ -1,0 +1,8 @@
+fov{x 1 z 0 ry 90 }// lookat(0,0,0)}
+fov{x -1 z 0 ry -90 }
+fov{y -1 z 0 rx 90 }
+fov{y 1 z 0 rx -90 }
+fov{z -1 }
+fov{z 1 rx 180}
+fov{x -1 y -1 z 0 ry -45 rx 45}
+aa{*{ry 90} {CIRCLE{s .1 } CIRCLE{s .1 y 1 s .5}}}

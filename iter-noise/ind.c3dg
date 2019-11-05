@@ -1,0 +1,15 @@
+DEF GD 10
+system Perlin2 Pb init(GD, GD)
+
+MACRO turbu ((sysread(Pb, i/n*GD, j/m*GD)
+  +sysread(Pb, i/n*2/GD, j/m/2*GD)
+  +sysread(Pb, i/n*4/GD, j/m/4*GD)
+  +sysread(Pb, i/n*8/GD, j/m/8*GD)
+  +sysread(Pb, i/n*16/GD, j/m/16*GD)) / 5  * 2) **1
+
+aa{ab{{n=400; m= 400}}}
+ab{ 
+  (m)*{{j=j+1}}
+  (n)*{{i=i+1}} draw{x -.5+i/n y -.5+j/m B 1 S -turbu }
+}
+draw { SQUARE { sx 1.5/n sy 1/m*1.5}}

@@ -1,0 +1,11 @@
+fov{z -3}
+aa {
+  bb { PUSH dd ee cc }
+}
+bb { pop{x -.5} pop{x .5} }
+cc { pop{y -.5} pop{y .5} }
+dd {CIRCLE{ s .5 A -.5 B .3} }
+d2 { CIRCLE { s .1 A -.7 } POP{} }
+ee {  ff{CLEAR} }
+ff {bb{ PUSH d2 } }
+pop{POP{}}

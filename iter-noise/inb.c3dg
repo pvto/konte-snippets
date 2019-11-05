@@ -1,0 +1,15 @@
+DEF GD 4
+system Perlin2 Pb init(GD, GD)
+
+aa{ab{{n=400; m= 200}}}
+ab{ 
+  (m)*{{j=j+1}}
+  (n)*{{i=i+1}} 
+  draw{x -.5+i/n y -.5+j/m 
+    B 1 
+    S -(sysread(Pb, i/n*GD, j/m*GD) 
+      + sysread(Pb, i/n/2*GD, j/m/2**GD) 
+      + sysread(Pb, i/n/4*GD, j/m/4*GD)
+      + sysread(Pb, i/n/8*GD, j/m/8*GD)*2 ) } 
+}
+draw { SQUARE { sx 1/n*1.4 sy 1/m*1.2 }}//x rndf()*.1 y rndf()*.1}}

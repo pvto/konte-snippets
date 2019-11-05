@@ -1,0 +1,18 @@
+DEF GD 10
+system Perlin3 Pb init(GD, GD, GD)
+bg{B 1}
+
+MACRO turbu ((sysread(Pb, i/n*GD, j/m*GD, k/l*GD)
+  +sysread(Pb, i/n/2*GD, j/m/2*GD, k/l*GD)
+  +sysread(Pb, i/n/4*GD, j/m/4*GD, k/l*GD)
+  +sysread(Pb, i/n/8*GD, j/m/8*GD, k/l*GD)
+  +sysread(Pb, i/n/16*GD, j/m/16*GD, k/l*GD)) / 5  * 2) **1
+
+aa{ab{{n=300; m= 300; l=40}}}
+ab{ 
+  (l)*{{k=k+1}}
+  (m)*{{j=j+1}}
+  (n)*{{i=i+1}} draw{x -.5+i/n y -.5+j/m z -1+k/l 
+      B 1 S -.5 A -1+(turbu)**2 S -(turbu*2)**.5 }
+}
+draw { if (R > .5) {  CIRCLE { sx 2/n sy 1/m*2 x rndf()*.1}} }
