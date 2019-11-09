@@ -1,0 +1,11 @@
+DEF n 21
+
+aa {
+  (n)*{{i=i+1}}(n)*{{j=j+1}}
+  ab{x -.5+i/n y -.5+j/n s 1/n x .5 y .5}
+}
+ab { *{{LL=(brndf(2, .95)/2-.5); 
+         HH=(irndf(11)*.9)**3;
+         SS=brndf(3, .2)/2}} { 
+  SQUARE { L LL H HH } 
+  SQUARE{ s .75 L 1-LL S 1 H HH S -SS} } }

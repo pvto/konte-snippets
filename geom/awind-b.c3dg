@@ -11,6 +11,7 @@ R2{sd4_r4t{PUSH R3b R3a {O=O*o}}}
 R3a{sd4_2a{PUSH R3b {O=O*o}}}
 R3b{sd3_ht{PUSH R4b R4a {O=O*o}}}
 R4a{sd6_6r{PUSH R5a {O=O*o}}}
+  R4a{sd6_3r{PUSH R5a {O=O*o}}}
 R4b{sd3_ht{PUSH R5c R5b {O=O*o}}}
 R5a{sd4_4{PUSH R6a {O=O*o}}}
 R5b{sd6_3r{PUSH d4}}
@@ -308,9 +309,10 @@ twoRect{
       x3=x3*b1+(x1+x2+x3+x4)*border/4; y3=y3*b1+(y1+y2+y3+y4)*border/4;
       x4=x4*b1+(x1+x2+x3+x4)*border/4; y4=y4*b1+(y1+y2+y3+y4)*border/4;
   }}
-  squrndf{L 1 S -.6 lr 1 {n=20; width= .0025} PUSH CIRCLE}
+  squrndf{L 1 S -.6 lr 1 {n=160*SZx; width= .00125} PUSH CIRCLE}
 }
 
+MACRO SZx max(abs(x2 -x1), abs(y2-y1))*20
 
 twoTri{
   TRI{}
@@ -320,7 +322,7 @@ twoTri{
       x2=x2*b1+(x1+x3)*border/2; y2=y2*b1+(y1+y3)*border/2;
       x3=x3*b1+(x1+x2)*border/2; y3=y3*b1+(y1+y2)*border/2;
     }}
-    //trirndf{{n=20; with= .1} PUSH CIRCLE}
+    trirndf{{n=20; width= .1} PUSH CIRCLE}
 }
 
 trirndf{
@@ -331,8 +333,9 @@ trirndf{
 
 squrndf{
  (n)*{}*{{a=rndf();b=rndf();}}
-   pop{x (x1*(1-a) +x2*a)*(1-b) + x3*b
-                y (y1*(1-a) + y2*a)*(1-b) + y3*b s width}
+   pop{x (x1*(1-a) +x2*a)*(1-b) +( x4*(1-a) + x3*a)*b
+                y (y1*(1-a) +y2*a)*(1-b) +( y4*(1-a) + y3*a)*b
+                s width}
 }
 
 path TRI {

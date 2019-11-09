@@ -1,0 +1,98 @@
+MACRO RNDNEG (-1+2*irndf(2))
+MACRO SIGRND rndf()*RNDNEG
+DEF SCALE .005
+MACRO DEP 300
+MACRO DIM 2
+DEF RETRY 1
+DEF OVERLAP .5
+
+DEF GRID 2
+system Perlin2 Pc init(GRID, GRID) // gradient = x^2
+system Curl2 Cc init(Pc) 
+
+DEF STEP SCALE*1.1
+bg { RGB 0.808 0.980 0.894 }
+
+fov {z -.5 lookat(0, 0, 2)}
+
+bar{ //3*{rz 120 {mesh=mesh+1}}
+ 5*{} *{{
+   ny=(RNDNEG*irndf(3))*.1; 
+   nx=RNDNEG*irndf(5)*.1; }}  {
+   200*{{g=g+PI*2/200}}CIRCLE{x nx+cos(g)*.15 y ny+sin(g)*.15 s 1/600 L 1}
+
+   10*{{nx=nx+RNDNEG*rndf()*.1}}
+   ZOP{{DROO=irndf(30)+11; DRO2=irndf(50)+100;}}
+ }
+
+  //ZOP{{DROO=irndf(30)+13; DRO2=irndf(50)+100}}
+  *{R .3}
+  32*{}
+  *{{nx = -.3+rndf()*.6; ny = -.3+rndf()*.6}}
+  ZOP{{DROO=irndf(30)+11; DRO2=irndf(50)+100;}}
+}
+
+ZOP {
+    foo{{D=0;DIR=PI/2;
+      nx=nx-0;
+      ox=nx;oy=ny;oz=nz;
+    }}
+}
+
+foo {
+  *{{nb=nearby(nx, ny, nz, SCALE)}}
+  {
+    if ((rndf()<OVERLAP or nb = 0) and D < DEP) {
+       CIRCLE{x nx y ny z nz R .2 B .4 s SCALE*.5 A -1}
+       FOO{
+         L 0
+       }
+       (RETRY)*{}
+	  (1+D%16/8+DIM*abs(sin(D/DROO-DIR)**2*sin(D/DRO2)) )*
+	      {{DIR=(DIR+PI/2)}}
+	  *{{
+	      ox=nx; oy=ny; oz=nz;
+	      ny = ny+sin(DIR)*STEP+SIGRND*SCALE*0;
+	      nx = nx+cos(DIR)*STEP+SIGRND*SCALE*0;
+	      nz = nz
+	  }}
+	  *{{nb=nearby(nx, ny, nz, SCALE/2.5)}}
+	  {
+	    if ((rndf()<OVERLAP or nb = 0) and D < DEP
+	      and nx*nx+ny*ny < .12
+	    ) {
+	      foo { {D=D+1; DIR = 2*PI*(DIR/PI*0 + 1*sysread(Cc, nx*GRID, ny*GRID)) }}
+	     }
+	  }
+    }
+  }
+}
+//foo {foo{{DIR=DIR+PI/4*SIGRND}}}
+
+MACRO LW 1/(5+sin(D/20+rndf()*5)*2)
+MACRO ANX SCALE*LW*cos(DIR-PI/2)
+MACRO ANY SCALE*LW*sin(DIR-PI/2)
+MACRO ANZ SCALE*LW
+FOO {
+  LINE2{{x1=ox;y1=oy;x2=nx;y2=ny;width=.01}}
+  LINE2{{x1=ox;y1=oy;x2=nx;y2=ny;width=.001} L 1 z -.01}
+  //FOO_{ x ox y oy z oz } 
+}
+path FOO_ {
+  moveto(-ANX,-ANY,-ANZ)
+  lineto(-ox+nx-ANX,-oy+ny-ANY,-oz+nz-ANZ)
+  lineto(-ox+nx+ANX,-oy+ny+ANY,-oz+nz+ANZ)
+  lineto(ANX,ANY,ANZ)
+  close
+}
+
+
+include #geometry
+
+
+light {AMBIENT s .25}
+light {PHONG specular 10 alpha 10 s 2.5 {RGB 1 1 1}
+  point(
+    0,1,-1
+  )
+}
