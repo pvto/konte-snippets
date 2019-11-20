@@ -1,0 +1,42 @@
+DEF GRID 2
+system Worley2 P init(GRID, 2)
+system Worley2 P2 init(GRID, 2)
+system Perlin2 P3 init(GRID, GRID)
+system Perlin2 P4 init(GRID, GRID)
+
+MACRO n2 1
+
+MACRO n3 1
+MACRO n4 1
+MACRO scale2 15
+MACRO scale3 .1
+MACRO scale4 .7
+MACRO col (sysread(P, i/n*GRID, j/n*GRID)
+  * sysread(P, i/n*GRID*n2+sysread(P, i/n*GRID, j/n*GRID)*scale2, 
+      j/n*GRID*n2+sysread(P2, i/n*GRID, j/n*GRID)*scale2)
+  *5 ) ** .4
+
+DEF n 600
+foo {
+  *{s 1/n x (-n-1)/2 y (-n-1)/2}
+  (n)*{{i=i+1}}
+  (n)*{{j=j+1}}
+  SQUARE{x i y j s 1.5 shading ss col0 col 
+  }
+}
+
+
+shading ss {
+    point(0.0) { A 1
+        RGB 0.8 0.8 1.0 }
+    point(0.501) { A 1
+        RGB 0 0 0.596 }
+    point(2.0) { A 1
+        RGB 0.631 0.729 0.439 }
+    point(1.461) { A 1
+        RGB 0.867 0.867 0.784 }
+    point(0.796) { A 1
+        RGB 0.059 0.263 0.396 }
+    point(1.699) { A 1
+        RGB 0.055 0.318 0.157 }
+}
