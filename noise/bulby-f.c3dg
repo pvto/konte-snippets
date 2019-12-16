@@ -1,0 +1,26 @@
+DEF GRID 5
+system Worley2 P init(GRID, 2)
+system Perlin2 P2 init(GRID, GRID)
+system Perlin2 P3 init(GRID, GRID)
+system Perlin2 P4 init(GRID, GRID)
+
+MACRO n2 1
+MACRO n3 1
+MACRO n4 1
+MACRO scale2 .6
+MACRO scale3 .1
+MACRO scale4 .7
+MACRO col 1-(sysread(P, i/n*GRID, j/n*GRID)
+  * sysread(P, i/n*GRID*n2+sysread(P, i/n*GRID, j/n*GRID)*scale2, 
+      j/n*GRID*n2+sysread(P2, i/n*GRID, j/n*GRID, .1)*scale2)
+
+  ) ** .2
+
+DEF n 600
+foo {
+  *{s 1/n x (-n-1)/2 y (-n-1)/2}
+  (n)*{{i=i+1}}
+  (n)*{{j=j+1}}
+  SQUARE{x i y j s 1.5 L col 
+  }
+}

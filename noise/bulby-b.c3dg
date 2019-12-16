@@ -1,0 +1,27 @@
+DEF GRID 3
+system Perlin2 P init(GRID, GRID)
+system Perlin2 P2 init(GRID, GRID)
+system Perlin2 P3 init(GRID, GRID)
+system Perlin2 P4 init(GRID, GRID)
+
+MACRO n2 1
+MACRO n3 1
+MACRO n4 0
+MACRO scale2 .4
+MACRO scale3 .05
+MACRO col (sysread(P, i/n*GRID, j/n*GRID, .1)
+  * sysread(P, i/n*GRID*n2+sysread(P, i/n*GRID, j/n*GRID, .1)*scale2, 
+      j/n*GRID*n2+sysread(P2, i/n*GRID, j/n*GRID, .1)*scale2, .1)
+  * sysread(P, i/n*GRID*n3+sysread(P, i/n*GRID, j/n*GRID, .1)*scale3, 
+      j/n*GRID*n2+sysread(P3, i/n*GRID, j/n*GRID, .1)*scale3, .1)
+  + sysread(P, i/n*GRID*n3, j/n*GRID*n3, .1)  
+  * sysread(P, i/n*GRID*n4, j/n*GRID*n4, .1)) ** .15
+
+DEF n 600
+foo {
+  *{s 1/n x (-n-1)/2 y (-n-1)/2}
+  (n)*{{i=i+1}}
+  (n)*{{j=j+1}}
+  SQUARE{x i y j s 1.5 L col 
+  }
+}
