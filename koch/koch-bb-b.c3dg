@@ -1,0 +1,32 @@
+fov{z -1.5}
+
+//start {koch3{d 16 PUSH unit koch koch koch3 koch3 }}
+start { koch3 { {Ss=1; Rz=0} PUSH unit kochmir koch1_5 koch1_5 koch1_5 } }
+koch3 {
+  7*{s .5 rz 45}
+  3*{{Rz=Rz+PI*2/3}}
+  koch{{Y=Y+cos(Rz)*.29; X=X-sin(Rz)*.29; n=0; n2=n2+1}}
+}
+unit { SQUARE { x X y Y rz Rz/PI*180 s Ss sy .1 } } 
+
+MACRO S3 Ss/3
+MACRO cop cos(Rz)*S3
+MACRO con cos(-Rz)*S3
+MACRO sip sin(Rz)*S3
+MACRO sinn sin(-Rz)*S3
+
+koch {
+   pop{{Ss=Ss/3;X=X -cop; Y=Y+sinn}}
+   pop{{Ss=Ss/3;X=X +cop; Y=Y+sip}}
+   pop{{Ss=Ss/3;Rz=Rz+PI/3; 
+     X=X-cop/4-sip/7*3;  
+     Y=Y+sinn/4+cop/7*3; }}
+   pop{{Ss=Ss/3;Rz=Rz-PI/3; 
+     X=X+cop/4-sip/7*3;  
+     Y=Y-sinn/4+cop/7*3; }}
+}
+
+kochmir{ koch{} koch{{Ss=-Ss}} }
+koch1_5{ koch{} koch{{Ss=Ss*1.5}} }
+koch2{ koch{} koch{{Ss=Ss*2}} }
+pop{POP{{n=n+1}}}
