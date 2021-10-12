@@ -1,0 +1,23 @@
+
+
+do {
+  *{s .7 {N=200}}
+  (N)* {x 1/N col0 (col0+1/N)} 
+    (N)* {y 1/N {SAT=SAT+1/N}}
+      SQUARE{
+        shading reds
+        x -.5 y -.5 s 1/N/.7 1/N/.7 .5}
+}
+
+shading fire {
+    point(0) { A (A)
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,.7,SAT) lirp(0,1,.5,0,SAT) }
+    point(.25) { A (A)
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,.2,SAT) lirp(0,1,.5,.2,SAT)}
+  point(.5) { A (A)
+        RGB lirp(0,1,.5,.4,SAT) lirp(0,1,.5,0,SAT) lirp(0,1,.5,1,SAT) }
+    point(.75) { A (A)
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,.25,SAT) lirp(0,1,.5,.25,SAT) }
+    point(1) { A (A)
+        RGB lirp(0,1,.5,1,SAT) lirp(0,1,.5,0,SAT) lirp(0,1,.5,0,SAT) }
+}

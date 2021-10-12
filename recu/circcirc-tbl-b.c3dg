@@ -1,0 +1,6 @@
+aa { CIRCSUB{{n=7;rim=0} s .9 rx -30 PUSH bb_}}
+bb_ { bb{} *{lr -1 L 1}30*{z .01 L -.02}CIRCLE{}}
+bb { CIRCVL{{n=13; rim=.3; shake=1;k=irndf(9)}} }
+bb { CIRCCO{{n=5; rim=.75}} }
+bb .2 { CIRCRS{{n=100;np=6;rim=.4; shake=1} s .92} }
+include #circlefill

@@ -1,0 +1,54 @@
+include //
+  "http://is3.mzstatic.com/image/thumb/Purple20/v4/04/1f/de/041fde8f-feb6-750e-7b96-0b3fb324b0f0/source/1200x630bb.jpg"
+      g0
+include //"https://clipground.com/images/deciduous-trees-clipart-1.jpg" 
+  "../triangulation/tri-test-three-b-ABZ-2019-06-02-15-08.png" tree
+fov{z -2.3 x -0.0 lookat(0,0,0)}
+bg{L .1}
+DEF ISCA .7
+MACRO ir imgred(g0, (.5+x*ISCA)*imgwidth(g0), (.5-y*ISCA)*imgwidth(g0))
+MACRO ig imggreen(g0, (.5+x*ISCA)*imgwidth(g0), (.5-y*ISCA)*imgwidth(g0))
+MACRO ib imgblue(g0, (.5+x*ISCA)*imgwidth(g0), (.5-y*ISCA)*imgwidth(g0))
+foo {
+  *{y .12 s 1.2} {
+  CIRCBL{s 3{n=260;rim=.03;shake=.05;rot=.01} L .15 lr -3}
+  CIRCBL{s 3{n=260;rim=.01;shake=.05;rot=.01} L .3 lr -3}
+
+  }
+  *{{DI=.125;DI2=.7; MAXC=.31} s .8}
+  2*{z -.15 s .97 lr 2 {DI=DI*2;DI2=DI2-DI2;MAXC=MAXC-.02} }
+  *{{N=5000}}(N)*{{i=i+1;ang=rndf()*2*PI;r=rndf()*1.1}}
+    //*{x cos(ang)*r y sin(ang)*r}
+    *{x (rndf()-.5)*2.3 y (rndf()-.5)*2.3}
+    *{{D=2*mindist(x,y,z, MAXC+.01) / s;}} {
+      if (D>MAXC*.75-i/N*MAXC*.6) {
+        CIRCLE{s min(MAXC,  D + .001) R ir/DI G ig/DI B ib/DI lr -1 S -.5}
+        //CIRCLE{s min(MAXC,  D + .001)*1.02 lr -2 rz irndf(180) y .005 {NBEXCL=1} L .2}
+        cif{s min(MAXC,  D + .001) }
+        }
+    }
+    *{{isc=2.3;step=.35}}
+    *{{iw = imgwidth(tree); ih = imgheight(tree); pixsize = (isc/imgwidth(tree));} lr 6}
+      (iw/step) * {{u=u+step} }
+        (ih/step) * {{v=v+step} }
+        *{{ir_=imgred(tree,u,v);ig_=imggreen(tree,u,v);ib_=imgblue(tree,u,v)}}
+        {
+          if (ib_ > .65) {
+            CIRCLE { x -.5*isc y (.5*isc*ih/iw) s pixsize x u y -v s step*2.2 L -1 A -.2}
+          }
+        }
+
+}
+cif{CIRCH4{{n=5+irndf(6);rim=rndf()*.2+.005;shake=rndf();NBEXCL=1} }}
+
+CIRCHL {
+  (n)*{{k=k+1}}
+  *{{Y= (k-(n-1)/2)/(n)}}
+  RSQU_{y Y rz shake*rsig*5
+    sx cos(Y*PI)**.5
+    sy rim/n }  
+}
+CIRCH4 { 4*{rz 30} CIRCHL{}}
+RSQU_{RSQU{R ir+DI2 G ig+DI2 B ib*DI+DI2 S -.5}}
+
+include #circlefill

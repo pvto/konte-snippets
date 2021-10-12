@@ -1,0 +1,34 @@
+fov{z -1.3}
+cute {
+  *{{n=5}}*{s 1/n x -(n-1)/2 y -(n-1)/2} (n)*{x 1}(n)*{y 1}
+  *{s 1} {
+    cutehead{{D=irndf(3)}}
+  }
+}
+cutehead {
+    fisl{{ROUND=.46} rx (rndf()-.5)*60}
+    *{s 1/3 y .25 
+          {PUP=.05+rndf()**.7*.6; 
+          yPUP=rndf()*.5-.2; 
+          xPUP=rndf()*.4-.2; 
+          rLLAP=rndf()*30-15;
+          EYEDIST=.5+rndf()*.3}
+     } {
+       cuteeye{x -EYEDIST z -.13 lr .1}
+       cuteeye{x EYEDIST+.05 z -.13 s 1.1 lr .1}
+     } 
+
+     CIRCLE{y -.4*rndf() x rndf()*.5 -.25 s .1 L 1 lr .15}
+
+}
+cuteeye {
+  CIRCLE{s .7+rndf()*.2 L 1 sx .8+rndf()*.2}
+  RSQU{y -.42 rz rLLAP sy .12+rndf()*.2 sx .9 z -.11 lr .01}
+  
+  PUPIL{s PUP  y yPUP x xPUP z -.1 lr .91}
+}
+PUPIL{ if (D>0) { cutehead{} } if (D<=0) { CIRCLE{}}}
+
+fisl{CIRCCO{L 1{n=30} layer -1}CIRCH{{n=2+irndf(20);rim=.5}}}
+
+include #circlefill

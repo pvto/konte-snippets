@@ -1,0 +1,17 @@
+all{
+  aa{}
+  //EDGE{z -.4 A -.5}
+}
+aa { Rn{ {n=6; D=3} PUSH bwtri cc bb } }
+bb { Rn{ {n=4;D=1}  y max(0,y+.1)**3*11} }
+cc { Rn{ {n=14;D=1} } }
+bwtri{TRIANGLE{}*{R 1 S -.4 H .7*(.6+x-y)*360 s .9 lr 1} {
+  form{}
+  TRIANGLE{lr -.2 L -.8 y max(0,y)*1.5}
+  }
+}
+include #recursions
+include #circlefill
+
+form{TRIANGLE{}}
+form .01 {CIRCRS{{n=100;np=6;rim=.4; shake=1} s 3 L -.9 lr .2}}

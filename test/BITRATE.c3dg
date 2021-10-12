@@ -1,0 +1,214 @@
+
+include #monospace
+startshape help
+DEF W .05
+//fov{z -1 ZPOW 6}
+help {
+  *{s W}
+  {
+
+  coordinates{x -7 y 6}
+
+  *{x -5} {
+    *{y 7}{  BOX { s .25} TEXT{x .5 s .4 PUSH "^m^BOX"} }
+    *{y 6.5}{ PIPE { s .25} TEXT{x .5 s .4 PUSH "^m^PIPE"} }
+    *{y 6}{ CONE { s .25} TEXT{x .5 s .4 PUSH "^m^CONE"} }
+    *{y 5.5}{ SPHERE { s .25} TEXT{x .5 s .4 PUSH "^m^SPHERE"}}
+  }
+  *{x -2.5} {
+    *{y 7}{ CIRCLE { s .25} TEXT{x .5 s .4 PUSH "^m^CIRCLE"} }
+    *{y 6.5}{ TRIANGLE { s .25} TEXT{x .5 s .4 PUSH "^m^TRIANGLE"} }
+    *{y 6}{ SQUARE { s .25} TEXT{x .5 s .4 PUSH "^m^SQUARE"} }
+    *{y 5.5}{ RSQU { s .25} TEXT{x .5 s .4 PUSH "^m^RSQU"} }
+    *{y 5}{ RTRIANGLE { s .25} TEXT{x .5 s .4 PUSH "^m^RTRIANGLE"} }
+  }
+
+// RGB  alpha  layer
+  box{x 2 y 6.5 s 1 }
+    CIRCLE { x 3 y 6 s 2.5 layer 1 RGB #ff00ff A -.4 }
+      TEXT{x 4.5 y 6.5 s .3 PUSH "^m^RGB #ff00ff"}
+      TEXT{x 4.5 y 6 s .3 PUSH "^m^alpha -.4"}
+      TEXT{x 4.5 y 5.5 s .3 PUSH "^m^layer 1"}
+        box{x 3.5 y 5.5 s .5 layer 1 }
+
+// r  skew  s
+  box{ x -7 y 4 s .25 rz 15} TEXT{x -6.25 y 4 s .3 PUSH "^m^rz 15"}
+    box{ x -4 y 4 s .25 rz -15} TEXT{x -3.25 y 4 s .3 PUSH "^m^rz -15"}
+  box{ x -7 y 3.5 s .25 ry 40} TEXT{x -6.25 y 3.5 s .3 PUSH "^m^ry 40"}
+    box{ x -4 y 3.5 s .25 ry -10} TEXT{x -3.25 y 3.5 s .3 PUSH "^m^ry -10"}
+  box{ x -7 y 3 s .25 sy .3 rx 90 } TEXT{x -6.25 y 3 s .3 PUSH "^m^rx 90"}
+    box{ x -4 y 3 s .25 sy .3 rx -90 } TEXT{x -3.25 y 3 s .3 PUSH "^m^rx -90"}
+
+  box{ x -7 y 2.5 s .25 skewz 40} TEXT{x -6.25 y 2.5 s .3 PUSH "^m^skewz 40"}
+    box{ x -4 y 2.5 s .25 skewz -40} TEXT{x -3.25 y 2.5 s .3 PUSH "^m^skewz -40"}
+  box{ x -7 y 2 s .25 skewy 20} TEXT{x -6.25 y 2 s .3 PUSH "^m^skewy 20"}
+    box{ x -4 y 2 s .25 skewy -20} TEXT{x -3.25 y 2 s .3 PUSH "^m^skewy -20"}
+  box{ x -7 y 1.5 s .25 skewx 50} TEXT{x -6.25 y 1.5 s .3 PUSH "^m^skewx 50"}
+    box{ x -4 y 1.5 s .25 skewx -50} TEXT{x -3.25 y 1.5 s .3 PUSH "^m^skewx -50"}
+
+  box{ x -7 y 1 s .25 sz 2.5} TEXT{x -6.25 y 1 s .3 PUSH "^m^sz 2.5"}
+    box{ x -4 y 1 s .25 sz -.5} TEXT{x -3.25 y 1 s .3 PUSH "^m^sz .5"}
+  box{ x -7 y .5 s .25 sy 2.5} TEXT{x -6.25 y .5 s .3 PUSH "^m^sy 2.5"}
+    box{ x -4 y .5 s .25 sy -.5} TEXT{x -3.25 y .5 s .3 PUSH "^m^sy .5"}
+  box{ x -7 y 0 s .25 sx 2.5} TEXT{x -6.25 y 0 s .3 PUSH "^m^sx 2.5"}
+    box{ x -4 y 0 s .25 sx .5} TEXT{x -3.25 y 0 s .3 PUSH "^m^sx .5"}
+
+//    RGB
+  cbox{ x -1 y 4 s .25 R 1} TEXT{x -.25 y 4 s .3 PUSH m1 m_ mR }
+    cbox{ x 1 y 4 s .25 R .5} TEXT{x 1.75 y 4 s .3 PUSH "^m^R .5"}
+  cbox{ x -1 y 3.5 s .25 G 1} TEXT{x -.25 y 3.5 s .3 PUSH "^m^G 1"}
+    cbox{ x 1 y 3.5 s .25 G .5} TEXT{x 1.75 y 3.5 s .3 PUSH "^m^G .5"}
+  cbox{ x -1 y 3 s .25 B 1} TEXT{x -.25 y 3 s .3 PUSH "^m^B 1" }
+    cbox{ x 1 y 3 s .25 B .5} TEXT{x 1.75 y 3 s .3 PUSH "^m^B .5"}
+  cbox{ x -1 y 2.5 s .25 R 1 S -.5 } TEXT{x -.25 y 2.5 s .3 PUSH "^m^R 1 sat -.5"}
+  cbox{ x -1 y 2 s .25 B 1 S -.9 } TEXT{x -.25 y 2 s .3 PUSH "^m^B 1 sat -.95"}
+  cbox{ x -1 y 1.5 s .25 R 1 hue 60} TEXT{x -.25 y 1.5 s .3 PUSH "^m^R 1 hue 60"}
+  cbox{ x -1 y 1 s .25 R 1 hue 120} TEXT{x -.25 y 1 s .3 PUSH "^m^R 1 hue 120"}
+  cbox{ x -1 y .5 s .25 R 1 hue 180} TEXT{x -.25 y .5 s .3 PUSH "^m^R 1 hue 180"}
+  cbox{ x -1 y 0 s .25 R 1 hue 240} TEXT{x -.25 y 0 s .3 PUSH "^m^R 1 hue 240"}
+  cbox{ x -1 y -.5 s .25 R 1 hue 360} TEXT{x -.25 y -.5 s .3 PUSH "^m^R 1 hue 360"}
+
+  loopx{x 4 y 4 s .5 d 4 PUSH box}
+    TEXT{x 6 y 4 s .3 PUSH "^m^depth 4"}
+  loopx{x 4 y 3.5 s .5 depth 2 PUSH box}
+    TEXT{x 6 y 3.5 s .3 PUSH "^m^d 2" }
+
+  heart{ x 4 y 2.5 s .5} TEXT{x 4.75 y 2.5 s .3 PUSH "^m^path" }
+
+  meshpiece{ x 4 y 2 s 2}
+    TEXT{x 4.75 y 2 s .3 PUSH "^m^mesh" }
+
+// effects
+  *{x -7 y -2 y .5 {MS=.6; CS=.9}} {
+       *{y -1}{ BITRATE{x 3 s MS*10 z -.2 A -.95}}
+	  *{} {
+	    checkers{{N=8} s CS }
+	    RUBBER{x .05 y .05 s MS z -.3 }
+	    TEXT{x .75 s .3 PUSH "^m^RUBBER"}
+	  }
+	  *{y -1} {
+	    checkers{{N=8} s CS}
+	    MIX{x .05 y .05 s MS z -.3 }
+	    TEXT{x .75 s .3 PUSH "^m^MIX"}
+	  }
+	  *{y -2} {
+	    checkers{{N=8} s CS}
+	    GBLUR{x .05 y .05 s MS z -.3 }
+	    TEXT{x .75 s .3 PUSH "^m^GBLUR"}
+	  }
+	  *{y -3} {
+	    checkers{{N=8} s CS}
+	    EDGE{x .05 y .05 s MS z -.3 A -.5}
+	    TEXT{x .75 s .3 PUSH "^m^EDGE"}
+	  }
+	*{x 2.5} {
+	  *{} {
+	    checkers{{N=8} s CS}
+	    BRIGHTNESS{x .05 y .05 s MS z -.3 B .75}
+	    TEXT{x .75 s .3 PUSH "^m^BRIGHTNESS"}
+	  }
+	  *{y -1} {
+	    checkers{{N=8} s CS}
+	    RADTR{x .05 y .05 s MS z -.3 B .75}
+	    TEXT{x .75 s .3 PUSH "^m^RADTR"}
+	  }
+	  *{y -2} {
+	    checkers{{N=8} s CS}
+	    RADBLUR{x .05 y .05 s MS z -.3 R .5 A -.9 }
+	    TEXT{x .75 s .3 PUSH "^m^RADBLUR"}
+	  }
+
+	}
+    }
+
+
+
+  *{x -8 y -6.5 {ITALIC=2;BOLD=5;WIDE=2} {BW=.075} ry -30 rx 20} {
+    box{layer -1 z -.25 y .1}
+    TEXT{ s .4 PUSH "^m^Konte" }
+    TEXT{ y -.5 s .4 PUSH "^m^ cheatsheet #1"}
+  }
+
+// commands
+   command_table { x 4+1.5 y 0-3.75 {SX=5;SY=10.5} layer -1}
+   *{x 3.5 y .75 s .75 {F=.3}} {
+     TEXT{ y .5 s F PUSH "^m^fov SIMPLE|ORTOGRAPHIC" }
+     TEXT{ y 0 s F PUSH "^m^  |CABINET|CIRCULAR|PANNING" }
+     TEXT{ y -.5 s F PUSH "^m^  |FISHEYE|ZPOW" }
+     TEXT{ y -1 s F PUSH "^m^  |STEREOGRAPHIC|AZIMUTHAL" }
+     TEXT{ y -1.5 s F PUSH "^m^  <params>" }
+     TEXT{ y -2 s F PUSH "^m^  z -2 x -3"}
+     TEXT{ y -2.5 s F PUSH "^m^  lookat (1,0,0)"}
+     *{y -3} {
+     TEXT{ y 0 s F PUSH "^m^DEF X 10"}
+     TEXT{ y -.5 s F PUSH "^m^MACRO xX x+x"}
+     TEXT{ y -1 s F PUSH "^m^PUSH esim"}
+     TEXT{ y -1.5 s F PUSH "^m^...POP PEEK"}
+     TEXT{ y -2 s F PUSH "^m^model"}
+     TEXT{ y -2.5 s F PUSH "^m^  order default|mem"}
+     TEXT{ y -3 s F PUSH "^m^    |stream|disk"}
+     TEXT{ y -3.5 s F PUSH "^m^    |width|smallness"}
+
+     TEXT{y -4.5 s F PUSH "^m^  maxshapes 1000"}
+     TEXT{y -5 s F PUSH "^m^  feature .001"}
+     TEXT{y -5.5 s F PUSH "^m^  streamrate 30"}
+
+     TEXT{y -6 s F PUSH "^m^path"}
+     TEXT{y -6.5 s F PUSH "^m^  moveto(0,1,0)"}
+     TEXT{y -7 s F PUSH "^m^  bend(0,0,0)"}
+     TEXT{y -7.5 s F PUSH "^m^  curveto(1,0,0)"}
+     TEXT{y -8 s F PUSH "^m^  lineto(1,0,.1)"}
+     TEXT{y -8.5 s F PUSH "^m^  close"}
+     }
+   }
+  }
+}
+
+coordinates {
+    arrow{y .25 + W} my{y 1.1 x -.1 s .4}
+    arrow{rz -90 y .5 + W x .25} mx{x 1.2 y -.5 + W s .4}
+    arrow{y W x W + .25 rz -45 sy .7 ry -45} mz{ x .7 y .5 s .4}
+}
+
+arrow {
+  RSQU{sx W}
+  2*{flipy 0} RSQU{y .5 rz 135 y .1 sy .25 sx W}
+
+}
+
+box{cbox{L 1}}
+cbox {
+ 4*{ry 90}{SQUARE{z -.5 RGB #000000}SQUARE{z -.5 s .9+BW}}
+ 2*{rx 180}{SQUARE{rx 90 z -.5 RGB #000000}SQUARE{rx 90 z -.5 s .9+BW}}
+}
+
+checkers {
+  (N)*{x 1/N {D=D+1}} (N)*{y 1/N {D=D+1}} SQUARE{x -.5+.5/N y -.5+.5/N s 1/N L D%2}
+}
+loopx{PEEK{d -1} loopx{x 1}}
+
+path heart {
+    moveto(0.000, 0.000, 0.000)
+    bend(0.000, 0.300, 0.000)
+    bend(0.400, 0.400, 0.000)
+    curveto(0.400, 0.100, 0.000)
+    bend(0.400, -0.200, 0.000)
+    bend(0.000, -0.500, 0.000)
+    curveto(0.000, -0.500, 0.000)
+    bend(0.000, -0.500, 0.000)
+    bend(-0.400, -0.200, 0.000)
+    curveto(-0.398, 0.093, 0.000)
+    bend(-0.400, 0.400, 0.000)
+    bend(0.000, 0.300, 0.000)
+    close
+}
+
+meshpiece {
+  5*{x rndf()*.05+.05}4*{y rndf()*.05+.05 ry -30 {row=row+1}}
+    MESH{ry 15 x -.15 y -.15}
+}
+
+command_table{
+ SQUARE{sx SX sy SY}
+ SQUARE{sx SX * .99 sy SY *.99 L 1}
+}

@@ -1,0 +1,12 @@
+foo {
+  *{{N=20000}}(N)*{{i=i+1;ang=rndf()*2*PI;r=rndf()*.3}}*{x cos(ang)*r y sin(ang)*r}
+    *{{D=2*mindist(x,y,z, .2) / s}} {
+      if (D>0.04-i/N*.03) {
+        CIRCLE{s min(0.1,  D + .001) lr -1 L 1 S -1}
+        cif{s min(0.1,  D + .001)  R rndf()}
+      }
+    }
+}
+cif{CIRCH4{{n=5+irndf(6);rim=rndf()*.2+.005;shake=rndf();NBEXCL=1}}}
+
+include #circlefill

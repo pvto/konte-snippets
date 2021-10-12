@@ -1,0 +1,43 @@
+fov { c1 CABINET 130 0.1 }
+
+scene {
+  tpBox{s .5 rx 30 ry 45}
+}
+
+tpBox {
+  2*{ry 180}pxy{z -.5}
+  *{ry 90}2*{ry 180}pxy{z -.5}
+  *{rx 90}2*{ry 180}pxy{z -.5}
+}
+
+pxy {
+  *{z -.03}*{{n=40}}*{s 1/n x -(n-1)/2 y -(n-1)/2} (n)*{x 1}(n)*{y 1}{SQUARE{L 1 s 1.02 A -.7}}
+  perlint{}
+}
+
+
+DEF GRID 3
+DEF GRID2 5
+DEF GRID3 4
+system Perlin2 Perlin init(GRID, GRID, SMOOTHSTEP)
+system Perlin2 Perlinb init(GRID2, GRID2, 20)
+system Perlin2 Perlinc init(GRID3, GRID3, 20)
+DEF N 500
+
+
+perlint{
+  *{s .9}
+  (N)*{{i=i+1}}
+  (N)*{{j=j+1}}
+  dd{s 1/N x -(N-1)/2 y -(N-1)/2 x i y j s 1.6
+    rz 180*(sysread(Perlin, i/N*GRID, j/N*GRID)
+      + sysread(Perlinb, i/N*GRID2, j/N*GRID2*4*i/N)
+      + sysread(Perlinc, i/N*GRID3, j/N*GRID3)
+      +.25)
+    sx .1 sy 10
+  }
+}
+
+dd {
+  if (z > 0) { CIRCLE{}}
+}

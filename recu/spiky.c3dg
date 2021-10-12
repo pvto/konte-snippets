@@ -1,0 +1,5 @@
+model{order stream}
+aa { Rn{ {n=6; D=3} PUSH TRIANGLE cc bb } }
+bb { Rn{ {n=4;D=1}  x max(0,y)**2.5*1} }
+cc { Rn{ {n=14;D=1} } }
+include #recursions

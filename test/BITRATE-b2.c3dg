@@ -1,0 +1,11 @@
+foo{
+  *{{n=10}}*{s 1/n x -(n-1)/2 y -(n-1)/2}
+    (n)*{x 1 {X=X+1}}(n)*{y 1 {ny=ny+1}} 
+      (n-ny)*{s .9} 
+        {
+          CIRCLE{R rndf() H rndf()*360 L rndf()}
+          if (X < n-1) {
+            BITRATE{A -.84-X/n/7 z -.01 s 1.11*(1-rndf()*.5)}
+          }
+        }
+}

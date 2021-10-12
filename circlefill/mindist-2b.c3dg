@@ -1,0 +1,26 @@
+
+foo {
+  *{{N=6; Ny=4; Rn0=30; rim=.125}}
+  *{s 1/N {n=Rn0}}
+  *{x -(N-1)/2 y -(Ny-1)/2}
+  (Ny)*{y 1 {rim=rim-.15/(Ny+1)}}
+  (N)*{x 1 {n=n+200;}} {
+  CIRCLE{lr -2 B .7 A -.9 {NBEXCL=1} s .75}
+  WORPACKCIRC{s .75 {rim=rim*.5; n=n}}
+  WORPACKCIRC{s .75}
+  
+  }
+}
+
+WORPACKCIRC {
+  //CIRCLE{G 1}
+  (n)*{}
+  *{{ T=rndf()*PI*2; c=rndf()*(.5-rim/2)}} *{{X=cos(T)*c; Y=sin(T)*c; }}
+  *{ x X y Y} {
+    if (mindist(x,y,z, .2)/s >= rim/2) {
+      CIRCLE { s rim }
+    }
+  } 
+}
+
+include #geometry

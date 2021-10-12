@@ -1,0 +1,87 @@
+fov{z -1}
+DEF MIT 3
+//startshape tru_t
+bg{L .2}
+truchet {
+  *{{N=5}} 
+  *{s 1/N x -(N-1)/2 y -(N-1)/2}
+  (N)*{x 1} (N)*{y 1}
+  foo{}
+}
+
+foo { 
+  *{{X=rndf()}} {
+    tru{}
+    if (D < MIT*((x*x+y*y)*3-rndf()*.1+cos(x*24+y*24)*.3
+    )*2) {
+      *{x -.25 y -.25 s .5} 2*{x 1} 2*{y 1} 
+        foo{ lr (lr+3) {D=D+1}}
+    }
+  }
+}
+MACRO NEGD (D%2-.5) *2
+tru { tru_pick { {TR=irndf(16)}} }
+
+tru_0 {
+  *{rz 45} 4*{rz 90} CIRCLE{y 1/sqrt(2) s 2/3 L NEGD  lr -1}
+  *{{D=D+1}} 4*{rz 90} CIRCLE{y .5 s 1/3 L NEGD}  
+}
+tru_a {
+  *{{D=coalesce(D0,D)}} SQUARE{ L NEGD lr -1.5}
+  tru_0 {}
+}
+tru_b{ tru_a{{D0=D+1}} }
+tru_c { tru_a{}  *{{D=D+1}}SQUARE{sy 1/3 L NEGD lr -.5} }
+tru_d{ tru_c{rz 90}}
+tru_e { tru_a{} 2*{rz 90} *{{D=D+1}}SQUARE{sy 1/3 L NEGD lr -.5} }
+tru_f {
+  tru_0 { }
+  SQUARE{L NEGD lr -1.5 sx 1/3 x -1}
+  *{{D=D+1}} SQUARE{L NEGD lr -1.5 sx 2/3 x .25}
+}
+tru_g{ tru_f{rz 90}}
+tru_h{ tru_f{rz 180}}
+tru_i{ tru_f{rz 270}}
+tru_j{ 
+  tru_a{}
+   (coalesce(T, 1))*{rz 180}*{x -.5 y -.5 {D=D+1}} purt{L NEGD}
+}
+tru_k{ tru_j{rz 90} }
+tru_l{ tru_j{rz 180} }
+tru_m{ tru_j{rz 270} }
+tru_n{tru_j{{T=2}}}
+tru_o{tru_j{{T=2} rz 90}}
+
+tru_pick {
+ *{{TR=floor(TR)%15}} {
+  if(TR=0) { tru_a{} }
+  if(TR=1) { tru_b{} }
+  if(TR=2) { tru_c{} }
+  if(TR=3) { tru_d{} }
+  if(TR=4) { tru_e{} }
+  if(TR=5) { tru_f{} }
+  if(TR=6) { tru_g{} }
+  if(TR=7) { tru_h{} }
+  if(TR=8) { tru_i{} }
+  if(TR=9) { tru_j{} }
+  if(TR=10) { tru_k{} }
+  if(TR=11) { tru_l{} }
+  if(TR=12) { tru_m{} }
+  if(TR=13) { tru_n{} }
+  if(TR=14) { tru_o{} }
+  }
+}
+tru_t{tru_pick{s .5 {TR=2}}}
+
+
+path purt {
+  moveto(0, 0.5+1/6, 0)
+  bend(1/3, 0.5+1/6, 0)
+  bend(0.5+1/6, 1/3, 0)
+  curveto(0.5+1/6, 0, 0)
+  lineto(0.5-1/6, 0, 0)
+  bend(0.5-1/6, 0.18, 0)
+  bend(0.18, 0.5-1/6, 0)
+  curveto(0, 0.5-1/6, 0)
+  close
+}

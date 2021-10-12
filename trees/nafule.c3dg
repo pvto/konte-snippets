@@ -1,0 +1,52 @@
+nafutree {
+  te { y -.5+.04 s 1.5 {W=.05; Wo=.05} }
+}
+MACRO WBr Wo-.007-(Wo-W)*.005+max(0, Lbr)
+
+te { 
+  tchunk{} 
+  *{{BRA=rndf()*Wo}} {
+    if (BRA > WBr) {
+      if (Br < 5) { tebr{{Lbr=.012}} }
+      if (Br >= 5) { tecont{} }
+    }
+    if (BRA <= WBr) { tecont{} }
+  }
+}
+tebr {
+  te{rz 20 {W=W*(.6+rndf()*.2); Br=Br+1; RY=-RY} y -W/4 x -W/8}
+  te{rz -2 {W=W*(.9+rndf()*.1); RY=RY-3} x W/16}
+}
+tebr {
+  te{rz -20 {W=W*(.6+rndf()*.2); Br=Br+1; RY=-RY} y -W/4 x W/8}
+  te{rz 2 {W=W*(.9+rndf()*.1); RY=RY+3} x -W/16}
+}
+tecont {
+  if (W > .002) {
+    te{y W/4 rz RY {RY=RY*.9+(rndf()*2-1)**3*.6; W=W*(1-rndf()*.035+rndf()**10*.02); Lbr=Lbr-.001} }
+  }
+  if (W <= .002) {
+    leaf{}
+  }
+}
+tchunk{RSQU{s W sy .5}}
+leaf{leaf_{s coalesce(LS, 0.02) y .75}}
+
+path leaf_ {
+    moveto(0.400, 0.000, 0.000)
+    bend(0.400, -0.400, 0.000)
+    bend(0.200, -0.300, 0.000)
+    curveto(0.000, -0.500, 0.000)
+    bend(0.000, -0.500, 0.000)
+    bend(0.000, -0.500, 0.000)
+    curveto(0.000, -0.500, 0.000)
+    bend(-0.200, -0.300, 0.000)
+    bend(-0.400, -0.400, 0.000)
+    curveto(-0.400, 0.000, 0.000)
+    bend(-0.400, 0.200, 0.000)
+    bend(-0.200, 0.400, 0.000)
+    curveto(0.000, 0.600, 0.000)
+    bend(0.200, 0.400, 0.000)
+    bend(0.400, 0.200, 0.000)
+    close
+}

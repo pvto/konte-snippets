@@ -1,0 +1,27 @@
+h{feat{}}
+ac{ab{rz 90 }}
+ab{ aa{} 2*{rx 180} aa {s .5 rx 180 y -.75 s .75}}
+aa{ 2*{rx 180}*{y .433}  pyra{} }
+
+pyra{4*{ry 90} R3{ z -.25 {D=4} rx -30 PUSH wbtri }}
+
+wbtri {
+  feat{}
+  //R3{{D=1;SUB=1} PUSH TRIANGLE ry 180 s .965 L 1 z -.01}
+  feat{ry 180 s .965 z -.01 L 1}
+}
+
+feat {
+  R3{{D=2;SUB=1} PUSH TRIs101}
+  *{{n=6} layer 1}
+  *{y 1/n*(n-1)/2}
+  (n) *{y -1/n {Y=Y+1}}
+    RSQU{sy 1/n/3 sx 1/(n-Y*(1+n)/n) L 1 }
+}
+TRIs101{TRIANGLE{s 1.0}}
+
+//light {PHONG specular 10 alpha 10 s 1.5 {RGB 1 1 1} point( 0,0,0)}
+
+fov{z -1.2 y 0 lookat(0,0,0)}
+include #geometry
+include #recursions

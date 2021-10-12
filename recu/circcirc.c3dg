@@ -1,0 +1,5 @@
+aa { CIRCSUB{{n=7;rim=0} s .8 PUSH bb}}
+//bb { CIRCRLH{{n=300;rim=.2} s .95} RIM2{{rim=.05}}}
+bb { CIRCVL{{n=13; rim=.3; shake=1;k=irndf(9)}} }
+bb { CIRCCO{{n=5; rim=.75}} }
+include #circlefill

@@ -1,0 +1,51 @@
+
+aa {
+ *{y -.2 x -.6}
+ 10*{y .1 s .91}
+  toothline{ s .01}
+  PICFRAME{B .125 G .005 L -.03}
+}
+MACRO SRND rndf()-.5
+
+toothline{
+  if (i % 2 < .1) {  tooth{ s .75 {grin=rndf()*80}} }
+  if (i % 2 > .1 && i % 2 < 1.1) { card  {x 1.75 s 2.5 y .3 rz SRND*30 L 1}}
+  if (i < 30) {
+    toothline{{i=i+1} rz SRND*sin(i/3)*10 x 5}
+  }
+}
+
+tooth{
+*{rz 5+grin} 5*{x 1}TRIANGLE{L 1 flipz 0}
+ 5*{x 1}TRIANGLE{L 1}
+}
+
+
+PICFRAME {
+  SQUARE{layer -1000}
+  FRAME{layer 1000 {frame=1-coalesce(PICh, .9321)} L 1 S -1}
+  
+}
+include #geometry
+
+card 3 { heart{S 1 R 1} }
+card 1 { diamond{ S 1 R 1 G 1} }
+card .5 { snooker {} }
+
+snooker{ CIRCLE{s .5 y -.3} }
+diamond { *{sx .75} SQUARE{rz 45 s .75}}
+path heart {
+    moveto(0.000, 0.000, 0.000)
+    bend(0.000, 0.300, 0.000)
+    bend(0.400, 0.400, 0.000)
+    curveto(0.400, 0.100, 0.000)
+    bend(0.400, -0.200, 0.000)
+    bend(0.000, -0.500, 0.000)
+    curveto(0.000, -0.500, 0.000)
+    bend(0.000, -0.500, 0.000)
+    bend(-0.400, -0.200, 0.000)
+    curveto(-0.398, 0.093, 0.000)
+    bend(-0.400, 0.400, 0.000)
+    bend(0.000, 0.300, 0.000)
+    close
+}
