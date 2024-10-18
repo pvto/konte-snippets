@@ -1,0 +1,95 @@
+fov{z -1.6}
+cute {
+  *{{n=5}}*{s 1/n x -(n-1)/2 y -(n-1)/2} (n)*{x 1}(n)*{y 1}
+  *{s 1} {
+    cutehead{{D=irndf(3)}}
+  }
+  SKY{s 1.6}
+}
+
+SKY {
+  *{s 1.6 y .5 {n=800} RGB 0.000 0.836 0.957 }
+     (n)* { y -1/n  S -3*rndf()/n  /*L .5/n*/} 
+       SQUARE{sy 2/n lr -2}
+/* 60000*{{ii=ii+2}}*{x .5*cos(ii/500+rndf()*.01) y .5*sin(ii/510+rndf()*.01+(ii/25000)**2)}
+ 	BRIGHTNESSHEX{z -.1 rz 30*sin(ii/1000) sy .01+rndf()*.2 s .03 
+ 	  B .5+(.05*rndf()-min(y, .1)/15)*.5 lr -2} */
+  CIRCSUB{{n=27; rim=.1} s 1.5 z -.1 PUSH hiihoo lr -2}
+
+  20*{}CLOUD{s 1.6 x -.5+rndf() y -.2+rndf()*.4 L 1 s .1+rndf()*.2 lr -1.5}
+  
+  CIRCSUB{{n=40; rim=.8} s 1.5 z -.1 PUSH piipoo lr -1.5}
+  CIRCSUB{{n=33; rim=.2} rz 30 s 1.5 z -.1 PUSH piipoo lr -1.5}
+}
+
+piipoo { 10*{{foo=foo+.005} s .95} BRIGHTNESSHEX{B .48+foo+rndf()*.02+y*.06*(1-rim) x rndf()-.5 s 1-y*3}}
+hiihoo { BRIGHTNESS32{B .5+rndf()*.02}}
+
+
+
+cutehead {
+    fisl{{ROUND=.46} rx (rndf()-.5)*60}
+    *{s 1/3 y .25 
+          {PUP=.05+rndf()**.7*.6; 
+          yPUP=rndf()*.5-.2; 
+          xPUP=rndf()*.4-.2; 
+          rLLAP=rndf()*30-15;
+          EYEDIST=.5+rndf()*.3}
+     } {
+       cuteeye{x -EYEDIST z -.13 lr .1}
+       cuteeye{x EYEDIST+.05 z -.13 s 1.1 lr .1}
+     } 
+
+     CIRCLE{y -.4*rndf() x rndf()*.5 -.25 s .1 L 1 lr .15}
+
+}
+cuteeye {
+  CIRCLE{s .7+rndf()*.2 L 1 sx .8+rndf()*.2}
+  RSQU{y -.42 rz rLLAP sy .12+rndf()*.2 sx .9 z -.11 lr .01}
+  
+  PUPIL{s PUP  y yPUP x xPUP z -.1 lr .91}
+}
+PUPIL{ if (D>0) { cutehead{} } if (D<=0) { CIRCLE{}}}
+
+fisl{CIRCCO{L 1{n=30} layer -1 s .97}CIRCH{{n=2+irndf(20);rim=.5}}}
+
+include #circlefill
+
+
+
+path CLOUD {
+    moveto(0.480, -0.057, 0.000)
+    bend(0.511, 0.030, 0.000)
+    bend(0.500, -0.200, 0.000)
+    curveto(0.395, -0.199, 0.000)
+    bend(0.563, -0.215, 0.000)
+    bend(0.499, -0.387, 0.000)
+    curveto(0.444, -0.437, 0.000)
+    bend(0.326, -0.584, 0.000)
+    bend(0.069, -0.528, 0.000)
+    curveto(0.041, -0.423, 0.000)
+    bend(0.000, -0.500, 0.000)
+    bend(-0.135, -0.565, 0.000)
+    curveto(-0.238, -0.473, 0.000)
+    bend(-0.379, -0.514, 0.000)
+    bend(-0.461, -0.314, 0.000)
+    curveto(-0.409, -0.262, 0.000)
+    bend(-0.504, -0.223, 0.000)
+    bend(-0.489, -0.098, 0.000)
+    curveto(-0.434, -0.103, 0.000)
+    bend(-0.477, -0.066, 0.000)
+    bend(-0.434, 0.063, 0.000)
+    curveto(-0.331, 0.013, 0.000)
+    bend(-0.397, 0.161, 0.000)
+    bend(-0.200, 0.200, 0.000)
+    curveto(-0.061, 0.124, 0.000)
+    bend(-0.061, 0.177, 0.000)
+    bend(0.057, 0.268, 0.000)
+    curveto(0.148, 0.124, 0.000)
+    bend(0.211, 0.259, 0.000)
+    bend(0.414, 0.215, 0.000)
+    curveto(0.407, 0.160, 0.000)
+    bend(0.507, 0.115, 0.000)
+    bend(0.510, -0.107, 0.000)
+    close
+}

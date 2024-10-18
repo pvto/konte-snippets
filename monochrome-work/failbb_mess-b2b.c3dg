@@ -2,7 +2,7 @@ camera { z -1.8 }
 bg{RGB #202020}
 
 DEF MOD 6
-DEF CLUST 85
+DEF CLUST 25
 
 light {AMBIENT s .5}
 light {PHONG specular 10 alpha 100 s 5 {RGB 1 1 1}
@@ -19,7 +19,7 @@ startshape meshball
 DEF SCALE 1200
 
 
-include "../texture/mineral-vortex-planet-AIV-2018-12-25-23-43.png" img0
+include "../texture/mineral-vortex-phossil-AGT-2018-12-25-23-30.png" img0
 //"2017-01-11-00-13-symm-fuzz-vid-G-AEY.png" img0
 
 
@@ -38,7 +38,7 @@ rule loop {
             {
 
                 roty (u*360/PI) rotx (-v*360/PI)
-                z (-.6 - hipas(sin(u*15+sin(u*17))*sin(v*15),.25) * .07)
+                z (-.6 + hipas(sin(u*7+sin(u*17))*sin(v*7),.25) * .07)
                 L (
                   imgred(img0,u*uP*8%iw,ih-1-(8*(v*vP+PI/4*vP)%ih))
                   +

@@ -19,7 +19,7 @@ startshape meshball
 DEF SCALE 1200
 
 
-include "../texture/mineral-vortex-planet-AIV-2018-12-25-23-43.png" img0
+include "../texture/mineral-vortex-shine-ANK-2018-12-26-00-13.png" img0
 //"2017-01-11-00-13-symm-fuzz-vid-G-AEY.png" img0
 
 

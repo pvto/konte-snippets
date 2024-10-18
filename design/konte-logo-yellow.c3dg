@@ -1,0 +1,41 @@
+
+include #monospace
+startshape tilp
+
+//bg {B .3 G .15 R .1}
+bg {RGB .16 .16 .19}
+//camera { z -.75 FISHEYE .3 3 1.5 .7}
+camera {z -1 x -.225 ZPOW 4}
+
+tilp {
+
+
+    *{layer 1} {
+        *{rx -10}
+        40*{ z .003 {i=i+.3} B .045 G .075 R .075} 
+     *{ lightness -lightness+.2*(i+1)%(cos(i/20)*3) {FLAT=4}}
+        1*{{BOLD=BOLD-.75;FLAT=FLAT+.5}}
+        {
+          TEXT { PUSH  "^m^Kon"
+              {BOLD=BOLD+3;DANCE=0.5+rndf()*2;CAROL=5;WIDE=2}
+              scale .4 x -1.5 y .15 }
+          TEXT { PUSH  "^m^te"
+              {BOLD=BOLD+3;DANCE=0.5;CAROL=5;WIDE=2}
+              scale .4 x .9 y .15 z .2 rz 90  }
+
+        }
+
+        *{lightness 1}
+        2*{x .002 y -.002 layer -2 L -1}
+        2*{B -.5 x -.002 layer -1}
+        TEXT { PUSH  "^m^Generative Art"
+              {BOLD=4;FLAT=-4}
+              scale .05 
+              x -4.25
+              y -2
+              red -.1}
+        12*{y .05 {BR=BR+.1}}
+          BITRATE{z -.05 y .02 sy .05 A -1+BR}
+     }
+}
+

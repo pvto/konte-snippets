@@ -17,6 +17,7 @@ grid {
     CIRCLE{ L 1 s 2.5 sy .15}
   }
 }
+
 fov {z -.9 }
 include 
 //"../monochrome-work/moondance-B-seq/b300.png" noise
@@ -33,8 +34,9 @@ include
 
 bg{B 0}
 DEF CLUST .00085
-DEF BX 0
-MACRO TWIST sin(v*.01+u*.01)*.1+sin(v*.017+u*.013)*.02
+DEF BX 101
+DEF FORCE rnd()
+MACRO TWIST sin((v+FORCE*10)*.01+u*.01)*.1+sin((v+FORCE*1)*.017+u*.013)*.02
 MACRO SPx (BX+v+cos(TWIST)*BX) / n*iw%iw
 MACRO SPy -(BX+u+sin(TWIST)*BX) / n*ih%ih
 MACRO S2x (BX+u+cos(TWIST)*BX) / n*iw2%iw2
